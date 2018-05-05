@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "150284477118",
+    "firebase_url": "https://learning-2b334.firebaseio.com",
+    "project_id": "learning-2b334",
+    "storage_bucket": "learning-2b334.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150284477118:android:088d3d73a6a04bd4",
+        "android_client_info": {
+          "package_name": "com.example.sreet.learning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150284477118-m6hklq5oc438ml77eh6139ldgkiifrlt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sreet.learning",
+            "certificate_hash": "6d94f279fc9029055a870e71ef91fad94e5846c1"
+          }
+        },
+        {
+          "client_id": "150284477118-1h5k1rqtea6b9qu3okooikg2nal3eri6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE6o3CuC2_LU2v8BoAca8Zh6wFM1qBWlw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150284477118-1h5k1rqtea6b9qu3okooikg2nal3eri6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
