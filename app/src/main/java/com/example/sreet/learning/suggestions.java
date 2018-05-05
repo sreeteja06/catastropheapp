@@ -8,6 +8,7 @@ public class suggestions extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Suggestions");
         setContentView(R.layout.activity_suggestions);
     }
 }

@@ -11,6 +11,8 @@ public class TimeTable extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        //getSupportActionBar().hide();
+        setTitle("TimeTable");
         setContentView(R.layout.activity_time_table);
         //defining cards
         firstyear = (CardView) findViewById(R.id.firstyearid);

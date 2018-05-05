@@ -8,6 +8,7 @@ public class links extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Links");
         setContentView(R.layout.activity_links);
     }
 }

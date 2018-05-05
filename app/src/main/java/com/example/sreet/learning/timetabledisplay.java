@@ -8,6 +8,7 @@ public class timetabledisplay extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("TimeTable");
         setContentView(R.layout.activity_timetabledisplay);
     }
 }
