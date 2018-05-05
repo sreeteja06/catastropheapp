@@ -41,6 +41,11 @@ public class TimeTable extends AppCompatActivity implements View.OnClickListener
                 startActivity(i);
                 break;
             }
+            case R.id.thirdyearid:{
+                i = new Intent(this,teststorage.class);
+                startActivity(i);
+                break;
+            }
         }
     }
 }
