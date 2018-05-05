@@ -1,5 +1,6 @@
 package com.example.sreet.learning;
 
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +12,9 @@ import com.firebase.client.Firebase;
 
 public class timetabledisplay extends AppCompatActivity {
 
-    EditText myedittext;
+    EditText myedittext,keyvaluetext;
     Button myApplyBt;
-    String myString;
+    String myString,keyvaluedata;
     Firebase myfirebase;
 
     @Override
@@ -23,14 +24,17 @@ public class timetabledisplay extends AppCompatActivity {
         setContentView(R.layout.activity_timetabledisplay);
 
         myedittext = (EditText) findViewById(R.id.editText);
+        keyvaluetext = (EditText) findViewById(R.id.keytext);
         myApplyBt = (Button) findViewById(R.id.button);
         Firebase.setAndroidContext(this);
+        //String DeviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),Settings.Secure.ANDROID_ID);
         myfirebase = new Firebase("https://learning-2b334.firebaseio.com/");
         myApplyBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myString = myedittext.getText().toString();
-                Firebase childbase = myfirebase.child("MychildName");
+                keyvaluedata = keyvaluetext.getText().toString();
+                Firebase childbase = myfirebase.child(keyvaluedata);
                 childbase.setValue(myString);
                 Toast.makeText(timetabledisplay.this, "success", Toast.LENGTH_SHORT).show();
             }

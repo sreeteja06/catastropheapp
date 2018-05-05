@@ -21,7 +21,8 @@
         <activity android:name=".activities" />
         <activity android:name=".links" />
         <activity android:name=".suggestions" />
-        <activity android:name=".timetabledisplay"></activity>
+        <activity android:name=".timetabledisplay" />
+        <activity android:name=".testfirebase"></activity>
     </application>
 
 </manifest>

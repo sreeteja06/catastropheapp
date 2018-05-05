@@ -37,7 +37,9 @@ public class TimeTable extends AppCompatActivity implements View.OnClickListener
                 break;
             }
             case R.id.secondyearid:{
-
+                i = new Intent(this,testfirebase.class);
+                startActivity(i);
+                break;
             }
         }
     }
