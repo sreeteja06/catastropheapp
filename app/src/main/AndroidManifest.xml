@@ -16,14 +16,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TimeTable" />
-        <activity android:name=".Notices" />
-        <activity android:name=".activities" />
-        <activity android:name=".links" />
-        <activity android:name=".suggestions" />
-        <activity android:name=".timetabledisplay" />
-        <activity android:name=".testfirebase" />
-        <activity android:name=".teststorage"></activity>
+        <activity android:name=".TimeTable"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".Notices"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".activities"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".links"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".suggestions"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".timetabledisplay"
+            android:parentActivityName=".TimeTable" />
+        <activity android:name=".testfirebase"
+            android:parentActivityName=".TimeTable"/>
+        <activity android:name=".teststorage" />
+        <activity android:name=".listViewClick"
+            android:parentActivityName=".testfirebase"></activity>
     </application>
 
 </manifest>

@@ -25,6 +25,7 @@ public class timetabledisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("TimeTable");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_timetabledisplay);
 
         myedittext = (EditText) findViewById(R.id.editText);

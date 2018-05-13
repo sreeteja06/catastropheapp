@@ -13,6 +13,7 @@ public class TimeTable extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         //getSupportActionBar().hide();
         setTitle("TimeTable");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_time_table);
         //defining cards
         firstyear = (CardView) findViewById(R.id.firstyearid);
