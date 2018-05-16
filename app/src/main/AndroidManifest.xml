@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sreet.learning">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,8 +21,6 @@
         </activity>
         <activity android:name=".TimeTable"
             android:parentActivityName=".MainActivity"/>
-        <activity android:name=".Notices"
-            android:parentActivityName=".MainActivity" />
         <activity android:name=".activities"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".links"
@@ -28,11 +29,11 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".timetabledisplay"
             android:parentActivityName=".TimeTable" />
-        <activity android:name=".testfirebase"
+        <activity android:name=".Notices"
             android:parentActivityName=".TimeTable"/>
         <activity android:name=".teststorage" />
         <activity android:name=".listViewClick"
-            android:parentActivityName=".testfirebase"></activity>
+            android:parentActivityName=".Notices"/>
     </application>
 
 </manifest>

@@ -12,9 +12,11 @@ public class listViewClick extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view_click);
         Bundle bundle = getIntent().getExtras();
-        String message = bundle.getString("message");
-        setTitle(message.substring(0,10));
-        TextView textview = (TextView) findViewById(R.id.textView);
-        textview.setText(message);
+        String Date = bundle.getString("Date");
+        String Descript = bundle.getString("Description");
+        TextView dateAndTime = (TextView) findViewById(R.id.dateAndTime);
+        dateAndTime.setText(Date);
+        TextView notice = (TextView) findViewById(R.id.notice);
+        notice.setText(Descript);
     }
 }

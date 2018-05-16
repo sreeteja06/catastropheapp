@@ -4,11 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private CardView Suggestions,Links,Activities,TimeTable,Notices;
@@ -38,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.activitiesid: i = new Intent(this,activities.class);startActivity(i);break;
             case R.id.suggestionsid: i = new Intent(this,suggestions.class);startActivity(i);break;
             case R.id.linksid: i = new Intent(this,links.class);startActivity(i);break;
-            case R.id.noticesid: i = new Intent(this,Notices.class);startActivity(i);break;
+            case R.id.noticesid: i = new Intent(this, com.example.sreet.learning.Notices.class);startActivity(i);
             default: break;
         }
     }
