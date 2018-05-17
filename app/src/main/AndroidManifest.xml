@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sreet.learning">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -19,21 +19,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TimeTable"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".activities"
+        <activity
+            android:name=".TimeTable"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".links"
+        <activity
+            android:name=".activities"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".suggestions"
+        <activity
+            android:name=".links"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".timetabledisplay"
+        <activity
+            android:name=".suggestions"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".timetabledisplay"
             android:parentActivityName=".TimeTable" />
-        <activity android:name=".Notices"
-            android:parentActivityName=".TimeTable"/>
+        <activity
+            android:name=".Notices"
+            android:parentActivityName=".TimeTable" />
         <activity android:name=".teststorage" />
-        <activity android:name=".listViewClick"
-            android:parentActivityName=".Notices"/>
+        <activity
+            android:name=".listViewClick"
+            android:parentActivityName=".Notices" />
+        <activity android:name=".about"></activity>
     </application>
 
 </manifest>
