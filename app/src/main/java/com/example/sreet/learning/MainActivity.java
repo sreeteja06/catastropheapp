@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.timetableid: i = new Intent(this,TimeTable.class);startActivity(i);break;
             case R.id.activitiesid: i = new Intent(this,activities.class);startActivity(i);break;
             case R.id.suggestionsid: i = new Intent(this,suggestions.class);startActivity(i);break;
-            case R.id.linksid: i = new Intent(this,links.class);startActivity(i);break;
+            case R.id.linksid: i = new Intent(this,notes.class);startActivity(i);break;
             case R.id.noticesid: i = new Intent(this, com.example.sreet.learning.Notices.class);startActivity(i);break;
             default: break;
         }

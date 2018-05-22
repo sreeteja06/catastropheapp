@@ -8,14 +8,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class links extends AppCompatActivity {
+public class notes extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Links");
+        setTitle("Notes");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_links);
+        setContentView(R.layout.activity_notes);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -28,7 +28,7 @@ public class links extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.favorite:
-                Toast.makeText(links.this, "Added to your favorite", Toast.LENGTH_SHORT).show();
+                Toast.makeText(notes.this, "Added to your favorite", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.about:
                 Intent i = new Intent(this,about.class);

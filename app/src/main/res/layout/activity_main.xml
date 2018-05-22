@@ -40,7 +40,6 @@
                     android:layout_height="64dp"
                     android:background="@drawable/cercleshape"
                     android:padding="10dp" />
-                <!-- android:src="@drawable/ic_attach_money_black_24dp" -->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -186,7 +185,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Links"
+                    android:text="Notes"
                     android:textStyle="bold" />
 
                 <View
@@ -200,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="Links to class notes"
+                    android:text="Pdf notes"
                     android:textColor="@android:color/darker_gray" />
 
             </LinearLayout>

@@ -32,7 +32,7 @@
             android:name=".activities"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".links"
+            android:name=".notes"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".suggestions"
