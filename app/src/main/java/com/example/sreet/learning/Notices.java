@@ -68,7 +68,8 @@ public class Notices extends AppCompatActivity implements View.OnClickListener{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.favorite:
-                Toast.makeText(Notices.this, "Added to your favorite", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,idCard.class);
+                startActivity(intent);
                 break;
             case R.id.about:
                 Intent i = new Intent(this,about.class);

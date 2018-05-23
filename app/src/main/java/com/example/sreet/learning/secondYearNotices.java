@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
@@ -47,6 +48,7 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
     StorageReference multipleImageStorage;
     ProgressDialog uploadProgress;
     private  static final int GALLERY_INTENT = 1;
+    ProgressBar spinner;
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -131,6 +133,8 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
         uploadProgress = new ProgressDialog(this);
         imageStorage = FirebaseStorage.getInstance().getReference();
         multipleImageStorage = FirebaseStorage.getInstance().getReference();
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.VISIBLE);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,6 +183,7 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
                 dateAndTimeList.add(keyvalue);
                 myarraylist.add(childvalaue);
                 myarrayadapter.notifyDataSetChanged();
+                spinner.setVisibility(View.GONE);
             }
 
             @Override
@@ -214,7 +219,8 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.favorite:
-                Toast.makeText(secondYearNotices.this, "Added to your favorite", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,idCard.class);
+                startActivity(intent);
                 break;
             case R.id.about:
                 Intent i = new Intent(this,about.class);

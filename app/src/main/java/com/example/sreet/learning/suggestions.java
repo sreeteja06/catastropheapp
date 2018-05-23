@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
@@ -31,6 +32,7 @@ public class suggestions extends AppCompatActivity {
     String myString;
     ArrayList<String> myarraylist = new ArrayList<>();
     ArrayList<String> dateAndTimeList = new ArrayList<String>();
+    ProgressBar spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,8 @@ public class suggestions extends AppCompatActivity {
         final ArrayAdapter<String> myarrayadapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,myarraylist);
         list = (ListView) findViewById(R.id.listview);
         list.setAdapter(myarrayadapter);
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.VISIBLE);
         //list.setSelection(list.getAdapter().getCount()-1);
         myApplyBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +75,7 @@ public class suggestions extends AppCompatActivity {
                 dateAndTimeList.add(keyvalue);
                 myarraylist.add(childvalaue);
                 myarrayadapter.notifyDataSetChanged();
+                spinner.setVisibility(View.GONE);
             }
 
             @Override
@@ -105,7 +110,8 @@ public class suggestions extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.favorite:
-                Toast.makeText(suggestions.this, "Added to your favorite", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,idCard.class);
+                startActivity(intent);
                 break;
             case R.id.about:
                 Intent i = new Intent(this,about.class);

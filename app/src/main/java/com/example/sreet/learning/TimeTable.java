@@ -36,9 +36,6 @@ public class TimeTable extends AppCompatActivity implements View.OnClickListener
         Intent i;
         switch (v.getId()){
             case R.id.firstyearid:{
-                i = new Intent(this,timetabledisplay.class);
-                i.putExtra("year",1);
-                startActivity(i);
                 break;
             }
             case R.id.secondyearid:{
@@ -46,8 +43,6 @@ public class TimeTable extends AppCompatActivity implements View.OnClickListener
                 break;
             }
             case R.id.thirdyearid:{
-                i = new Intent(this,teststorage.class);
-                startActivity(i);
                 break;
             }
         }
@@ -63,7 +58,8 @@ public class TimeTable extends AppCompatActivity implements View.OnClickListener
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.favorite:
-                Toast.makeText(TimeTable.this, "Added to your favorite", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,idCard.class);
+                startActivity(intent);
                 break;
             case R.id.about:
                 Intent i = new Intent(this,about.class);

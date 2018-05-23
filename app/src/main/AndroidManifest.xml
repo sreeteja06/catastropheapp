@@ -38,20 +38,19 @@
             android:name=".suggestions"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".timetabledisplay"
-            android:parentActivityName=".TimeTable" />
-        <activity
             android:name=".Notices"
             android:parentActivityName=".TimeTable" />
-        <activity android:name=".teststorage" />
         <activity
             android:name=".listViewClick"
             android:parentActivityName=".Notices" />
         <activity android:name=".about" />
-        <activity android:name=".thirdYearNotices"
-            android:parentActivityName=".Notices"/>
-        <activity android:name=".fourthYearNotices"
-            android:parentActivityName=".Notices"></activity>
+        <activity
+            android:name=".thirdYearNotices"
+            android:parentActivityName=".Notices" />
+        <activity
+            android:name=".fourthYearNotices"
+            android:parentActivityName=".Notices" />
+        <activity android:name=".idCard"></activity>
     </application>
 
 </manifest>
