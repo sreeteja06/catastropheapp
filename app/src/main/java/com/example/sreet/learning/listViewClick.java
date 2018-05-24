@@ -119,13 +119,7 @@ public class listViewClick extends AppCompatActivity {
                 int noticesValue=0;
                 sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                if(fav){
-                    fav = false;
-                }
-                else{
-                    fav = true;
-                }
-                if(fav)
+                if(!fav)
                 {
                     Toast.makeText(listViewClick.this, "Notice Saved", Toast.LENGTH_SHORT).show();
                     menu.getItem(1).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_fill));
@@ -136,7 +130,8 @@ public class listViewClick extends AppCompatActivity {
                     editor.putString(String.valueOf(noticesValue)+"year",year);
                     editor.putString(String.valueOf(noticesValue)+"Descript",Descript);
                     editor.putString(String.valueOf(noticesValue)+"Date",Date);
-                    editor.commit();
+                    editor.apply();
+                    fav = true;
                 }
                 else{
                     //menu.getItem(1).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite));
@@ -144,7 +139,7 @@ public class listViewClick extends AppCompatActivity {
                 }
                 editor.putBoolean(year+" "+Descript+"check",true);
                 editor.putBoolean(year+" "+Descript+"fav",fav);
-                editor.commit();
+                editor.apply();
                 break;
             case R.id.savedNotices:
                 Intent intent1 = new Intent(this,savedNotices.class);

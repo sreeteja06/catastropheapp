@@ -18,7 +18,7 @@ public class Notices extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         //getSupportActionBar().hide();
-        setTitle("TimeTable");
+        setTitle("Notices");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_notices);
         //defining cards

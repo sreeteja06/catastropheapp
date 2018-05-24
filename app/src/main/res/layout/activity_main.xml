@@ -36,9 +36,9 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/cercleshape"
+                    android:layout_width="60dp"
+                    android:layout_height="65dp"
+                    android:background="@drawable/timetable"
                     android:padding="10dp" />
 
                 <TextView
@@ -79,9 +79,9 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/cercleshape"
+                    android:layout_width="71dp"
+                    android:layout_height="81dp"
+                    android:background="@drawable/notices"
                     android:padding="10dp" />
                 <!--android:src="@drawable/ic_lightbulb_outline_black_24dp"-->
 
@@ -133,7 +133,7 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/cercleshape"
+                    android:background="@drawable/active"
                     android:padding="10dp" />
                 <!--android:src="@drawable/ic_control_point_black_24dp"-->
 
@@ -177,7 +177,7 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/cercleshape"
+                    android:background="@drawable/activities"
                     android:padding="10dp" />
                 <!--android:src="@drawable/ic_attach_file_black_24dp"-->
 
@@ -228,9 +228,9 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="64dp"
+                    android:layout_width="107dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/cercleshape"
+                    android:background="@drawable/suggestions"
                     android:padding="10dp" />
                 <!--android:src="@drawable/ic_wifi_black_24dp"-->
 

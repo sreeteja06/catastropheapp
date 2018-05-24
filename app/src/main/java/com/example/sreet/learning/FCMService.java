@@ -2,10 +2,7 @@ package com.example.sreet.learning;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -42,6 +39,7 @@ public class FCMService extends FirebaseMessagingService {
         sendNotification(notificationTitle, notificationBody);
     }
 
+
     /**
      //     * Create and show a simple notification containing the received FCM message.
      //     */
@@ -53,20 +51,21 @@ public class FCMService extends FirebaseMessagingService {
         //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
         //        PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        //Uri defaultSoundUri= Uri.parse("android.resource://" + getPackageName() + "/raw/knock_brush");
         NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this,"M_CH_ID")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(notificationTitle)
                 .setContentText(notificationBody)
                 .setContentInfo("Info")
                 .setPriority(Notification.PRIORITY_MAX)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri);
+                .setAutoCancel(true);
+                //.setSound(defaultSoundUri);
                 //.setContentIntent(pendingIntent);
-
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
