@@ -215,6 +215,9 @@ public class fourthYearNotices extends AppCompatActivity implements AdapterView.
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.custom_menu,menu);
+        MenuItem item= menu.findItem(R.id.saveNOtice);
+        item.setVisible(false);
+        this.invalidateOptionsMenu();
         return true;
     }
 
@@ -228,6 +231,10 @@ public class fourthYearNotices extends AppCompatActivity implements AdapterView.
             case R.id.about:
                 Intent i = new Intent(this,about.class);
                 startActivity(i);
+                break;
+            case R.id.savedNotices:
+                Intent intent1 = new Intent(this,savedNotices.class);
+                startActivity(intent1);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

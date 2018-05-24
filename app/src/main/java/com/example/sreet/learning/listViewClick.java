@@ -2,10 +2,12 @@ package com.example.sreet.learning;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,6 +35,19 @@ public class listViewClick extends AppCompatActivity {
     ImageView imageView, imageView2;
     StorageReference storageReference;
     String imageURL;
+    boolean fav = false;
+    boolean check = false;
+    private SharedPreferences sharedPreferences;
+    private Menu menu;
+    String Descript,year,Date;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.custom_menu,menu);
+        this.menu = menu;
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -40,12 +55,12 @@ public class listViewClick extends AppCompatActivity {
         setContentView(R.layout.activity_list_view_click);
         setTitle("Notice Details");
         Bundle bundle = getIntent().getExtras();
-        String Date = bundle.getString("Date");
+        Date = bundle.getString("Date","firstYear");
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView2 = (ImageView) findViewById(R.id.imageView2);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress);
-        String Descript = bundle.getString("Description");
-        String year = bundle.getString("Year");
+        Descript = bundle.getString("Description","coffee is good for health");
+        year = bundle.getString("Year","firstYear");
         TextView dateAndTime = (TextView) findViewById(R.id.dateAndTime);
         dateAndTime.setText(Date);
         TextView notice = (TextView) findViewById(R.id.notice);
@@ -85,13 +100,9 @@ public class listViewClick extends AppCompatActivity {
                 Glide.with(getApplicationContext()).load(imageURL).into(imageView2);
             }
         });
+        supportInvalidateOptionsMenu();
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.custom_menu,menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -104,9 +115,57 @@ public class listViewClick extends AppCompatActivity {
                 Intent i = new Intent(this,about.class);
                 startActivity(i);
                 break;
+            case R.id.saveNOtice:
+                int noticesValue=0;
+                sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                if(fav){
+                    fav = false;
+                }
+                else{
+                    fav = true;
+                }
+                if(fav)
+                {
+                    Toast.makeText(listViewClick.this, "Notice Saved", Toast.LENGTH_SHORT).show();
+                    menu.getItem(1).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_fill));
+                    String noticesValueString = sharedPreferences.getString("number of saved notices","0");
+                    noticesValue = Integer.parseInt(noticesValueString);
+                    noticesValue++;
+                    editor.putString("number of saved notices",String.valueOf(noticesValue));
+                    editor.putString(String.valueOf(noticesValue)+"year",year);
+                    editor.putString(String.valueOf(noticesValue)+"Descript",Descript);
+                    editor.putString(String.valueOf(noticesValue)+"Date",Date);
+                    editor.commit();
+                }
+                else{
+                    //menu.getItem(1).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite));
+
+                }
+                editor.putBoolean(year+" "+Descript+"check",true);
+                editor.putBoolean(year+" "+Descript+"fav",fav);
+                editor.commit();
+                break;
+            case R.id.savedNotices:
+                Intent intent1 = new Intent(this,savedNotices.class);
+                startActivity(intent1);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
+        check = sharedPreferences.getBoolean(year+" "+Descript+"check",false);               //if true that means there is no stored memory for this notice
+        if(check){
+            fav = sharedPreferences.getBoolean(year+" "+Descript+"fav",false);
+        }
+        if(fav){
+            menu.getItem(1).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_fill));
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 }

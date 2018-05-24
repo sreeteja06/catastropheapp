@@ -8,7 +8,16 @@
         android:title="favorite"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/saveNOtice"
+        android:icon="@drawable/ic_favorite"
+        android:title="favorite"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/about"
         android:title="about"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/savedNotices"
+        android:title="Saved Notices"
         app:showAsAction="never" />
 </menu>
