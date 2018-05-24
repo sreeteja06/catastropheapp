@@ -20,7 +20,7 @@ public class activities extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.custom_menu,menu);
+        inflater.inflate(R.menu.custom_menu,menu);                                          //to set the custom appbar
         MenuItem item= menu.findItem(R.id.saveNOtice);
         item.setVisible(false);
         this.invalidateOptionsMenu();
@@ -29,7 +29,7 @@ public class activities extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()){                                                          //items clicked in the appbar
             case R.id.favorite:
                 Intent intent = new Intent(this,idCard.class);
                 startActivity(intent);

@@ -32,7 +32,7 @@ import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 
 public class listViewClick extends AppCompatActivity {
-    ImageView imageView, imageView2;
+    ImageView imageView, imageView2, imageView3;
     StorageReference storageReference;
     String imageURL;
     boolean fav = false;
@@ -58,6 +58,7 @@ public class listViewClick extends AppCompatActivity {
         Date = bundle.getString("Date","firstYear");
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView2 = (ImageView) findViewById(R.id.imageView2);
+        imageView2 = (ImageView) findViewById(R.id.imageView3);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress);
         Descript = bundle.getString("Description","coffee is good for health");
         year = bundle.getString("Year","firstYear");
@@ -98,6 +99,14 @@ public class listViewClick extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 imageURL = uri.toString();
                 Glide.with(getApplicationContext()).load(imageURL).into(imageView2);
+            }
+        });
+        storageReference = FirebaseStorage.getInstance().getReference().child("Notices/"+year+"/"+Descript+"/2");
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                imageURL = uri.toString();
+                Glide.with(getApplicationContext()).load(imageURL).into(imageView3);
             }
         });
         supportInvalidateOptionsMenu();

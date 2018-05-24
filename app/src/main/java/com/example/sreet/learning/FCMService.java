@@ -2,7 +2,9 @@ package com.example.sreet.learning;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -44,12 +46,26 @@ public class FCMService extends FirebaseMessagingService {
      //     * Create and show a simple notification containing the received FCM message.
      //     */
     private void sendNotification(String notificationTitle, String notificationBody) {
-        //Intent intent = new Intent(this, MainActivity.class);
-        //intent.putExtra("title", dataTitle);
-        //intent.putExtra("message", dataMessage);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-        //        PendingIntent.FLAG_ONE_SHOT);
+        Intent intent;
+        if(notificationTitle=="Notice from firstYear") {
+            intent = new Intent(this, firstYearNotices.class);
+        }
+        else if(notificationTitle=="Notice from secondYear"){
+            intent = new Intent(this, secondYearNotices.class);
+        }
+        else if(notificationTitle=="Notice from thirdYear"){
+            intent = new Intent(this, thirdYearNotices.class);
+        }
+        else if(notificationTitle=="Notice from fourthYear"){
+            intent = new Intent(this, fourthYearNotices.class);
+        }
+        else{
+            intent = new Intent(this, Notices.class);
+        }
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
 
         //Uri defaultSoundUri= Uri.parse("android.resource://" + getPackageName() + "/raw/knock_brush");
         NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this,"M_CH_ID")
@@ -60,9 +76,9 @@ public class FCMService extends FirebaseMessagingService {
                 .setPriority(Notification.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true);
+                .setAutoCancel(true)
                 //.setSound(defaultSoundUri);
-                //.setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent);
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 

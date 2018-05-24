@@ -51,7 +51,7 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
     ProgressBar spinner;
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {                      //list item click listener
         Intent intent = new Intent(this,listViewClick.class);
         String positionDate = dateAndTimeList.get(position);
         intent.putExtra("Date",positionDate);
@@ -62,7 +62,7 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {                         //to get result from the gallery image picker
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){

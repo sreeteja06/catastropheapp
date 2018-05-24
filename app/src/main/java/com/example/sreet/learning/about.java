@@ -16,7 +16,7 @@ public class about extends AppCompatActivity {
         setTitle("About");
         versionTextView = (TextView) findViewById(R.id.version_id);
         try {
-            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);           //to get the version id
             String version = pInfo.versionName;
             versionTextView.setText(version);
         } catch (PackageManager.NameNotFoundException e) {
