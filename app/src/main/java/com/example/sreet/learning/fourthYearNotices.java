@@ -155,7 +155,7 @@ public class fourthYearNotices extends AppCompatActivity implements AdapterView.
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/fourthYear");
-        final ArrayAdapter<String> myarrayadapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,myarraylist);
+        final ArrayAdapter<String> myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList);
         list = (ListView) findViewById(R.id.listview);
         list.setOnItemClickListener(this);
         list.setAdapter(myarrayadapter);

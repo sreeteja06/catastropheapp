@@ -152,7 +152,7 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/firstYear");
-        final ArrayAdapter<String> myarrayadapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,myarraylist);
+        final ArrayAdapter<String> myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList);
         list = (ListView) findViewById(R.id.listview);
         list.setOnItemClickListener(this);
         list.setAdapter(myarrayadapter);
@@ -171,8 +171,6 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
                 Toast.makeText(firstYearNotices.this, "success", Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 
         myfire.addChildEventListener(new ChildEventListener() {
