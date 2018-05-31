@@ -39,7 +39,8 @@ public class listViewClick extends AppCompatActivity {
     boolean check = false;
     private SharedPreferences sharedPreferences;
     private Menu menu;
-    String Descript,year,Date;
+    String Descript,year,Date,userName;
+    int imagesValue;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,6 +57,8 @@ public class listViewClick extends AppCompatActivity {
         setTitle("Notice Details");
         Bundle bundle = getIntent().getExtras();
         Date = bundle.getString("Date","firstYear");
+        userName = bundle.getString("userName","sree");
+        imagesValue = bundle.getInt("images",0);
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView2 = (ImageView) findViewById(R.id.imageView2);
         imageView2 = (ImageView) findViewById(R.id.imageView3);
@@ -106,7 +109,7 @@ public class listViewClick extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 imageURL = uri.toString();
-                Glide.with(getApplicationContext()).load(imageURL).into(imageView3);
+                Glide.with(getApplicationContext()).load(imageURL).into(imageView2);
             }
         });
         supportInvalidateOptionsMenu();

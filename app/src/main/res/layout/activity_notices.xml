@@ -28,7 +28,7 @@
                 android:clickable="true"
                 android:id="@+id/firstyearid"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_margin="10dp">
 
                 <LinearLayout
@@ -42,24 +42,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="First year"
                         android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/lightgray" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="1st semester"
-                        android:textColor="@android:color/darker_gray" />
-
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
@@ -74,7 +58,7 @@
                 android:clickable="true"
                 android:id="@+id/secondyearid"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_margin="10dp">
 
                 <LinearLayout
@@ -88,24 +72,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="Second year"
                         android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/lightgray" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="3st semester"
-                        android:textColor="@android:color/darker_gray" />
-
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
@@ -120,7 +88,7 @@
                 android:clickable="true"
                 android:id="@+id/thirdyearid"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_margin="10dp">
 
                 <LinearLayout
@@ -134,24 +102,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="Third year"
                         android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/lightgray" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="5st semester"
-                        android:textColor="@android:color/darker_gray" />
-
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
@@ -166,7 +118,7 @@
                 android:clickable="true"
                 android:id="@+id/forthyearid"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_margin="10dp">
 
                 <LinearLayout
@@ -180,24 +132,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="Fourth year"
                         android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/lightgray" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="7st semester"
-                        android:textColor="@android:color/darker_gray" />
-
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>

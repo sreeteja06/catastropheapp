@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/Descript"
-        android:layout_width="244dp"
+        android:layout_width="236dp"
         android:layout_height="41dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -32,4 +34,15 @@
         android:layout_alignParentEnd="true"
         android:text="TextView"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="21dp"
+        android:layout_toStartOf="@+id/Date"
+        app:srcCompat="@drawable/ic_insert_photo_black_24dp" />
 </RelativeLayout>

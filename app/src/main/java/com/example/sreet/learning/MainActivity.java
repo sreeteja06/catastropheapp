@@ -19,7 +19,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private CardView Suggestions,Links,Activities,TimeTable,Notices;
+    private CardView Suggestions,Links,Activities,TimeTable,Notices,SavedThings;
     private static MainActivity mInstance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +32,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Activities = (CardView) findViewById(R.id.activitiesid);
         TimeTable = (CardView) findViewById(R.id.timetableid);
         Notices = (CardView) findViewById(R.id.noticesid);
+        SavedThings = (CardView) findViewById(R.id.SavedThings);
         //add click listener to the cards
         Suggestions.setOnClickListener(this);
         Links.setOnClickListener(this);
         Activities.setOnClickListener(this);
         TimeTable.setOnClickListener(this);
         Notices.setOnClickListener(this);
+        SavedThings.setOnClickListener(this);
         FirebaseMessaging.getInstance().subscribeToTopic("notifications");
     }
 
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.custom_menu,menu);
         MenuItem item= menu.findItem(R.id.savedNotices);
+        MenuItem item1 = menu.findItem(R.id.saveNOtice);
+        item1.setVisible(false);
         item.setTitle("Show guide");
         this.invalidateOptionsMenu();
         return true;
@@ -89,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.suggestionsid: i = new Intent(this,suggestions.class);startActivity(i);break;
             case R.id.linksid: i = new Intent(this,notes.class);startActivity(i);break;
             case R.id.noticesid: i = new Intent(this, com.example.sreet.learning.Notices.class);startActivity(i);break;
+            case R.id.SavedThings: i = new Intent(this,SavedThings.class);startActivity(i);break;
             default: break;
         }
     }

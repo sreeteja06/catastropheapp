@@ -27,8 +27,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".TimeTable"
             android:parentActivityName=".MainActivity" />
@@ -69,6 +68,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".notesList" />
+        <activity android:name=".SavedThings" />
+        <activity android:name=".savedNotes" />
+        <activity android:name=".savedTimeTable"></activity>
     </application>
 
 </manifest>

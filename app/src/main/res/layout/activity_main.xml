@@ -23,9 +23,9 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:id="@+id/timetableid"
+            android:id="@+id/SavedThings"
             android:layout_width="160dp"
-            android:layout_height="190dp"
+            android:layout_height="160dp"
             android:layout_margin="10dp">
 
             <LinearLayout
@@ -36,31 +36,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="65dp"
-                    android:background="@drawable/timetable"
+                    android:layout_width="71dp"
+                    android:layout_height="78dp"
+                    android:background="@drawable/ic_save_black_24dp"
                     android:padding="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="TimeTable"
+                    android:text="Saved Items"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10dp"
-                    android:background="@color/lightgray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="All Class TimeTables"
-                    android:textColor="@android:color/darker_gray" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -69,7 +55,7 @@
             android:clickable="true"
             android:focusable="true"
             android:layout_width="160dp"
-            android:layout_height="190dp"
+            android:layout_height="160dp"
             android:layout_margin="10dp"
             android:id="@+id/noticesid">
 
@@ -80,8 +66,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="71dp"
-                    android:layout_height="81dp"
+                    android:layout_width="69dp"
+                    android:layout_height="76dp"
                     android:background="@drawable/notices"
                     android:padding="10dp" />
                 <!--android:src="@drawable/ic_lightbulb_outline_black_24dp"-->
@@ -92,21 +78,6 @@
                     android:layout_marginTop="10dp"
                     android:text="Notices"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10dp"
-                    android:background="@color/lightgray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Notice Board"
-                    android:textColor="@android:color/darker_gray" />
-
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -122,7 +93,7 @@
             android:clickable="true"
             android:focusable="true"
             android:layout_width="160dp"
-            android:layout_height="190dp"
+            android:layout_height="160dp"
             android:layout_margin="10dp"
             android:id="@+id/activitiesid">
 
@@ -146,19 +117,6 @@
                     android:text="Activities"
                     android:textStyle="bold" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10dp"
-                    android:background="@color/lightgray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Activites of the college"
-                    android:textColor="@android:color/darker_gray" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -167,7 +125,7 @@
             android:clickable="true"
             android:focusable="true"
             android:layout_width="160dp"
-            android:layout_height="190dp"
+            android:layout_height="160dp"
             android:layout_margin="10dp"
             android:id="@+id/linksid">
 
@@ -190,79 +148,80 @@
                     android:layout_marginTop="10dp"
                     android:text="Notes"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10dp"
-                    android:background="@color/lightgray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Pdf notes"
-                    android:textColor="@android:color/darker_gray" />
-
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
-    <LinearLayout
-        android:clipToPadding="false"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.CardView
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_width="340dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:id="@+id/suggestionsid">
 
-            <LinearLayout
+        <LinearLayout
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.CardView
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_margin="10dp"
+                android:id="@+id/suggestionsid">
 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="107dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/suggestions"
-                    android:padding="10dp" />
-                <!--android:src="@drawable/ic_wifi_black_24dp"-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Suggestions"
-                    android:textStyle="bold" />
-
-                <View
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10dp"
-                    android:background="@color/lightgray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Suggest for the better college app"
-                    android:textColor="@android:color/darker_gray" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    <ImageView
+                        android:layout_width="114dp"
+                        android:layout_height="72dp"
+                        android:background="@drawable/suggestions"
+                        android:padding="10dp" />
+                    <!--android:src="@drawable/ic_control_point_black_24dp"-->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Suggestions"
+                        android:textStyle="bold" />
 
 
-    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_margin="10dp"
+                android:id="@+id/timetableid">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/timetable"
+                        android:padding="10dp" />
+                    <!--android:src="@drawable/ic_attach_file_black_24dp"-->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Time Table"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
 </LinearLayout>
 </ScrollView>

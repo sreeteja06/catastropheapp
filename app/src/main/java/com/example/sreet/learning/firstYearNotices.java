@@ -39,6 +39,8 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
 
     ArrayList<String> myarraylist = new ArrayList<>();
     ArrayList<String> dateAndTimeList = new ArrayList<String>();
+    ArrayList<String> userList = new ArrayList<>();
+    ArrayList<String> imagesValue = new ArrayList<>();
     ListView list;
     EditText myedittext,keyvaluetext;
     ImageButton myApplyBt,imageButton;
@@ -57,6 +59,10 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
         intent.putExtra("Date",positionDate);
         String positionDes = myarraylist.get(position);
         intent.putExtra("Description",positionDes);
+        String userName = userList.get(position);
+        intent.putExtra("userName",userName);
+        String images = imagesValue.get(position);
+        intent.putExtra("images",images);
         intent.putExtra("Year","firstYear");
         startActivity(intent);
     }
@@ -89,7 +95,9 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
                 DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 String date = df2.format(todaysDate);
                 Firebase childbase = myfire.child(date);
-                childbase.setValue(filePathValue);
+                childbase.child("images").setValue(totalItemsSelected);
+                childbase.child("notice").setValue(filePathValue);
+                childbase.child("user").setValue("sree");
                 FilePathName.setText(null);
             }
             else if(data.getData()!=null){
@@ -108,7 +116,9 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
                         DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                         String date = df2.format(todaysDate);
                         Firebase childbase = myfire.child(date);
-                        childbase.setValue(filePathValue);
+                        childbase.child("images").setValue("1");
+                        childbase.child("notice").setValue(filePathValue);
+                        childbase.child("user").setValue("sree");
                         FilePathName.setText(null);
                     }
                 });
@@ -152,7 +162,7 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/firstYear");
-        final ArrayAdapter<String> myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList);
+        final ArrayAdapter<String> myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList,userList,imagesValue);
         list = (ListView) findViewById(R.id.listview);
         list.setOnItemClickListener(this);
         list.setAdapter(myarrayadapter);
@@ -166,7 +176,9 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
                 DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 String date = df2.format(todaysDate);
                 Firebase childbase = myfire.child(date);
-                childbase.setValue(myString);
+                childbase.child("notice").setValue(myString);
+                childbase.child("images").setValue("0");
+                childbase.child("user").setValue("sree");
                 myedittext.setText(null);
                 Toast.makeText(firstYearNotices.this, "success", Toast.LENGTH_SHORT).show();
             }
@@ -176,10 +188,14 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
         myfire.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String childvalaue = dataSnapshot.getValue(String.class);
+                String noticeValue = dataSnapshot.child("notice").getValue(String.class);
+                String userName = dataSnapshot.child("user").getValue(String.class);
+                String images = dataSnapshot.child("images").getValue(String.class);
                 String keyvalue = dataSnapshot.getKey();
                 dateAndTimeList.add(keyvalue);
-                myarraylist.add(childvalaue);
+                myarraylist.add(noticeValue);
+                imagesValue.add(images);
+                userList.add(userName);
                 myarrayadapter.notifyDataSetChanged();
                 spinner.setVisibility(View.GONE);
             }

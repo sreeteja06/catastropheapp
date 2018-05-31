@@ -39,6 +39,8 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
 
     ArrayList<String> myarraylist = new ArrayList<>();
     ArrayList<String> dateAndTimeList = new ArrayList<String>();
+    ArrayList<String> userList = new ArrayList<>();
+    ArrayList<String> imagesValue = new ArrayList<>();
     ListView list;
     EditText myedittext,keyvaluetext;
     ImageButton myApplyBt,imageButton;
@@ -51,18 +53,22 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
     ProgressBar spinner;
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {                      //list item click listener
         Intent intent = new Intent(this,listViewClick.class);
         String positionDate = dateAndTimeList.get(position);
         intent.putExtra("Date",positionDate);
         String positionDes = myarraylist.get(position);
         intent.putExtra("Description",positionDes);
+        String userName = userList.get(position);
+        intent.putExtra("userName",userName);
+        String images = imagesValue.get(position);
+        intent.putExtra("images",images);
         intent.putExtra("Year","secondYear");
         startActivity(intent);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {                         //to get result from the gallery image picker
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
@@ -89,7 +95,9 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
                 DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 String date = df2.format(todaysDate);
                 Firebase childbase = myfire.child(date);
-                childbase.setValue(filePathValue);
+                childbase.child("images").setValue(totalItemsSelected);
+                childbase.child("notice").setValue(filePathValue);
+                childbase.child("user").setValue("sree");
                 FilePathName.setText(null);
             }
             else if(data.getData()!=null){
@@ -108,7 +116,9 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
                         DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                         String date = df2.format(todaysDate);
                         Firebase childbase = myfire.child(date);
-                        childbase.setValue(filePathValue);
+                        childbase.child("images").setValue("1");
+                        childbase.child("notice").setValue(filePathValue);
+                        childbase.child("user").setValue("sree");
                         FilePathName.setText(null);
                     }
                 });
@@ -124,7 +134,7 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_year_notices);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        setTitle("Second Year Notices");
+        setTitle("Second Year notices");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Toast.makeText(secondYearNotices.this, "Click on a specific notification to open it for the detailed information about the notification", Toast.LENGTH_SHORT).show();
         myedittext = (EditText) findViewById(R.id.editText);
@@ -152,7 +162,7 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/secondYear");
-        final ArrayAdapter<String> myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList);;
+        final ArrayAdapter<String> myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList,userList,imagesValue);
         list = (ListView) findViewById(R.id.listview);
         list.setOnItemClickListener(this);
         list.setAdapter(myarrayadapter);
@@ -166,22 +176,26 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
                 DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 String date = df2.format(todaysDate);
                 Firebase childbase = myfire.child(date);
-                childbase.setValue(myString);
+                childbase.child("notice").setValue(myString);
+                childbase.child("images").setValue("0");
+                childbase.child("user").setValue("sree");
                 myedittext.setText(null);
                 Toast.makeText(secondYearNotices.this, "success", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-
-
         myfire.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String childvalaue = dataSnapshot.getValue(String.class);
+                String noticeValue = dataSnapshot.child("notice").getValue(String.class);
+                String userName = dataSnapshot.child("user").getValue(String.class);
+                String images = dataSnapshot.child("images").getValue(String.class);
                 String keyvalue = dataSnapshot.getKey();
                 dateAndTimeList.add(keyvalue);
-                myarraylist.add(childvalaue);
+                myarraylist.add(noticeValue);
+                imagesValue.add(images);
+                userList.add(userName);
                 myarrayadapter.notifyDataSetChanged();
                 spinner.setVisibility(View.GONE);
             }
