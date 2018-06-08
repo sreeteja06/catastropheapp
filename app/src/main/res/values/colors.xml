@@ -12,6 +12,7 @@
     <color name="testcolorblue">#152b38</color>
     <color name="pink">#fe104d</color>
     <color name="something">#456291</color>
+    <color name="backgroundDetails">#B2DFDB</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

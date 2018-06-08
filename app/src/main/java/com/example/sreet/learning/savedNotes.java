@@ -20,7 +20,7 @@ public class savedNotes extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.custom_menu,menu);
-        MenuItem item= menu.findItem(R.id.savedNotices);
+        MenuItem item= menu.findItem(R.id.LogOut);
         MenuItem item1 = menu.findItem(R.id.saveNOtice);
         item1.setVisible(false);
         item.setVisible(false);

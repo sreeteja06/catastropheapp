@@ -11,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SavedThings extends AppCompatActivity implements View.OnClickListener{
 
     private CardView SavedNotices, SavedNotes, SavedTimeTable;
@@ -41,10 +43,8 @@ public class SavedThings extends AppCompatActivity implements View.OnClickListen
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.custom_menu,menu);
-        MenuItem item= menu.findItem(R.id.savedNotices);
         MenuItem item1 = menu.findItem(R.id.saveNOtice);
         item1.setVisible(false);
-        item.setVisible(false);
         this.invalidateOptionsMenu();
         return true;
     }
@@ -59,6 +59,11 @@ public class SavedThings extends AppCompatActivity implements View.OnClickListen
             case R.id.about:
                 Intent i = new Intent(this,about.class);
                 startActivity(i);
+                break;
+            case R.id.LogOut:
+                FirebaseAuth.getInstance().signOut();
+                Intent sign = new Intent(this,SignIn.class);
+                startActivity(sign);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

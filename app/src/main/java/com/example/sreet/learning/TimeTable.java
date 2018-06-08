@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class TimeTable extends AppCompatActivity implements View.OnClickListener{
     private CardView firstyear,secondyear,thirdyear,forthyear;
     @Override
@@ -69,9 +71,10 @@ public class TimeTable extends AppCompatActivity implements View.OnClickListener
                 Intent i = new Intent(this,about.class);
                 startActivity(i);
                 break;
-            case R.id.savedNotices:
-                Intent intent1 = new Intent(this,savedNotices.class);
-                startActivity(intent1);
+            case R.id.LogOut:
+                FirebaseAuth.getInstance().signOut();
+                Intent sign = new Intent(this,SignIn.class);
+                startActivity(sign);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

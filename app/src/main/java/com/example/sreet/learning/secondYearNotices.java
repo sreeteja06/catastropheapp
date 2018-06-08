@@ -2,7 +2,9 @@ package com.example.sreet.learning;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -26,6 +28,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -51,6 +54,7 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
     ProgressDialog uploadProgress;
     private  static final int GALLERY_INTENT = 1;
     ProgressBar spinner;
+    SharedPreferences sharedPreferences;
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {                      //list item click listener
@@ -70,6 +74,7 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {                         //to get result from the gallery image picker
         super.onActivityResult(requestCode, resultCode, data);
+        sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
 
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
@@ -92,12 +97,12 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
                     });
                 }
                 Date todaysDate = new Date();
-                DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date = df2.format(todaysDate);
                 Firebase childbase = myfire.child(date);
                 childbase.child("images").setValue(totalItemsSelected);
                 childbase.child("notice").setValue(filePathValue);
-                childbase.child("user").setValue("sree");
+                childbase.child("user").setValue(sharedPreferences.getString("userName","alien"));
                 FilePathName.setText(null);
             }
             else if(data.getData()!=null){
@@ -113,12 +118,12 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
                         Toast.makeText(secondYearNotices.this, "Upload Done", Toast.LENGTH_SHORT).show();
                         uploadProgress.dismiss();
                         Date todaysDate = new Date();
-                        DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                        DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         String date = df2.format(todaysDate);
                         Firebase childbase = myfire.child(date);
                         childbase.child("images").setValue("1");
                         childbase.child("notice").setValue(filePathValue);
-                        childbase.child("user").setValue("sree");
+                        childbase.child("user").setValue(sharedPreferences.getString("userName","alien"));
                         FilePathName.setText(null);
                     }
                 });
@@ -167,18 +172,19 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
         list.setOnItemClickListener(this);
         list.setAdapter(myarrayadapter);
         //list.setSelection(list.getAdapter().getCount()-1);
+        sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
         myApplyBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myString = myedittext.getText().toString();
                 //keyvaluedata = keyvaluetext.getText().toString();
                 Date todaysDate = new Date();
-                DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date = df2.format(todaysDate);
                 Firebase childbase = myfire.child(date);
                 childbase.child("notice").setValue(myString);
                 childbase.child("images").setValue("0");
-                childbase.child("user").setValue("sree");
+                childbase.child("user").setValue(sharedPreferences.getString("userName","alien"));
                 myedittext.setText(null);
                 Toast.makeText(secondYearNotices.this, "success", Toast.LENGTH_SHORT).show();
             }
@@ -243,9 +249,10 @@ public class secondYearNotices extends AppCompatActivity implements AdapterView.
                 Intent i = new Intent(this,about.class);
                 startActivity(i);
                 break;
-            case R.id.savedNotices:
-                Intent intent1 = new Intent(this,savedNotices.class);
-                startActivity(intent1);
+            case R.id.LogOut:
+                FirebaseAuth.getInstance().signOut();
+                Intent sign = new Intent(this,SignIn.class);
+                startActivity(sign);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

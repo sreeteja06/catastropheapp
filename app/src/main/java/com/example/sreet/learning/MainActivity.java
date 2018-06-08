@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -14,27 +15,70 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.client.FirebaseApp;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private CardView Suggestions,Links,Activities,TimeTable,Notices,SavedThings;
+    private CardView Attendance,Links,Activities,TimeTable,Notices,SavedThings;
     private static MainActivity mInstance;
+    SharedPreferences sharedPreferences;
+    GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //defining cards
-        Suggestions = (CardView) findViewById(R.id.suggestionsid);
+        Attendance = (CardView) findViewById(R.id.attendanceID);
         Links = (CardView) findViewById(R.id.linksid);
         Activities = (CardView) findViewById(R.id.activitiesid);
         TimeTable = (CardView) findViewById(R.id.timetableid);
         Notices = (CardView) findViewById(R.id.noticesid);
         SavedThings = (CardView) findViewById(R.id.SavedThings);
+        //to save the user name
+        sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personId = acct.getId();
+            editor.putString("userId",personId);
+            editor.putString("userName",personName);
+            editor.apply();
+        }
+
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        Toast.makeText(MainActivity.this, "Error loging in", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+
+
         //add click listener to the cards
-        Suggestions.setOnClickListener(this);
+        Attendance.setOnClickListener(this);
         Links.setOnClickListener(this);
         Activities.setOnClickListener(this);
         TimeTable.setOnClickListener(this);
@@ -47,10 +91,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.custom_menu,menu);
-        MenuItem item= menu.findItem(R.id.savedNotices);
         MenuItem item1 = menu.findItem(R.id.saveNOtice);
-        item1.setVisible(false);
-        item.setTitle("Show guide");
+        MenuItem suggestonsItem = menu.findItem(R.id.suggestionsMenu);
+        suggestonsItem.setVisible(true);
+        item1.setVisible(true);
+        item1.setTitle("Show guide");
         this.invalidateOptionsMenu();
         return true;
     }
@@ -67,10 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
             case R.id.saveNOtice:
-                Intent intent1 = new Intent(this,savedNotices.class);
-                startActivity(intent1);
-                break;
-            case R.id.savedNotices:
                 Intent intent2 = new Intent(this,WelcomeActivity.class);
                 SharedPreferences ref = getApplicationContext().getSharedPreferences("IntroSliderApp", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = ref.edit();
@@ -78,6 +119,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 editor.commit();
                 startActivity(intent2);
                 break;
+            case R.id.LogOut:
+
+                FirebaseAuth mauth = FirebaseAuth.getInstance();
+                mauth.signOut();
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(@NonNull Status status) {
+
+                            }
+                        });
+                FirebaseAuth.getInstance().signOut();
+                Intent sign = new Intent(this,SignIn.class);
+                startActivity(sign);
+                break;
+            case R.id.suggestionsMenu:
+                Intent in = new Intent(this,suggestions.class);startActivity(in);break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -90,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.timetableid: i = new Intent(this,TimeTable.class);startActivity(i);break;
             case R.id.activitiesid: i = new Intent(this,activities.class);startActivity(i);break;
-            case R.id.suggestionsid: i = new Intent(this,suggestions.class);startActivity(i);break;
+            case R.id.attendanceID: i = new Intent(this,attendance.class);startActivity(i);break;
             case R.id.linksid: i = new Intent(this,notes.class);startActivity(i);break;
             case R.id.noticesid: i = new Intent(this, com.example.sreet.learning.Notices.class);startActivity(i);break;
             case R.id.SavedThings: i = new Intent(this,SavedThings.class);startActivity(i);break;

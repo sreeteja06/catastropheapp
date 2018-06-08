@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8bc34a"
+    android:background="#489dff"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -10,14 +10,14 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:src="@drawable/activities" />
+        android:src="@drawable/ic_favorite" />
 
     <TextView
-        android:layout_width="232dp"
+        android:layout_width="177dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/cercleshape"
-        android:text="Lecture Notes"
+        android:text="whatever"
         android:textAlignment="center"
         android:textSize="30dp"
         android:textStyle="bold" />
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="you can get your lecture notes from here"
+        android:text="nonsense"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20dp" />

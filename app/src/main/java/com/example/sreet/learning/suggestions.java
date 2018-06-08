@@ -18,6 +18,7 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -120,9 +121,10 @@ public class suggestions extends AppCompatActivity {
                 Intent i = new Intent(this,about.class);
                 startActivity(i);
                 break;
-            case R.id.savedNotices:
-                Intent intent1 = new Intent(this,savedNotices.class);
-                startActivity(intent1);
+            case R.id.LogOut:
+                FirebaseAuth.getInstance().signOut();
+                Intent sign = new Intent(this,SignIn.class);
+                startActivity(sign);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

@@ -71,7 +71,9 @@
         <activity android:name=".notesList" />
         <activity android:name=".SavedThings" />
         <activity android:name=".savedNotes" />
-        <activity android:name=".savedTimeTable"></activity>
+        <activity android:name=".savedTimeTable" />
+        <activity android:name=".SignIn" />
+        <activity android:name=".attendance"></activity>
     </application>
 
 </manifest>

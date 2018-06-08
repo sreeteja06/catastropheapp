@@ -45,8 +45,8 @@ public class customListAdapter extends ArrayAdapter<String>{
         userName.setText(this.Users.get(position));
 
         ImageView imageView = (ImageView) customView.findViewById(R.id.imageView5);
-        int imgValue = Integer.parseInt(images.get(position));
-        if(imgValue==0){
+        String imgValue = images.get(position);
+        if(imgValue!=null && imgValue.equalsIgnoreCase("0")){
             imageView.setVisibility(View.GONE);
         }
 

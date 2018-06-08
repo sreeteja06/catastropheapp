@@ -27,6 +27,7 @@ import com.bumptech.glide.request.target.Target;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
@@ -153,9 +154,10 @@ public class listViewClick extends AppCompatActivity {
                 editor.putBoolean(year+" "+Descript+"fav",fav);
                 editor.apply();
                 break;
-            case R.id.savedNotices:
-                Intent intent1 = new Intent(this,savedNotices.class);
-                startActivity(intent1);
+            case R.id.LogOut:
+                FirebaseAuth.getInstance().signOut();
+                Intent sign = new Intent(this,SignIn.class);
+                startActivity(sign);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -166,7 +168,7 @@ public class listViewClick extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
-        check = sharedPreferences.getBoolean(year+" "+Descript+"check",false);               //if true that means there is no stored memory for this notice
+        check = sharedPreferences.getBoolean(year+" "+Descript+"check",false);               //if false that means there is no stored memory for this notice
         if(check){
             fav = sharedPreferences.getBoolean(year+" "+Descript+"fav",false);
         }

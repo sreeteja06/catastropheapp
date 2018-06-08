@@ -17,7 +17,12 @@
         android:title="about"
         app:showAsAction="never" />
     <item
-        android:id="@+id/savedNotices"
-        android:title="Saved Notices"
+        android:id="@+id/suggestionsMenu"
+        android:title="suggestions"
+        app:showAsAction="never"
+        android:visible="false" />
+    <item
+        android:id="@+id/LogOut"
+        android:title="Log Out"
         app:showAsAction="never" />
 </menu>

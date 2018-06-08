@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
@@ -125,8 +128,17 @@ public class WelcomeActivity extends AppCompatActivity {
     }
     private void startMainActivity(){
         setFirstTimeStartStatus(false);
-        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-        finish();
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct == null) {
+            startActivity(new Intent(WelcomeActivity.this, SignIn.class));
+            finish();
+        }
+
+        else{
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            finish();
+        }
+
     }
     private void setStatusBarTransparent(){
         if (Build.VERSION.SDK_INT >= 21){
