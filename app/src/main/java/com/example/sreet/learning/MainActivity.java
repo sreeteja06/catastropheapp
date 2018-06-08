@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -148,7 +149,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.timetableid: i = new Intent(this,TimeTable.class);startActivity(i);break;
             case R.id.activitiesid: i = new Intent(this,activities.class);startActivity(i);break;
-            case R.id.attendanceID: i = new Intent(this,attendance.class);startActivity(i);break;
+            case R.id.attendanceID:
+                Uri uri = Uri.parse("http://42.104.112.137/sz/Login.aspx");
+                i = new Intent(Intent.ACTION_VIEW,uri);startActivity(i);break;
             case R.id.linksid: i = new Intent(this,notes.class);startActivity(i);break;
             case R.id.noticesid: i = new Intent(this, com.example.sreet.learning.Notices.class);startActivity(i);break;
             case R.id.SavedThings: i = new Intent(this,SavedThings.class);startActivity(i);break;

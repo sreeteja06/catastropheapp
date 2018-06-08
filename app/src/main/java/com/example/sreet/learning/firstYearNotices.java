@@ -19,14 +19,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -141,6 +145,21 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setTitle("First Year notices");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personEmail = acct.getEmail();
+            if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")&&personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")){
+                LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
+                sendNotice.setVisibility(View.VISIBLE);
+            }
+        }
+
+
+
+
+
+
         Toast.makeText(firstYearNotices.this, "Click on a specific notification to open it for the detailed information about the notification", Toast.LENGTH_SHORT).show();
         myedittext = (EditText) findViewById(R.id.editText);
         myApplyBt = (ImageButton) findViewById(R.id.button);
@@ -173,7 +192,8 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
         list.setAdapter(myarrayadapter);
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
         //list.setSelection(list.getAdapter().getCount()-1);
-        myApplyBt.setOnClickListener(new View.OnClickListener() {
+        if(myString!=null){
+            myApplyBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myString = myedittext.getText().toString();
@@ -188,7 +208,7 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
                 myedittext.setText(null);
                 Toast.makeText(firstYearNotices.this, "success", Toast.LENGTH_SHORT).show();
             }
-        });
+        });}
 
 
         myfire.addChildEventListener(new ChildEventListener() {

@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -27,6 +28,8 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -141,6 +144,18 @@ public class thirdYearNotices extends AppCompatActivity implements AdapterView.O
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setTitle("Third Year notices");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personEmail = acct.getEmail();
+            if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")&&personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")){
+                LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
+                sendNotice.setVisibility(View.VISIBLE);
+            }
+        }
+
+
+
+
         Toast.makeText(thirdYearNotices.this, "Click on a specific notification to open it for the detailed information about the notification", Toast.LENGTH_SHORT).show();
         myedittext = (EditText) findViewById(R.id.editText);
         myApplyBt = (ImageButton) findViewById(R.id.button);
@@ -173,22 +188,24 @@ public class thirdYearNotices extends AppCompatActivity implements AdapterView.O
         list.setAdapter(myarrayadapter);
         //list.setSelection(list.getAdapter().getCount()-1);
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
-        myApplyBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myString = myedittext.getText().toString();
-                //keyvaluedata = keyvaluetext.getText().toString();
-                Date todaysDate = new Date();
-                DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String date = df2.format(todaysDate);
-                Firebase childbase = myfire.child(date);
-                childbase.child("notice").setValue(myString);
-                childbase.child("images").setValue("0");
-                childbase.child("user").setValue(sharedPreferences.getString("userName","alien"));
-                myedittext.setText(null);
-                Toast.makeText(thirdYearNotices.this, "success", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(myString!=null){
+            myApplyBt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myString = myedittext.getText().toString();
+                    //keyvaluedata = keyvaluetext.getText().toString();
+                    Date todaysDate = new Date();
+                    DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String date = df2.format(todaysDate);
+                    Firebase childbase = myfire.child(date);
+                    childbase.child("notice").setValue(myString);
+                    childbase.child("images").setValue("0");
+                    childbase.child("user").setValue(sharedPreferences.getString("userName","alien"));
+                    myedittext.setText(null);
+                    Toast.makeText(thirdYearNotices.this, "success", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
 
         myfire.addChildEventListener(new ChildEventListener() {
