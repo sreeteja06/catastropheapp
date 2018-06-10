@@ -149,7 +149,7 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personEmail = acct.getEmail();
-            if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")&&personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")){
+            if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")||personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")){
                 LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
                 sendNotice.setVisibility(View.VISIBLE);
             }

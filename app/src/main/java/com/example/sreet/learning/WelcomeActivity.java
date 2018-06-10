@@ -39,7 +39,7 @@ public class WelcomeActivity extends AppCompatActivity {
             finish();
         }
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         setContentView(R.layout.activity_welcome);
 
         viewPager = findViewById(R.id.view_pager);
