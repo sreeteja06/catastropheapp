@@ -1,14 +1,20 @@
 package com.example.sreet.learning;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CardView Attendance,Links,Activities,TimeTable,Notices,SavedThings;
     private static MainActivity mInstance;
     SharedPreferences sharedPreferences;
+    private final int REQUEST_CODE = 1;
     GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //to save the user name
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            Log.v("tag","Permission is granted");
+            //File write logic here
+        }
+        else{
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+        }
+
 
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);

@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="You can save a specific Notice and view them anytime from the three dots menu"
+        android:text="You can save a specific Notice and view them anytime."
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20dp" />

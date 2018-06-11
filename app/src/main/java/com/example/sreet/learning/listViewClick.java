@@ -1,10 +1,15 @@
 package com.example.sreet.learning;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -32,6 +37,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 public class listViewClick extends AppCompatActivity {
     ImageView imageView, imageView2, imageView3;
     StorageReference storageReference;
@@ -42,6 +51,7 @@ public class listViewClick extends AppCompatActivity {
     private Menu menu;
     String Descript,year,Date,userName;
     int imagesValue;
+    Uri URI;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,6 +85,7 @@ public class listViewClick extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 imageURL = uri.toString();
+                final Uri SaveUri = uri;
                 Glide.with(getApplicationContext()).load(imageURL)
                         .listener(new RequestListener<Drawable>() {
                             @Override
@@ -90,6 +101,26 @@ public class listViewClick extends AppCompatActivity {
                             }
                         })
                         .into(imageView);
+                imageView.setOnLongClickListener(new View.OnLongClickListener() {
+
+                    Bitmap bitmap;
+                    @Override
+                    public boolean onLongClick(View v) {
+                        try{
+                            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+                            URL url = new URL(imageURL);
+                            bitmap = BitmapFactory.decodeStream((InputStream)url.getContent());
+                        }
+                        catch (IOException e){
+
+                        }
+                        String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap,Descript,Descript);
+                        URI = Uri.parse(imagePath);
+                        Toast.makeText(listViewClick.this, "Saved success", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
