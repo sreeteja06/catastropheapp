@@ -72,7 +72,7 @@ public class listViewClick extends AppCompatActivity {
         imagesValue = bundle.getInt("images",0);
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView2 = (ImageView) findViewById(R.id.imageView2);
-        imageView2 = (ImageView) findViewById(R.id.imageView3);
+        imageView3 = (ImageView) findViewById(R.id.imageView3);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress);
         Descript = bundle.getString("Description","coffee is good for health");
         year = bundle.getString("Year","firstYear");
@@ -81,69 +81,115 @@ public class listViewClick extends AppCompatActivity {
         TextView notice = (TextView) findViewById(R.id.notice);
         notice.setText(Descript);
         storageReference = FirebaseStorage.getInstance().getReference().child("Notices/"+year+"/"+Descript+"/0");
-        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                imageURL = uri.toString();
-                final Uri SaveUri = uri;
-                Glide.with(getApplicationContext()).load(imageURL)
-                        .listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                progressBar.setVisibility(View.GONE);
-                                return false;
+        if(storageReference!=null) {
+            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    imageURL = uri.toString();
+                    final Uri SaveUri = uri;
+                    Glide.with(getApplicationContext()).load(imageURL)
+                            .listener(new RequestListener<Drawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    progressBar.setVisibility(View.GONE);
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    progressBar.setVisibility(View.GONE);
+                                    return false;
+                                }
+                            })
+                            .into(imageView);
+                    imageView.setOnLongClickListener(new View.OnLongClickListener() {
+
+                        Bitmap bitmap;
+
+                        @Override
+                        public boolean onLongClick(View v) {
+                            try {
+                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                                StrictMode.setThreadPolicy(policy);
+                                URL url = new URL(imageURL);
+                                bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
+                            } catch (IOException e) {
+
                             }
-
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                progressBar.setVisibility(View.GONE);
-                                return false;
-                            }
-                        })
-                        .into(imageView);
-                imageView.setOnLongClickListener(new View.OnLongClickListener() {
-
-                    Bitmap bitmap;
-                    @Override
-                    public boolean onLongClick(View v) {
-                        try{
-                            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                            StrictMode.setThreadPolicy(policy);
-                            URL url = new URL(imageURL);
-                            bitmap = BitmapFactory.decodeStream((InputStream)url.getContent());
+                            String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, Descript, Descript);
+                            URI = Uri.parse(imagePath);
+                            Toast.makeText(listViewClick.this, "Saved success", Toast.LENGTH_SHORT).show();
+                            return false;
                         }
-                        catch (IOException e){
-
-                        }
-                        String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap,Descript,Descript);
-                        URI = Uri.parse(imagePath);
-                        Toast.makeText(listViewClick.this, "Saved success", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        }
         storageReference = FirebaseStorage.getInstance().getReference().child("Notices/"+year+"/"+Descript+"/1");
-        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                imageURL = uri.toString();
-                Glide.with(getApplicationContext()).load(imageURL).into(imageView2);
-            }
-        });
+        if(storageReference!=null) {
+            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    imageURL = uri.toString();
+                    Glide.with(getApplicationContext()).load(imageURL).into(imageView2);
+                    imageView2.setOnLongClickListener(new View.OnLongClickListener() {
+
+                        Bitmap bitmap;
+
+                        @Override
+                        public boolean onLongClick(View v) {
+                            try {
+                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                                StrictMode.setThreadPolicy(policy);
+                                URL url = new URL(imageURL);
+                                bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
+                            } catch (IOException e) {
+
+                            }
+                            String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, Descript, Descript);
+                            URI = Uri.parse(imagePath);
+                            Toast.makeText(listViewClick.this, "Saved success", Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                    });
+                }
+            });
+        }
         storageReference = FirebaseStorage.getInstance().getReference().child("Notices/"+year+"/"+Descript+"/2");
-        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                imageURL = uri.toString();
-                Glide.with(getApplicationContext()).load(imageURL).into(imageView2);
-            }
-        });
+        if(storageReference!=null) {
+            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    imageURL = uri.toString();
+                    Glide.with(getApplicationContext()).load(imageURL).into(imageView3);
+                    imageView3.setOnLongClickListener(new View.OnLongClickListener() {
+
+                        Bitmap bitmap;
+
+                        @Override
+                        public boolean onLongClick(View v) {
+                            try {
+                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                                StrictMode.setThreadPolicy(policy);
+                                URL url = new URL(imageURL);
+                                bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
+                            } catch (IOException e) {
+
+                            }
+                            String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, Descript, Descript);
+                            URI = Uri.parse(imagePath);
+                            Toast.makeText(listViewClick.this, "Saved success", Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                    });
+                }
+            });
+        }
         supportInvalidateOptionsMenu();
     }
 
