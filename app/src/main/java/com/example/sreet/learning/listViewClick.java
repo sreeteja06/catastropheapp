@@ -44,7 +44,7 @@ import java.net.URL;
 public class listViewClick extends AppCompatActivity {
     ImageView imageView, imageView2, imageView3;
     StorageReference storageReference;
-    String imageURL;
+    String imageURL,imageURL2,imageURL3;
     boolean fav = false;
     boolean check = false;
     private SharedPreferences sharedPreferences;
@@ -116,7 +116,7 @@ public class listViewClick extends AppCompatActivity {
                             } catch (IOException e) {
 
                             }
-                            String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, Descript, Descript);
+                            String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, Descript+"/0", Descript+"/0");
                             URI = Uri.parse(imagePath);
                             Toast.makeText(listViewClick.this, "Saved success", Toast.LENGTH_SHORT).show();
                             return false;
@@ -135,8 +135,8 @@ public class listViewClick extends AppCompatActivity {
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    imageURL = uri.toString();
-                    Glide.with(getApplicationContext()).load(imageURL).into(imageView2);
+                    imageURL2 = uri.toString();
+                    Glide.with(getApplicationContext()).load(imageURL2).into(imageView2);
                     imageView2.setOnLongClickListener(new View.OnLongClickListener() {
 
                         Bitmap bitmap;
@@ -146,12 +146,12 @@ public class listViewClick extends AppCompatActivity {
                             try {
                                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                                 StrictMode.setThreadPolicy(policy);
-                                URL url = new URL(imageURL);
+                                URL url = new URL(imageURL2);
                                 bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
                             } catch (IOException e) {
 
                             }
-                            String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, Descript, Descript);
+                            String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, Descript+"/1", Descript+"/1");
                             URI = Uri.parse(imagePath);
                             Toast.makeText(listViewClick.this, "Saved success", Toast.LENGTH_SHORT).show();
                             return false;
@@ -165,8 +165,8 @@ public class listViewClick extends AppCompatActivity {
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    imageURL = uri.toString();
-                    Glide.with(getApplicationContext()).load(imageURL).into(imageView3);
+                    imageURL3 = uri.toString();
+                    Glide.with(getApplicationContext()).load(imageURL3).into(imageView3);
                     imageView3.setOnLongClickListener(new View.OnLongClickListener() {
 
                         Bitmap bitmap;
@@ -176,12 +176,12 @@ public class listViewClick extends AppCompatActivity {
                             try {
                                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                                 StrictMode.setThreadPolicy(policy);
-                                URL url = new URL(imageURL);
+                                URL url = new URL(imageURL3);
                                 bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
                             } catch (IOException e) {
 
                             }
-                            String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, Descript, Descript);
+                            String imagePath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, Descript+"/2", Descript+"/2");
                             URI = Uri.parse(imagePath);
                             Toast.makeText(listViewClick.this, "Saved success", Toast.LENGTH_SHORT).show();
                             return false;

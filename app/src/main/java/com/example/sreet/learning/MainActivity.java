@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.firebase.client.FirebaseApp;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         suggestonsItem.setVisible(true);
         item1.setVisible(true);
         item1.setTitle("Show guide");
+        item1.setIcon(R.drawable.ic_sentiment_very_satisfied_black_24dp);
         this.invalidateOptionsMenu();
         return true;
     }
@@ -165,9 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.timetableid: i = new Intent(this,TimeTable.class);startActivity(i);break;
             case R.id.activitiesid: i = new Intent(this,activities.class);startActivity(i);break;
-            case R.id.attendanceID:
-                Uri uri = Uri.parse("http://42.104.112.137/sz/Login.aspx");
-                i = new Intent(Intent.ACTION_VIEW,uri);startActivity(i);break;
+            case R.id.attendanceID: i = new Intent(this,attendance.class);startActivity(i);break;
             case R.id.linksid: i = new Intent(this,notes.class);startActivity(i);break;
             case R.id.noticesid: i = new Intent(this, com.example.sreet.learning.Notices.class);startActivity(i);break;
             case R.id.SavedThings: i = new Intent(this,SavedThings.class);startActivity(i);break;

@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/saveNOtice"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_save_notices_24dp"
         android:title="favorite"
         app:showAsAction="ifRoom" />
     <item

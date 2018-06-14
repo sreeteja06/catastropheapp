@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class customListAdapter extends ArrayAdapter<String>{
     private Context context;
     private ArrayList<String> Descript;
-    private ArrayList<String> Date;
+    //private ArrayList<String> Date;
     private ArrayList<String> Users;
     private ArrayList<String> images;
 
@@ -24,7 +24,7 @@ public class customListAdapter extends ArrayAdapter<String>{
         super(context, R.layout.custom_list, Descript);
         this.context = context;
         this.Descript = Descript;
-        this.Date = Date;
+        //this.Date = Date;
         this.Users = Users;
         this.images = images;
     }
@@ -35,11 +35,17 @@ public class customListAdapter extends ArrayAdapter<String>{
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View customView = inflater.inflate(R.layout.custom_list,parent,false);
 
+        String shrinkDescript = this.Descript.get(position);
+        if(shrinkDescript!=null) {
+            if (shrinkDescript.length() > 20) {
+                shrinkDescript = shrinkDescript.substring(0, 19) + ".......";
+            }
+        }
         TextView Descript = (TextView) customView.findViewById(R.id.Descript);
-        Descript.setText(this.Descript.get(position));
+        Descript.setText(shrinkDescript);
 
-        TextView Date = (TextView) customView.findViewById(R.id.Date);
-        Date.setText(this.Date.get(position).substring(0,10));
+        //TextView Date = (TextView) customView.findViewById(R.id.Date);
+        //Date.setText(this.Date.get(position).substring(0,10));
 
         TextView userName = (TextView) customView.findViewById(R.id.userName);
         userName.setText(this.Users.get(position));

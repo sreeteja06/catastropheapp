@@ -147,7 +147,7 @@ public class fourthYearNotices extends AppCompatActivity implements AdapterView.
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personEmail = acct.getEmail();
-            if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")||personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")){
+            if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")||personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")||personEmail.equalsIgnoreCase("samalakrishna7@gmail.com")){
                 LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
                 sendNotice.setVisibility(View.VISIBLE);
             }
@@ -188,7 +188,7 @@ public class fourthYearNotices extends AppCompatActivity implements AdapterView.
         list.setAdapter(myarrayadapter);
         //list.setSelection(list.getAdapter().getCount()-1);
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
-        if(myString!=null){
+
             myApplyBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,7 +205,7 @@ public class fourthYearNotices extends AppCompatActivity implements AdapterView.
                 Toast.makeText(fourthYearNotices.this, "success", Toast.LENGTH_SHORT).show();
             }
         });
-        }
+
 
 
         myfire.addChildEventListener(new ChildEventListener() {

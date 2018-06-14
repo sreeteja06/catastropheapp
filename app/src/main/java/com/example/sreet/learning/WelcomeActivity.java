@@ -39,7 +39,14 @@ public class WelcomeActivity extends AppCompatActivity {
             finish();
         }
 
+
+
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);                          //to hide status bar and actionbar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
+
+
         setContentView(R.layout.activity_welcome);
 
         viewPager = findViewById(R.id.view_pager);

@@ -15,23 +15,19 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="14dp"
         android:text="TextView"
+        android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/Date"
-        android:layout_width="98dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/Descript"
-        android:text="TextView" />
 
     <TextView
         android:id="@+id/userName"
         android:layout_width="96dp"
         android:layout_height="20dp"
-        android:layout_alignBottom="@+id/Descript"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
         android:text="TextView"
         android:textStyle="bold" />
 
@@ -39,10 +35,8 @@
         android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="21dp"
-        android:layout_toStartOf="@+id/Date"
+        android:layout_alignBottom="@+id/Descript"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/Descript"
         app:srcCompat="@drawable/ic_insert_photo_black_24dp" />
 </RelativeLayout>

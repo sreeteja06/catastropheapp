@@ -192,7 +192,7 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
         list.setAdapter(myarrayadapter);
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
         //list.setSelection(list.getAdapter().getCount()-1);
-        if(myString!=null){
+
             myApplyBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,8 +207,8 @@ public class firstYearNotices extends AppCompatActivity implements AdapterView.O
                 childbase.child("user").setValue(sharedPreferences.getString("userName","alien"));
                 myedittext.setText(null);
                 Toast.makeText(firstYearNotices.this, "success", Toast.LENGTH_SHORT).show();
-            }
-        });}
+        }
+        });
 
 
         myfire.addChildEventListener(new ChildEventListener() {

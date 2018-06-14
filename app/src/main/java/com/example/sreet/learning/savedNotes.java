@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 public class savedNotes extends AppCompatActivity {
 
@@ -19,29 +20,23 @@ public class savedNotes extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.custom_menu,menu);
-        MenuItem item= menu.findItem(R.id.LogOut);
-        MenuItem item1 = menu.findItem(R.id.saveNOtice);
-        item1.setVisible(false);
-        item.setVisible(false);
-        this.invalidateOptionsMenu();
-        return true;
-    }
+        inflater.inflate(R.menu.search_menu,menu);
+        MenuItem item = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView)item.getActionView();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.favorite:
-                Intent intent = new Intent(this,idCard.class);
-                startActivity(intent);
-                break;
-            case R.id.about:
-                Intent i = new Intent(this,about.class);
-                startActivity(i);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //arrayAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 }
