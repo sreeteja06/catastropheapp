@@ -32,6 +32,15 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </receiver>
+        <provider
+            android:name=".GenericFileProvider"
+            android:authorities="${applicationId}.my.package.name.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
         <activity android:name=".MainActivity" />
         <activity
@@ -81,6 +90,8 @@
         <activity android:name=".SignIn" />
         <activity android:name=".attendance" />
         <activity android:name=".calculateAttendance"></activity>
+        <activity android:name=".Notes1"/>
+        <activity android:name=".Documentupdate"/>
     </application>
 
 </manifest>
