@@ -32,6 +32,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </receiver>
+
         <provider
             android:name=".GenericFileProvider"
             android:authorities="${applicationId}.my.package.name.provider"
@@ -89,9 +90,10 @@
         <activity android:name=".savedTimeTable" />
         <activity android:name=".SignIn" />
         <activity android:name=".attendance" />
-        <activity android:name=".calculateAttendance"></activity>
-        <activity android:name=".Notes1"/>
-        <activity android:name=".Documentupdate"/>
+        <activity android:name=".calculateAttendance" />
+        <activity android:name=".Notes1" />
+        <activity android:name=".Documentupdate" />
+        <activity android:name=".WebView_SIS"></activity>
     </application>
 
 </manifest>
