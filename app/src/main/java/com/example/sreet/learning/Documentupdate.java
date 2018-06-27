@@ -41,6 +41,7 @@ public class Documentupdate extends AppCompatActivity {
     DatabaseReference databaseReference;
     public StorageReference storageReference;
     String personEmail;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class Documentupdate extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
              personEmail = acct.getEmail();
+             name = acct.getDisplayName();
             if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")||personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")||personEmail.equalsIgnoreCase("samalakrishna7@gmail.com")||personEmail.equalsIgnoreCase("sripad2708@gmail.com")){
                //LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
                 //.setVisibility(View.VISIBLE);
@@ -204,7 +206,7 @@ String Url;
                     Date currentTime = Calendar.getInstance().getTime();
                     String finale = currentTime.toString().replace("GMT+05:30","");
 
-                    NotesDataClass nc = new NotesDataClass(ettx1.getText().toString()+" "+ettx.getText().toString().trim()+"."+getTypenotes(urii),finale+" by "+personEmail, Url);
+                    NotesDataClass nc = new NotesDataClass(ettx1.getText().toString()+" "+ettx.getText().toString().trim()+"."+getTypenotes(urii),finale+" by "+name, Url);
                     Toast.makeText(Documentupdate.this, "Success", Toast.LENGTH_SHORT).show();
                     String key = databaseReference.push().getKey();
                     databaseReference.child(key).setValue(nc);

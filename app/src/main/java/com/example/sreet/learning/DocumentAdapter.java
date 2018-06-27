@@ -34,6 +34,7 @@ import java.util.List;
 
 
 public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.DocmentHolder> {
+
     private Context Cx;
 
     int positionget;
@@ -70,6 +71,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
     @Override
     public void onBindViewHolder(@NonNull final DocmentHolder holder, int position) {
         final NotesDataClass noclass = lists.get(position);
+
 
         holder.tv1.setText(noclass.getName());
         holder.tv2.setText(noclass.getDate());
