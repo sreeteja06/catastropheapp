@@ -1,17 +1,15 @@
 package com.example.sreet.learning;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 public class notes extends AppCompatActivity implements View.OnClickListener{
 
@@ -22,7 +20,7 @@ public class notes extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setTitle("Notes");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_notes);
+        setContentView(R.layout.activity_notices);
 
         firstyear = (CardView) findViewById(R.id.firstyearid);
         secondyear = (CardView) findViewById(R.id.secondyearid);
@@ -49,26 +47,34 @@ public class notes extends AppCompatActivity implements View.OnClickListener{
         Intent i;
         switch (v.getId()){
             case R.id.firstyearid:{
-                i = new Intent(this,notesList.class);
-                i.putExtra("Year","firstYear");
+                i = new Intent(this,Notes1.class);
+                i.putExtra("Year","firstYearnotes");
+              //  i.putExtra("Filename","FirstYearDocuments");
                 startActivity(i);
                 break;
             }
             case R.id.secondyearid:{
-                i = new Intent(this,notesList.class);
-                i.putExtra("Year","secondYear");
+                i = new Intent(this,Notes1.class);
+
+                i.putExtra("Year","secondYearnotes");
+             //   i.putExtra("Filename","FirstYearDocuments");
+
                 startActivity(i);
                 break;
             }
             case R.id.thirdyearid:{
-                i = new Intent(this,notesList.class);
-                i.putExtra("Year","thirdYear");
+                i = new Intent(this,Notes1.class);
+                i.putExtra("Year","thirdYearnotes");
+              //  i.putExtra("Filename","FirstYearDocuments");
+
                 startActivity(i);
                 break;
             }
             case R.id.forthyearid:{
-                i = new Intent(this,fourthYearNotices.class);
-                i.putExtra("Year","fourthYear");
+                i = new Intent(this,Notes1.class);
+                i.putExtra("Year","fourthYearnotes");
+              //  i.putExtra("Filename","FirstYearDocuments");
+
                 startActivity(i);
                 break;
             }

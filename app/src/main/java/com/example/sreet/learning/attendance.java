@@ -23,8 +23,8 @@ public class attendance extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         Intent i;
         switch (v.getId()){
-            case R.id.openSis: Uri uri = Uri.parse("http://42.104.112.137/sz/Login.aspx");
-                Intent intent = new Intent(Intent.ACTION_VIEW,uri);startActivity(intent);break;
+            case R.id.openSis: //Uri uri = Uri.parse("http://42.104.112.137/sz/Login.aspx");
+                Intent intent = new Intent(this,WebView_SIS.class);startActivity(intent);break;
             case R.id.calculateAttendance: i = new Intent(this,calculateAttendance.class);startActivity(i);break;
             default: break;
         }
