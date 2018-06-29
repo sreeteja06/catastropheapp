@@ -29,6 +29,7 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,12 +49,13 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
     ArrayList<String> dateAndTimeList = new ArrayList<String>();
     ArrayList<String> userList = new ArrayList<>();
     ArrayList<String> imagesValue = new ArrayList<>();
+    String personEmail, Year;
     ListView list;
-    String Year;
+    int personScore;
     EditText myedittext,keyvaluetext;
     ImageButton myApplyBt,imageButton;
     String myString,keyvaluedata;
-    Firebase myfire;
+    Firebase myfire, updateScore;
     StorageReference imageStorage;
     StorageReference multipleImageStorage;
     ProgressDialog uploadProgress;
@@ -85,6 +87,8 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
             if(data.getClipData()!=null){
+                personScore = personScore+20;
+                updateScore.setValue(personScore);
                 uploadProgress.setMessage("Uploading ... ");
                 uploadProgress.show();
                 int totalItemsSelected = data.getClipData().getItemCount();
@@ -113,6 +117,8 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
             }
             else if(data.getData()!=null){
                 Uri uri = data.getData();
+                personScore = personScore+20;
+                updateScore.setValue(personScore);
                 final EditText FilePathName = (EditText) findViewById(R.id.editText);
                 uploadProgress.setMessage("Uploading ... ");
                 uploadProgress.show();
@@ -143,7 +149,7 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_year_notices);
+        setContentView(R.layout.activity_year_notices_descript);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -155,7 +161,7 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            String personEmail = acct.getEmail();
+            personEmail = acct.getEmail();
             if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")||personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")||personEmail.equalsIgnoreCase("samalakrishna7@gmail.com")||personEmail.equalsIgnoreCase("sreeteja.muthyala@gmail.com")){
                 LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
                 sendNotice.setVisibility(View.VISIBLE);
@@ -193,6 +199,27 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/"+Year);
+        updateScore = new Firebase("https://learning-2b334.firebaseio.com/users/score/"+personEmail.substring(0,(personEmail.length()-10)));
+        updateScore.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String score = dataSnapshot.child("score").child((personEmail.substring(0,(personEmail.length()-10)))).getValue(String.class);
+                if(score==null){
+
+                }
+                else {
+                    personScore = Integer.parseInt(score);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
+
         myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList,userList,imagesValue);
         list = (ListView) findViewById(R.id.listview);
         list.setOnItemClickListener(this);
@@ -206,6 +233,8 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
                 if(myedittext.getText().toString().trim().length()>0) {
                     myString = myedittext.getText().toString();
                     //keyvaluedata = keyvaluetext.getText().toString();
+                    personScore = personScore+10;
+                    updateScore.setValue(personScore);
                     Date todaysDate = new Date();
                     DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = df2.format(todaysDate);
@@ -226,6 +255,13 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
                 String noticeValue = dataSnapshot.child("notice").getValue(String.class);
                 String userName = dataSnapshot.child("user").getValue(String.class);
                 String images = dataSnapshot.child("images").getValue(String.class);
+                //String score = dataSnapshot.child("score").child(personEmail).getValue(String.class);
+                //if(score==null){
+                //    personScore = 0;
+                //}
+                //else {
+                //    personScore = Integer.parseInt(score);
+                //}
                 String keyvalue = dataSnapshot.getKey();
                 dateAndTimeList.add(keyvalue);
                 myarraylist.add(noticeValue);
@@ -273,6 +309,7 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                
                 myarrayadapter.getFilter().filter(newText);
                 return false;
             }
@@ -280,6 +317,7 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
 
         return super.onCreateOptionsMenu(menu);
     }
+
 
 
     //@Override

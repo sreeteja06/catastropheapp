@@ -26,7 +26,6 @@
         android:id="@+id/listview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
         app:layout_constraintBottom_toTopOf="@+id/sendNoticeLayout"
         app:layout_constraintEnd_toEndOf="parent"
