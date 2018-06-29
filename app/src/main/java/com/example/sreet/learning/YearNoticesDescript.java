@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
@@ -59,6 +60,7 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
     private  static final int GALLERY_INTENT = 1;
     ProgressBar spinner;
     SharedPreferences sharedPreferences;
+    ArrayAdapter<String> myarrayadapter;
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {                      //list item click listener
@@ -154,7 +156,7 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personEmail = acct.getEmail();
-            if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")||personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")||personEmail.equalsIgnoreCase("samalakrishna7@gmail.com")){
+            if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")||personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")||personEmail.equalsIgnoreCase("samalakrishna7@gmail.com")||personEmail.equalsIgnoreCase("sreeteja.muthyala@gmail.com")){
                 LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
                 sendNotice.setVisibility(View.VISIBLE);
             }
@@ -191,7 +193,7 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/"+Year);
-        final ArrayAdapter<String> myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList,userList,imagesValue);
+        myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList,userList,imagesValue);
         list = (ListView) findViewById(R.id.listview);
         list.setOnItemClickListener(this);
         list.setAdapter(myarrayadapter);
@@ -201,17 +203,19 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
             myApplyBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myString = myedittext.getText().toString();
-                //keyvaluedata = keyvaluetext.getText().toString();
-                Date todaysDate = new Date();
-                DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String date = df2.format(todaysDate);
-                Firebase childbase = myfire.child(date);
-                childbase.child("notice").setValue(myString);
-                childbase.child("images").setValue("0");
-                childbase.child("user").setValue(sharedPreferences.getString("userName","alien"));
-                myedittext.setText(null);
-                Toast.makeText(YearNoticesDescript.this, "success", Toast.LENGTH_SHORT).show();
+                if(myedittext.getText().toString().trim().length()>0) {
+                    myString = myedittext.getText().toString();
+                    //keyvaluedata = keyvaluetext.getText().toString();
+                    Date todaysDate = new Date();
+                    DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String date = df2.format(todaysDate);
+                    Firebase childbase = myfire.child(date);
+                    childbase.child("notice").setValue(myString);
+                    childbase.child("images").setValue("0");
+                    childbase.child("user").setValue(sharedPreferences.getString("userName", "alien"));
+                    myedittext.setText(null);
+                    Toast.makeText(YearNoticesDescript.this, "success", Toast.LENGTH_SHORT).show();
+                }
         }
         });
 
@@ -253,35 +257,60 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.custom_menu,menu);
-        MenuItem item= menu.findItem(R.id.saveNOtice);
-        item.setVisible(false);
-        this.invalidateOptionsMenu();
-        return true;
+        inflater.inflate(R.menu.search_menu,menu);
+        MenuItem item = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView)item.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                myarrayadapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.favorite:
-                Intent intent = new Intent(this,idCard.class);
-                startActivity(intent);
-                break;
-            case R.id.about:
-                Intent i = new Intent(this,about.class);
-                startActivity(i);
-                break;
-            case R.id.LogOut:
-                FirebaseAuth.getInstance().signOut();
-                Intent sign = new Intent(this,SignIn.class);
-                startActivity(sign);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
+    //@Override
+    //public boolean onCreateOptionsMenu(Menu menu) {
+    //    MenuInflater inflater = getMenuInflater();
+    //    inflater.inflate(R.menu.custom_menu,menu);
+    //    MenuItem item= menu.findItem(R.id.saveNOtice);
+    //    item.setVisible(false);
+    //    this.invalidateOptionsMenu();
+    //    return true;
+    //}
+
+    //@Override
+    //public boolean onOptionsItemSelected(MenuItem item) {
+    //    switch (item.getItemId()){
+    //        case R.id.favorite:
+    //            Intent intent = new Intent(this,idCard.class);
+    //            startActivity(intent);
+    //            break;
+    //        case R.id.about:
+    //            Intent i = new Intent(this,about.class);
+    //            startActivity(i);
+    //            break;
+    //        case R.id.LogOut:
+    //            FirebaseAuth.getInstance().signOut();
+    //            Intent sign = new Intent(this,SignIn.class);
+    //            startActivity(sign);
+    //            break;
+    //        default:
+    //            return super.onOptionsItemSelected(item);
+    //    }
+    //    return super.onOptionsItemSelected(item);
+    //}
 }
