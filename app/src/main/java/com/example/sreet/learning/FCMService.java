@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -48,16 +47,16 @@ public class FCMService extends FirebaseMessagingService {
     private void sendNotification(String notificationTitle, String notificationBody) {
         Intent intent;
         if(notificationTitle=="Notice from firstYear") {
-            intent = new Intent(this, firstYearNotices.class);
+            intent = new Intent(this, YearNoticesDescript.class);
         }
         else if(notificationTitle=="Notice from secondYear"){
-            intent = new Intent(this, secondYearNotices.class);
+            intent = new Intent(this, YearNoticesDescript.class);
         }
         else if(notificationTitle=="Notice from thirdYear"){
-            intent = new Intent(this, thirdYearNotices.class);
+            intent = new Intent(this, YearNoticesDescript.class);
         }
         else if(notificationTitle=="Notice from fourthYear"){
-            intent = new Intent(this, fourthYearNotices.class);
+            intent = new Intent(this, YearNoticesDescript.class);
         }
         else{
             intent = new Intent(this, Notices.class);

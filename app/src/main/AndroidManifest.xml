@@ -48,10 +48,7 @@
             android:name=".TimeTable"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".firstYearNotices"
-            android:parentActivityName=".Notices" />
-        <activity
-            android:name=".secondYearNotices"
+            android:name=".YearNoticesDescript"
             android:parentActivityName=".Notices" />
         <activity
             android:name=".activities"
@@ -69,12 +66,6 @@
             android:name=".listViewClick"
             android:parentActivityName=".Notices" />
         <activity android:name=".about" />
-        <activity
-            android:name=".thirdYearNotices"
-            android:parentActivityName=".Notices" />
-        <activity
-            android:name=".fourthYearNotices"
-            android:parentActivityName=".Notices" />
         <activity android:name=".idCard" />
         <activity android:name=".savedNotices" />
         <activity android:name=".WelcomeActivity">
