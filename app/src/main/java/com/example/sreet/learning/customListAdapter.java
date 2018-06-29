@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class customListAdapter extends ArrayAdapter<String>{
     private Context context;
     private ArrayList<String> Descript;
-    //private ArrayList<String> Date;
+    private ArrayList<String> Date;
     private ArrayList<String> Users;
     private ArrayList<String> images;
 
@@ -24,7 +24,7 @@ public class customListAdapter extends ArrayAdapter<String>{
         super(context, R.layout.custom_list, Descript);
         this.context = context;
         this.Descript = Descript;
-        //this.Date = Date;
+        this.Date = Date;
         this.Users = Users;
         this.images = images;
     }
@@ -38,23 +38,26 @@ public class customListAdapter extends ArrayAdapter<String>{
         String shrinkDescript = this.Descript.get(position);
         if(shrinkDescript!=null) {
             if (shrinkDescript.length() > 20) {
-                shrinkDescript = shrinkDescript.substring(0, 19) + ".......";
+                shrinkDescript = shrinkDescript.substring(0, 14) + "....";
             }
         }
+        String imgValue = images.get(position);
+        if(!imgValue.equalsIgnoreCase("0")) {
+            shrinkDescript = shrinkDescript+"(Contains Images)";
+        }
+
+
         TextView Descript = (TextView) customView.findViewById(R.id.Descript);
         Descript.setText(shrinkDescript);
 
-        //TextView Date = (TextView) customView.findViewById(R.id.Date);
-        //Date.setText(this.Date.get(position).substring(0,10));
+        TextView Date = (TextView) customView.findViewById(R.id.Date);
+        Date.setText(this.Date.get(position).substring(0,10));
 
         TextView userName = (TextView) customView.findViewById(R.id.userName);
         userName.setText(this.Users.get(position));
 
-        ImageView imageView = (ImageView) customView.findViewById(R.id.imageView5);
-        String imgValue = images.get(position);
-        if(imgValue!=null && imgValue.equalsIgnoreCase("0")){
-            imageView.setVisibility(View.GONE);
-        }
+        //ImageView imageView = (ImageView) customView.findViewById(R.id.imageView5);
+        //
 
         return customView;
     }
