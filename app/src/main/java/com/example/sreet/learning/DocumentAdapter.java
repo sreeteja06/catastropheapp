@@ -1,5 +1,6 @@
 package com.example.sreet.learning;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -37,21 +38,21 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
 
     private Context Cx;
 
-    int positionget;
+    private int positionget;
     public void getPositionget(int p)
     {
         positionget = p;
 
     }
     private List<NotesDataClass> lists;
-    public static final int MEGABYTE = 1024 * 1024;
+    private static final int MEGABYTE = 1024 * 1024;
     public void updateList(List<NotesDataClass> listupdater){
         lists = listupdater;
         notifyDataSetChanged();
     }
 
 
-    public DocumentAdapter(Context cx, List<NotesDataClass> lists) {
+   public DocumentAdapter(Context cx, List<NotesDataClass> lists) {
         Cx = cx;
         this.lists = lists;
 
@@ -75,46 +76,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
 
         holder.tv1.setText(noclass.getName());
         holder.tv2.setText(noclass.getDate());
-        final String u = noclass.getUrll();
-
-      //   String last="";
-     /*   if(u.contains(".pdf")){
-            last = ".pdf";}
-        if(u.contains(".jpg")){
-            last = ".jpg";}
-        if(u.contains(".doc")){
-            last = ".doc";}
-        if(u.contains(".docx")){
-            last = ".docx";}
-        if(u.contains(".txt")){
-            last = ".txt";}
-        if(u.contains(".mp3")){
-            last = ".mp3";}
-        if(u.contains(".mp4")){
-            last = ".mp4";}
-        if(u.contains(".png")){
-            last = ".png";}
-        if(u.contains(".xls")){
-            last = ".xls";}
-           final String ext = last;
-
-*/
-
-      /*  int k= u.indexOf("?");
-        String sub =u.substring(0,k);
-        int len = sub.length();
-        len = len-1;
-        int count = 0;
-
-        while(sub.charAt(len)!='.'){
-            len = len-1;
-            count++;
-        }
-        final String last = sub.substring(k-count,k);
-        */
-
-
-      //final   Uri uri = Uri.parse(u);
+        final String u = noclass.getUrl();
 
 
 
@@ -143,7 +105,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
         TextView tv1,tv2;
         Button b1;
 
-        public DocmentHolder(View itemView) {
+        DocmentHolder(View itemView) {
             super(itemView);
            tv1 = itemView.findViewById(R.id.textView11);
             tv2 = itemView.findViewById(R.id.textView7);
@@ -180,7 +142,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
             }
         };
     }
-public void download(String Url,String file)
+public void download(String Url, String file)
 {
     ConnectivityManager manager = (ConnectivityManager) Cx.getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo info = manager.getActiveNetworkInfo();
@@ -194,18 +156,21 @@ public void download(String Url,String file)
     new DocumentAdapter.FileDownloader().execute(Url,file);
 
     }
+
   class FileDownloader extends AsyncTask<String,Integer,String >{
       ProgressDialog progressDialog;
 
       @Override
       protected void onPreExecute() {
-          super.onPreExecute();
+          //super.onPreExecute();
+
           progressDialog=new ProgressDialog(Cx);
           progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
           progressDialog.setIndeterminate(false);
           progressDialog.setMax(100);
           progressDialog.setMessage("Downloading file...");
-          progressDialog.show();
+         progressDialog.show();
+
 
 
       }
@@ -214,7 +179,9 @@ public void download(String Url,String file)
       protected void onPostExecute(String s) {
           super.onPostExecute(s);
           Toast.makeText(Cx,"Downloaded",Toast.LENGTH_SHORT).show();
+
           progressDialog.dismiss();
+
 
 
       }
@@ -231,8 +198,10 @@ public void download(String Url,String file)
 
       @Override
       protected String doInBackground(String... strings) {
+
           String url = strings[0];
           String filename = strings[1];
+         Log.i("adad",strings[0]);
           String extstoragedir = Environment.getExternalStorageDirectory().toString();
           File fol = new File(extstoragedir, "Ifhe");
           File folder=new File(fol,"Documents");

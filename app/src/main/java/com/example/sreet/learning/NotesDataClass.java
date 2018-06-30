@@ -7,7 +7,9 @@ package com.example.sreet.learning;
 public class NotesDataClass {
     String name;
     String date;
-NotesDataClass(){}
+    private String Url;
+
+    NotesDataClass(){}
 
     public NotesDataClass(String name, String date, String url) {
         this.name = name;
@@ -19,7 +21,6 @@ NotesDataClass(){}
         return date;
     }
 
-    String Url;
 
 
 
@@ -32,11 +33,18 @@ NotesDataClass(){}
         this.name = name;
     }
 
-   public String getUrll() {
+    public String getUrl() {
         return Url;
     }
 
-   /* public void setUrl(String url) {
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
+    }
+    /* public void setUrl(String url) {
         Url = url;
     }*/
 }

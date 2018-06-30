@@ -90,7 +90,7 @@ public class Notes1 extends AppCompatActivity {
 
                 recyclerView.setAdapter(dA);
                 registerForContextMenu(recyclerView);
-progressDialog.dismiss();
+                progressDialog.dismiss();
                 dA.notifyDataSetChanged();
 
             }
