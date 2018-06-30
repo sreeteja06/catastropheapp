@@ -72,6 +72,8 @@ public class Notes1 extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //finish();
+                Filedata.removeAll(Filedata);
                 Intent i = new Intent(Notes1.this, Documentupdate.class);
                 i.putExtra("yeardetails", getIntent().getStringExtra("Year"));
                 startActivity(i);

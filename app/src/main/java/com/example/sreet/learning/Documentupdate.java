@@ -211,6 +211,9 @@ String Url;
                     String key = databaseReference.push().getKey();
                     databaseReference.child(key).setValue(nc);
                     progressDialog.dismiss();
+                  //  Intent i =new Intent(Documentupdate.this,Notes1.class);
+                    //startActivity(i);
+                    finish();
                 } else {
                     // Handle failures
                     // ...

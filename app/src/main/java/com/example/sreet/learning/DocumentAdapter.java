@@ -110,8 +110,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
            tv1 = itemView.findViewById(R.id.textView11);
             tv2 = itemView.findViewById(R.id.textView7);
             itemView.setOnCreateContextMenuListener(this);
-
-
+          //  notifyDataSetChanged();
             b1 = itemView.findViewById(R.id.button4);
 
 
