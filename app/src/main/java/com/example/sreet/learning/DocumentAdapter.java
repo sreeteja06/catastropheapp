@@ -3,6 +3,7 @@ package com.example.sreet.learning;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -16,7 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +41,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
 
     private Context Cx;
 
-    private int positionget;
-    public void getPositionget(int p)
-    {
-        positionget = p;
 
-    }
     private List<NotesDataClass> lists;
     private static final int MEGABYTE = 1024 * 1024;
     public void updateList(List<NotesDataClass> listupdater){
@@ -84,6 +82,8 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
         holder.b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 download(u, noclass.getName());
 
 
@@ -101,45 +101,21 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
 
 
 
-    public  class DocmentHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
+    public  class DocmentHolder extends RecyclerView.ViewHolder {
         TextView tv1,tv2;
-        Button b1;
+      ImageView b1;
 
         DocmentHolder(View itemView) {
             super(itemView);
            tv1 = itemView.findViewById(R.id.textView11);
             tv2 = itemView.findViewById(R.id.textView7);
-            itemView.setOnCreateContextMenuListener(this);
-          //  notifyDataSetChanged();
+
             b1 = itemView.findViewById(R.id.button4);
 
 
         }
 
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuItem delete = menu.add(Menu.NONE,1,1,"Delete");
-            delete.setOnMenuItemClickListener(onEditMenu);
-        }
-        final MenuItem.OnMenuItemClickListener onEditMenu = new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                //AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-                if(item.getItemId() == 1){
-                   // Log.i("Finally deleted","lololo");
-                    NotesDataClass object  = lists.get(positionget);
-
-                    String s = object.getName();
-                    //System.out.println(s);
-                    lists.remove(object);
-                    notifyDataSetChanged();
-
-                }
-
-                return false;
-            }
-        };
     }
 public void download(String Url, String file)
 {
@@ -168,7 +144,10 @@ public void download(String Url, String file)
           progressDialog.setIndeterminate(false);
           progressDialog.setMax(100);
           progressDialog.setMessage("Downloading file...");
+          progressDialog.setCancelable(false);
+          progressDialog.setCanceledOnTouchOutside(false);
          progressDialog.show();
+
 
 
 
@@ -180,6 +159,8 @@ public void download(String Url, String file)
           Toast.makeText(Cx,"Downloaded",Toast.LENGTH_SHORT).show();
 
           progressDialog.dismiss();
+          progressDialog.setCancelable(true);
+          progressDialog.setCanceledOnTouchOutside(true);
 
 
 
