@@ -46,7 +46,7 @@ public class Documentupdate extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+super.onBackPressed();
     }
 
     @Override

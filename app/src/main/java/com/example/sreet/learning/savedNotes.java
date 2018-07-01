@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class savedNotes extends AppCompatActivity {
     private List<String> fileList = new ArrayList<>();
-    EditText searchFile;
+    //EditText searchFile;
     ArrayAdapter<String> directoryList;
      ListView lv;
 
@@ -37,25 +38,41 @@ public class savedNotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_notes);
         setTitle("Saved Notes");
+        File root = new File(Environment
+                .getExternalStorageDirectory()+"/Ifhe/Documents");
+        ListDir(root);
 
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.custom_menu,menu);
-        MenuItem item= menu.findItem(R.id.LogOut);
-        MenuItem item1 = menu.findItem(R.id.saveNOtice);
-        item1.setVisible(false);
-        item.setVisible(false);
+        inflater.inflate(R.menu.search_menu,menu);
+       // MenuItem item= menu.findItem(R.id.LogOut);
+        //MenuItem item1 = menu.findItem(R.id.saveNOtice);
+        //item1.setVisible(false);
+        //item.setVisible(false);
         this.invalidateOptionsMenu();
-        searchFile = findViewById(R.id.searchDownloadedFiles);
+        MenuItem item = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView)item.getActionView();
 
-        File root = new File(Environment
-                .getExternalStorageDirectory()+"/Ifhe/Documents");
-        ListDir(root);
-        return true;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                directoryList.getFilter().filter(newText);
+                return false;
+            }
+
+        });
+
+        return super.onCreateOptionsMenu(menu);
+
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -73,7 +90,7 @@ public class savedNotes extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+*/
     void ListDir(File f){
         File[] files = f.listFiles();
         fileList.clear();
@@ -147,7 +164,7 @@ public class savedNotes extends AppCompatActivity {
         lv.setAdapter(directoryList);
         registerForContextMenu(lv);
 
-        searchFile.addTextChangedListener(new TextWatcher() {
+        /*searchFile.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -169,7 +186,7 @@ public class savedNotes extends AppCompatActivity {
 
             }
         });
-
+*/
 
 
     }
