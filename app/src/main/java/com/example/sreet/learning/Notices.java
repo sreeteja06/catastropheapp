@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -40,22 +39,26 @@ public class Notices extends AppCompatActivity implements View.OnClickListener{
         Intent i;
         switch (v.getId()){
             case R.id.firstyearid:{
-                i = new Intent(this,firstYearNotices.class);
+                i = new Intent(this,YearNoticesDescript.class);
+                i.putExtra("Year","firstYear");
                 startActivity(i);
                 break;
             }
             case R.id.secondyearid:{
-                i = new Intent(this,secondYearNotices.class);
+                i = new Intent(this,YearNoticesDescript.class);
+                i.putExtra("Year","secondYear");
                 startActivity(i);
                 break;
             }
             case R.id.thirdyearid:{
-                i = new Intent(this,thirdYearNotices.class);
+                i = new Intent(this,YearNoticesDescript.class);
+                i.putExtra("Year","thirdYear");
                 startActivity(i);
                 break;
             }
             case R.id.forthyearid:{
-                i = new Intent(this,fourthYearNotices.class);
+                i = new Intent(this,YearNoticesDescript.class);
+                i.putExtra("Year","fourthYear");
                 startActivity(i);
                 break;
             }

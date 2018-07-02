@@ -17,16 +17,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/cercleshape"
-        android:text="whatever"
-        android:textAlignment="center"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+        android:text="feature"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="nonsense"
+        android:text="Description about the feature"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20dp" />
