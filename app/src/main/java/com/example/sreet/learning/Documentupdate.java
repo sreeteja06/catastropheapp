@@ -12,6 +12,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -32,8 +33,8 @@ import java.util.Date;
 
 public class Documentupdate extends AppCompatActivity {
     ProgressDialog progressDialog;
-
-    Button b1, b2;
+    Intent intent;
+    ImageView b1, b2;
     EditText ettx,ettx1;
     private static final int PICK = 111;
    Uri urii;
@@ -44,6 +45,11 @@ public class Documentupdate extends AppCompatActivity {
     String name;
 
     @Override
+    public void onBackPressed() {
+super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         progressDialog = new ProgressDialog(Documentupdate.this);
         //progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -52,7 +58,7 @@ public class Documentupdate extends AppCompatActivity {
         progressDialog.setMessage("Uploading file...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documentupdate);
-        b1 = findViewById(R.id.selectButton);
+        b1 = findViewById(R.id.selectbutton);
         b2 = findViewById(R.id.bb);
         ettx = findViewById(R.id.Txrwin);
         ettx1 = findViewById(R.id.SubName);
@@ -92,7 +98,7 @@ public class Documentupdate extends AppCompatActivity {
     }
 
     public void showDatata() {
-        Intent intent = new Intent();
+       intent = new Intent();
         intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
 
@@ -211,6 +217,11 @@ String Url;
                     String key = databaseReference.push().getKey();
                     databaseReference.child(key).setValue(nc);
                     progressDialog.dismiss();
+                  //  Intent i =new Intent(Documentupdate.this,Notes1.class);
+                    //startActivity(i);
+                    finish();
+                    ettx1.setText("");
+                    ettx.setText("");
                 } else {
                     // Handle failures
                     // ...

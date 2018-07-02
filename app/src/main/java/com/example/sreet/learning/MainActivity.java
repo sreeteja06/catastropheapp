@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -34,6 +35,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -48,6 +50,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String extstoragedir = Environment.getExternalStorageDirectory().toString();
+        File fol = new File(extstoragedir, "Ifhe");
+        File folder=new File(fol,"Documents");
+        if(!folder.exists()) {
+            boolean bool = folder.mkdirs();
+        }
+
         //defining cards
         Attendance = (CardView) findViewById(R.id.attendanceID);
         Links = (CardView) findViewById(R.id.linksid);
@@ -58,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //to save the user name
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
         if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             Log.v("tag","Permission is granted");
@@ -103,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TimeTable.setOnClickListener(this);
         Notices.setOnClickListener(this);
         SavedThings.setOnClickListener(this);
+
         FirebaseMessaging.getInstance().subscribeToTopic("notifications");
     }
 
@@ -115,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         suggestonsItem.setVisible(true);
         item1.setVisible(true);
         item1.setTitle("Show guide");
+
         item1.setIcon(R.drawable.ic_sentiment_very_satisfied_black_24dp);
         this.invalidateOptionsMenu();
         return true;

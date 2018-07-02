@@ -8,11 +8,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,9 +33,9 @@ import java.util.List;
 public class Notes1 extends AppCompatActivity {
     DatabaseReference dataref;
     List<NotesDataClass> Filedata;
-    EditText search;
+ //   EditText search;
     DocumentAdapter dA;
-    Button b1;
+    ImageView b1;
     RecyclerView recyclerView;
     String personEmail;
    ProgressDialog progressDialog;
@@ -39,6 +44,7 @@ public class Notes1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getIntent().getStringExtra("Year"));
        progressDialog = new ProgressDialog(this);
         progressDialog.setIndeterminate(false);
         // progressDialog.setMax(100);
@@ -55,7 +61,7 @@ public class Notes1 extends AppCompatActivity {
         b1.setVisibility(View.INVISIBLE);
 
         dataref = FirebaseDatabase.getInstance().getReference("users/Notes/" + getIntent().getStringExtra("Year"));
-        search = findViewById(R.id.Searchaction);
+       // search = findViewById(R.id.Searchaction);
 
         recyclerView = findViewById(R.id.Documentrecycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -72,6 +78,8 @@ public class Notes1 extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //finish();
+                Filedata.removeAll(Filedata);
                 Intent i = new Intent(Notes1.this, Documentupdate.class);
                 i.putExtra("yeardetails", getIntent().getStringExtra("Year"));
                 startActivity(i);
@@ -90,7 +98,7 @@ public class Notes1 extends AppCompatActivity {
 
                 recyclerView.setAdapter(dA);
                 registerForContextMenu(recyclerView);
-progressDialog.dismiss();
+                progressDialog.dismiss();
                 dA.notifyDataSetChanged();
 
             }
@@ -100,7 +108,7 @@ progressDialog.dismiss();
 
             }
         });
-        search.addTextChangedListener(new TextWatcher() {
+     /*   search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -117,7 +125,35 @@ progressDialog.dismiss();
 
             }
         });
+*/
 
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_menu,menu);
+        // MenuItem item= menu.findItem(R.id.LogOut);
+        //MenuItem item1 = menu.findItem(R.id.saveNOtice);
+        //item1.setVisible(false);
+        //item.setVisible(false);
+        this.invalidateOptionsMenu();
+        MenuItem item = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView)item.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+               filter(newText);
+                return false;
+            }
+
+        });
+
+        return super.onCreateOptionsMenu(menu);
 
     }
 
