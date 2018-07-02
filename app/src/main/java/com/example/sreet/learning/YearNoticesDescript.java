@@ -10,6 +10,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,14 +45,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class YearNoticesDescript extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class YearNoticesDescript extends AppCompatActivity {
 
     ArrayList<String> myarraylist = new ArrayList<>();
     ArrayList<String> dateAndTimeList = new ArrayList<String>();
     ArrayList<String> userList = new ArrayList<>();
     ArrayList<String> imagesValue = new ArrayList<>();
     String personEmail, Year;
-    ListView list;
+    RecyclerView list;
     int personScore;
     EditText myedittext,keyvaluetext;
     ImageButton myApplyBt,imageButton;
@@ -62,22 +64,8 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
     private  static final int GALLERY_INTENT = 1;
     ProgressBar spinner;
     SharedPreferences sharedPreferences;
-    ArrayAdapter<String> myarrayadapter;
+    customListAdapter myarrayadapter;
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {                      //list item click listener
-        Intent intent = new Intent(this,listViewClick.class);
-        String positionDate = dateAndTimeList.get(position);
-        intent.putExtra("Date",positionDate);
-        String positionDes = myarraylist.get(position);
-        intent.putExtra("Description",positionDes);
-        String userName = userList.get(position);
-        intent.putExtra("userName",userName);
-        String images = imagesValue.get(position);
-        intent.putExtra("images",images);
-        intent.putExtra("Year",Year);
-        startActivity(intent);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//to get result from the gallery image picker
@@ -219,11 +207,15 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
         });
 
 
-
-        myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList,userList,imagesValue);
-        list = (ListView) findViewById(R.id.listview);
-        list.setOnItemClickListener(this);
+        list = (RecyclerView) findViewById(R.id.listview);
+        myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList,userList,imagesValue,Year);
         list.setAdapter(myarrayadapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        list.setLayoutManager(linearLayoutManager);
+
+
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
         //list.setSelection(list.getAdapter().getCount()-1);
 
@@ -309,8 +301,6 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-                myarrayadapter.getFilter().filter(newText);
                 return false;
             }
         });
