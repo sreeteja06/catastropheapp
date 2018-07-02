@@ -51,7 +51,7 @@
             android:name=".YearNoticesDescript"
             android:parentActivityName=".Notices" />
         <activity
-            android:name=".activities"
+            android:name=".Events"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".notes"

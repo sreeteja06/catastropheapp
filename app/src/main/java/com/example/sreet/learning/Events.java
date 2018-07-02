@@ -1,13 +1,11 @@
 package com.example.sreet.learning;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,13 +14,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -31,7 +25,6 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,23 +38,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class YearNoticesDescript extends AppCompatActivity {
-    ArrayList<NoticesDataClass> NoticesData = new ArrayList<>();
-    String personEmail, Year;
-    RecyclerView list;
-    int personScore;
-    EditText myedittext,keyvaluetext;
-    ImageButton myApplyBt,imageButton;
-    String myString,keyvaluedata;
-    Firebase myfire, updateScore;
+public class Events extends AppCompatActivity {
+    ArrayList<NoticesDataClass> EventsData = new ArrayList<>();
+    String personEmail, myString;
+    ProgressDialog uploadProgress;
     StorageReference imageStorage;
     StorageReference multipleImageStorage;
-    ProgressDialog uploadProgress;
+    RecyclerView list;
     private  static final int GALLERY_INTENT = 1;
     ProgressBar spinner;
     SharedPreferences sharedPreferences;
+    EditText myedittext;
+    ImageButton myApplyBt,imageButton;
     customListAdapter myarrayadapter;
-
+    Firebase myfire;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//to get result from the gallery image picker
@@ -71,8 +61,6 @@ public class YearNoticesDescript extends AppCompatActivity {
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
             if(data.getClipData()!=null){
-                personScore = personScore+20;
-                updateScore.setValue(personScore);
                 uploadProgress.setMessage("Uploading ... ");
                 uploadProgress.show();
                 int totalItemsSelected = data.getClipData().getItemCount();
@@ -81,11 +69,11 @@ public class YearNoticesDescript extends AppCompatActivity {
                 for(int i=0;i<totalItemsSelected;i++){
                     Uri uri = data.getClipData().getItemAt(i).getUri();
                     String s = String.valueOf(i);
-                    StorageReference filetopath = multipleImageStorage.child("Notices").child(Year).child(filePathValue).child(s);
+                    StorageReference filetopath = multipleImageStorage.child("Event").child("").child(filePathValue).child(s);
                     filetopath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(YearNoticesDescript.this, "done", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Events.this, "done", Toast.LENGTH_SHORT).show();
                             uploadProgress.dismiss();
                         }
                     });
@@ -95,30 +83,28 @@ public class YearNoticesDescript extends AppCompatActivity {
                 String date = df2.format(todaysDate);
                 Firebase childbase = myfire.child(date);
                 childbase.child("images").setValue(totalItemsSelected);
-                childbase.child("notice").setValue(filePathValue);
+                childbase.child("Event").setValue(filePathValue);
                 childbase.child("user").setValue(sharedPreferences.getString("userName","alien"));
                 FilePathName.setText(null);
             }
             else if(data.getData()!=null){
                 Uri uri = data.getData();
-                personScore = personScore+20;
-                updateScore.setValue(personScore);
                 final EditText FilePathName = (EditText) findViewById(R.id.editText);
                 uploadProgress.setMessage("Uploading ... ");
                 uploadProgress.show();
                 final String filePathValue = FilePathName.getText().toString();
-                StorageReference filepath = imageStorage.child("Notices").child(Year).child(filePathValue).child("0");
+                StorageReference filepath = imageStorage.child("Event").child("").child(filePathValue).child("0");
                 filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(YearNoticesDescript.this, "Upload Done", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Events.this, "Upload Done", Toast.LENGTH_SHORT).show();
                         uploadProgress.dismiss();
                         Date todaysDate = new Date();
                         DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         String date = df2.format(todaysDate);
                         Firebase childbase = myfire.child(date);
                         childbase.child("images").setValue("1");
-                        childbase.child("notice").setValue(filePathValue);
+                        childbase.child("Event").setValue(filePathValue);
                         childbase.child("user").setValue(sharedPreferences.getString("userName","alien"));
                         FilePathName.setText(null);
                     }
@@ -128,36 +114,22 @@ public class YearNoticesDescript extends AppCompatActivity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.CUPCAKE)
-    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_year_notices_descript);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
+        setTitle("Activities");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Bundle bundle = getIntent().getExtras();
-        Year = bundle.getString("Year","firstYear");
-        setTitle(Year+" notices");
-
+        setContentView(R.layout.activity_activities);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
+        if(acct!=null){
             personEmail = acct.getEmail();
             if(personEmail.equalsIgnoreCase("itstechclub@gmail.com")||personEmail.equalsIgnoreCase("ppraneeth294@gmail.com")||personEmail.equalsIgnoreCase("samalakrishna7@gmail.com")||personEmail.equalsIgnoreCase("sreeteja.muthyala@gmail.com")){
                 LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
                 sendNotice.setVisibility(View.VISIBLE);
             }
         }
-
-
-
-
-
-
-        Toast.makeText(YearNoticesDescript.this, "Click on a specific notification to open it for the detailed information about the notification", Toast.LENGTH_SHORT).show();
         myedittext = (EditText) findViewById(R.id.editText);
         myApplyBt = (ImageButton) findViewById(R.id.button);
         imageButton = (ImageButton) findViewById(R.id.addImageButton);
@@ -177,75 +149,50 @@ public class YearNoticesDescript extends AppCompatActivity {
                     startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_INTENT);
                 }
                 else{
-                    Toast.makeText(YearNoticesDescript.this, "Enter the notice before adding image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Events.this, "Enter the notice before adding image", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         Firebase.setAndroidContext(this);
-        myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/"+Year);
-        updateScore = new Firebase("https://learning-2b334.firebaseio.com/users/score/"+personEmail.substring(0,(personEmail.length()-10)));
-        updateScore.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String score = dataSnapshot.child("score").child((personEmail.substring(0,(personEmail.length()-10)))).getValue(String.class);
-                if(score==null){
-
-                }
-                else {
-                    personScore = Integer.parseInt(score);
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-
-
+        myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Events/");
         list = (RecyclerView) findViewById(R.id.listview);
-        myarrayadapter = new customListAdapter(this,NoticesData,Year);
+        myarrayadapter = new customListAdapter(this, EventsData,"");
         list.setAdapter(myarrayadapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         list.setLayoutManager(linearLayoutManager);
-
-
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
         //list.setSelection(list.getAdapter().getCount()-1);
 
-            myApplyBt.setOnClickListener(new View.OnClickListener() {
+        myApplyBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(myedittext.getText().toString().trim().length()>0) {
                     myString = myedittext.getText().toString();
                     //keyvaluedata = keyvaluetext.getText().toString();
-                    personScore = personScore+10;
-                    updateScore.setValue(personScore);
                     Date todaysDate = new Date();
                     DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = df2.format(todaysDate);
                     Firebase childbase = myfire.child(date);
-                    childbase.child("notice").setValue(myString);
+                    childbase.child("Event").setValue(myString);
                     childbase.child("images").setValue("0");
                     childbase.child("user").setValue(sharedPreferences.getString("userName", "alien"));
                     myedittext.setText(null);
-                    Toast.makeText(YearNoticesDescript.this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Events.this, "success", Toast.LENGTH_SHORT).show();
                 }
-        }
+            }
         });
-
 
         myfire.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String noticeValue = dataSnapshot.child("notice").getValue(String.class);
+                String noticeValue = dataSnapshot.child("Event").getValue(String.class);
                 String userName = dataSnapshot.child("user").getValue(String.class);
                 String images = dataSnapshot.child("images").getValue(String.class);
                 String keyvalue = dataSnapshot.getKey();
                 NoticesDataClass tempData = new NoticesDataClass(noticeValue,keyvalue,userName,images);
-                NoticesData.add(tempData);
+                EventsData.add(tempData);
                 myarrayadapter.notifyDataSetChanged();
                 spinner.setVisibility(View.GONE);
             }
@@ -272,7 +219,6 @@ public class YearNoticesDescript extends AppCompatActivity {
         });
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
