@@ -46,11 +46,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class YearNoticesDescript extends AppCompatActivity {
-
-    ArrayList<String> myarraylist = new ArrayList<>();
-    ArrayList<String> dateAndTimeList = new ArrayList<String>();
-    ArrayList<String> userList = new ArrayList<>();
-    ArrayList<String> imagesValue = new ArrayList<>();
+    ArrayList<NoticesDataClass> NoticesData = new ArrayList<>();
     String personEmail, Year;
     RecyclerView list;
     int personScore;
@@ -208,7 +204,7 @@ public class YearNoticesDescript extends AppCompatActivity {
 
 
         list = (RecyclerView) findViewById(R.id.listview);
-        myarrayadapter = new customListAdapter(this,myarraylist,dateAndTimeList,userList,imagesValue,Year);
+        myarrayadapter = new customListAdapter(this,NoticesData,Year);
         list.setAdapter(myarrayadapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
@@ -255,10 +251,12 @@ public class YearNoticesDescript extends AppCompatActivity {
                 //    personScore = Integer.parseInt(score);
                 //}
                 String keyvalue = dataSnapshot.getKey();
-                dateAndTimeList.add(keyvalue);
-                myarraylist.add(noticeValue);
-                imagesValue.add(images);
-                userList.add(userName);
+                NoticesDataClass tempData = new NoticesDataClass(noticeValue,keyvalue,userName,images);
+                NoticesData.add(tempData);
+                //dateAndTimeList.add(keyvalue);
+                //myarraylist.add(noticeValue);
+                //imagesValue.add(images);
+                //userList.add(userName);
                 myarrayadapter.notifyDataSetChanged();
                 spinner.setVisibility(View.GONE);
             }
@@ -296,49 +294,17 @@ public class YearNoticesDescript extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                myarrayadapter.getFilter().filter(newText);
                 return false;
             }
         });
 
         return super.onCreateOptionsMenu(menu);
     }
-
-
-
-    //@Override
-    //public boolean onCreateOptionsMenu(Menu menu) {
-    //    MenuInflater inflater = getMenuInflater();
-    //    inflater.inflate(R.menu.custom_menu,menu);
-    //    MenuItem item= menu.findItem(R.id.saveNOtice);
-    //    item.setVisible(false);
-    //    this.invalidateOptionsMenu();
-    //    return true;
-    //}
-
-    //@Override
-    //public boolean onOptionsItemSelected(MenuItem item) {
-    //    switch (item.getItemId()){
-    //        case R.id.favorite:
-    //            Intent intent = new Intent(this,idCard.class);
-    //            startActivity(intent);
-    //            break;
-    //        case R.id.about:
-    //            Intent i = new Intent(this,about.class);
-    //            startActivity(i);
-    //            break;
-    //        case R.id.LogOut:
-    //            FirebaseAuth.getInstance().signOut();
-    //            Intent sign = new Intent(this,SignIn.class);
-    //            startActivity(sign);
-    //            break;
-    //        default:
-    //            return super.onOptionsItemSelected(item);
-    //    }
-    //    return super.onOptionsItemSelected(item);
-    //}
 }
