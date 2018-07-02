@@ -68,8 +68,12 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
         holder.tv1.setText(noclass.getName());
         String namedisplay[] =noclass.getDate().split("by");
         int h = namedisplay.length;
+
         holder.tv2.setText(namedisplay[h-1]);
-        final String u = noclass.getUrl();
+       String againnamedisplay[] = noclass.getDate().split(" ");
+       String date = againnamedisplay[0]+" "+againnamedisplay[1]+" "+againnamedisplay[2];
+       holder.tv3.setText(date);
+       final String u = noclass.getUrl();
 
 
 
@@ -97,14 +101,14 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
 
 
     public  class DocmentHolder extends RecyclerView.ViewHolder {
-        TextView tv1,tv2;
+        TextView tv1,tv2,tv3;
       ImageView b1;
 
         DocmentHolder(View itemView) {
             super(itemView);
            tv1 = itemView.findViewById(R.id.textView11);
             tv2 = itemView.findViewById(R.id.textView7);
-
+tv3 = itemView.findViewById(R.id.textView18);
             b1 = itemView.findViewById(R.id.button4);
 
 
