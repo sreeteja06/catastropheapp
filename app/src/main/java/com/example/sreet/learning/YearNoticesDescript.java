@@ -309,7 +309,7 @@ public class YearNoticesDescript extends AppCompatActivity implements AdapterVie
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                
+
                 myarrayadapter.getFilter().filter(newText);
                 return false;
             }

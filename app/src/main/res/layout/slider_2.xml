@@ -17,10 +17,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/cercleshape"
+        android:gravity="center"
         android:text="Save Notice"
-        android:textAlignment="center"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <TextView
         android:layout_width="match_parent"
