@@ -113,12 +113,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/SubName"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="Enter Details"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:typeface="monospace" />
+        android:typeface="monospace"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
 </android.widget.RelativeLayout>

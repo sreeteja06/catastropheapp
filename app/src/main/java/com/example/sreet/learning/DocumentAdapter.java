@@ -65,13 +65,13 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
         final NotesDataClass noclass = lists.get(position);
 
 
-        holder.tv1.setText(noclass.getName());
+        holder.tv1.setText(noclass.getName().trim());
         String namedisplay[] =noclass.getDate().split("by");
         int h = namedisplay.length;
 
-        holder.tv2.setText(namedisplay[h-1]);
+        holder.tv2.setText(namedisplay[h-1].trim());
        String againnamedisplay[] = noclass.getDate().split(" ");
-       String date = againnamedisplay[0]+" "+againnamedisplay[1]+" "+againnamedisplay[2];
+       String date = againnamedisplay[1].trim()+" "+againnamedisplay[2].trim()+" "+againnamedisplay[5].trim();
        holder.tv3.setText(date);
        final String u = noclass.getUrl();
 
