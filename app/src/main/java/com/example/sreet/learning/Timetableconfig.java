@@ -13,16 +13,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Timetableconfig extends AppCompatActivity {
     ListView l;
     ArrayAdapter<String> arrayAdapter;
-    List<String> list;
+    List<String> list,updater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class Timetableconfig extends AppCompatActivity {
         setContentView(R.layout.activity_timetableconfig);
         l = findViewById(R.id.listviewtable);
         list = new ArrayList<>();
+        updateInfo();
 
     }
 
@@ -60,6 +64,7 @@ public class Timetableconfig extends AppCompatActivity {
 
             }
         });*/
+       l.setAdapter(arrayAdapter);
         return true;
     }
 
@@ -71,8 +76,8 @@ public class Timetableconfig extends AppCompatActivity {
             dialog.setContentView(R.layout.timetablepicker);
             dialog.setTitle("Set details");
            final EditText e1 = dialog.findViewById(R.id.editText3);
-            final EditText e2 = dialog.findViewById(R.id.editText4);
-            final EditText e3 = dialog.findViewById(R.id.editText5);
+            final TextView e2 = dialog.findViewById(R.id.editText4);
+            final TextView e3 = dialog.findViewById(R.id.editText5);
             Button b1 = dialog.findViewById(R.id.button2);
             Button b2 = dialog.findViewById(R.id.button5);
             Button b3 = dialog.findViewById(R.id.button6);
@@ -124,7 +129,7 @@ public class Timetableconfig extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     list.add(e1.getText().toString().trim()+" from "+e2.getText().toString().trim()+" to "+e3.getText().toString().trim());
-
+                    saveInfo(list);
                    l.setAdapter(arrayAdapter);
                     dialog.dismiss();
 
@@ -138,5 +143,25 @@ public class Timetableconfig extends AppCompatActivity {
         l.setAdapter(arrayAdapter);
         return super.onOptionsItemSelected(item);
     }
+void saveInfo(List<String> a)
+{
+    SharedPreferences preferences = getSharedPreferences("Timetablepersonal",MODE_PRIVATE);
+    SharedPreferences.Editor editor = preferences.edit();
+    Set set = new HashSet(a);
+    editor.putStringSet("TimeData",  set);
+    editor.apply();
+}
+void updateInfo()
+{
+    SharedPreferences preferences = getSharedPreferences("Timetablepersonal",MODE_PRIVATE);
+Set<String> check = new HashSet<>();
+check.add("check");
+    Set again = preferences.getStringSet("TimeData",check);
+    if(again.contains("check"))
+    {}
+    else
+        list = new ArrayList(again);
+
+}
 
 }
