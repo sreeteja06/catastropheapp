@@ -34,6 +34,10 @@ public class customListAdapter extends RecyclerView.Adapter<customListAdapter.Vi
             userName = (TextView) view.findViewById(R.id.userName);
         }
     }
+    public void updateList(ArrayList<NoticesDataClass> listupdater){
+        NoticesData = listupdater;
+        notifyDataSetChanged();
+    }
 
     public customListAdapter(Context context, ArrayList<NoticesDataClass> NoticesData, String Year) {
         this.context = context;

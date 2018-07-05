@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,6 +37,7 @@ public class Notes1 extends AppCompatActivity {
     List<NotesDataClass> Filedata;
  //   EditText search;
     DocumentAdapter dA;
+
     ImageView b1;
     RecyclerView recyclerView;
     String personEmail;
@@ -58,6 +61,7 @@ public class Notes1 extends AppCompatActivity {
 
         setContentView(R.layout.activity_notes);
         b1 = findViewById(R.id.fileUploadButton);
+
         b1.setVisibility(View.INVISIBLE);
 
         dataref = FirebaseDatabase.getInstance().getReference("users/Notes/" + getIntent().getStringExtra("Year"));
@@ -72,6 +76,8 @@ public class Notes1 extends AppCompatActivity {
             if (personEmail.equalsIgnoreCase("itstechclub@gmail.com") || personEmail.equalsIgnoreCase("ppraneeth294@gmail.com") || personEmail.equalsIgnoreCase("samalakrishna7@gmail.com") || personEmail.equalsIgnoreCase("sripad2708@gmail.com")) {
                 //LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
                 b1.setVisibility(View.VISIBLE);
+
+
             }
         }
 

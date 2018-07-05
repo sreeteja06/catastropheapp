@@ -44,6 +44,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class YearNoticesDescript extends AppCompatActivity {
     ArrayList<NoticesDataClass> NoticesData = new ArrayList<>();
@@ -289,11 +290,20 @@ public class YearNoticesDescript extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                myarrayadapter.getFilter().filter(newText);
-                return false;
+filter(newText);
+return false;
             }
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+    public void filter(String text) {
+        ArrayList<NoticesDataClass> temp = new ArrayList<>();
+        for (NoticesDataClass d : NoticesData) {
+            if (d.getDescript().toLowerCase().contains(text)) {
+                temp.add(d);
+            }
+        }
+        myarrayadapter.updateList(temp);
     }
 }

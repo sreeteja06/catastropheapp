@@ -6,6 +6,13 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
 
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -84,7 +91,9 @@
         <activity android:name=".calculateAttendance" />
         <activity android:name=".Notes1" />
         <activity android:name=".Documentupdate" />
-        <activity android:name=".WebView_SIS"></activity>
+        <activity android:name=".WebView_SIS" />
+        <activity android:name=".TimeTableSetter" />
+        <activity android:name=".Timetableconfig"></activity>
     </application>
 
 </manifest>

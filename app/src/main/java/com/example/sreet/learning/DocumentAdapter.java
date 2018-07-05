@@ -1,9 +1,7 @@
 package com.example.sreet.learning;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -11,14 +9,9 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,9 +65,15 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
         final NotesDataClass noclass = lists.get(position);
 
 
-        holder.tv1.setText(noclass.getName());
-        holder.tv2.setText(noclass.getDate());
-        final String u = noclass.getUrl();
+        holder.tv1.setText(noclass.getName().trim());
+        String namedisplay[] =noclass.getDate().split("by");
+        int h = namedisplay.length;
+
+        holder.tv2.setText(namedisplay[h-1].trim());
+       String againnamedisplay[] = noclass.getDate().split(" ");
+       String date = againnamedisplay[1].trim()+" "+againnamedisplay[2].trim()+" "+againnamedisplay[5].trim();
+       holder.tv3.setText(date);
+       final String u = noclass.getUrl();
 
 
 
@@ -102,14 +101,14 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
 
 
     public  class DocmentHolder extends RecyclerView.ViewHolder {
-        TextView tv1,tv2;
+        TextView tv1,tv2,tv3;
       ImageView b1;
 
         DocmentHolder(View itemView) {
             super(itemView);
            tv1 = itemView.findViewById(R.id.textView11);
             tv2 = itemView.findViewById(R.id.textView7);
-
+tv3 = itemView.findViewById(R.id.textView18);
             b1 = itemView.findViewById(R.id.button4);
 
 

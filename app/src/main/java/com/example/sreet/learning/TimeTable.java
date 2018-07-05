@@ -38,6 +38,8 @@ public class TimeTable extends AppCompatActivity implements View.OnClickListener
         Intent i;
         switch (v.getId()){
             case R.id.firstyearid:{
+                i = new Intent(this,TimeTableSetter.class);
+                startActivity(i);
                 break;
             }
             case R.id.secondyearid:{
