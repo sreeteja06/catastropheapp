@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,10 +39,10 @@ public class Timetableconfig extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     List<String> list;
     String sub,time;
-   // int Selectedhour;
-   // int SelectedMin;
-     Calendar toofix;
-int daysetter ;
+    // int Selectedhour;
+    // int SelectedMin;
+    Calendar toofix;
+    int daysetter ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,11 @@ int daysetter ;
         l = findViewById(R.id.listviewtable);
         list = new ArrayList<>();
         updateInfo();
+        arrayAdapter = new ArrayAdapter<>(Timetableconfig.this,
+                android.R.layout.simple_list_item_1, list);
+        l.setAdapter(arrayAdapter);
+        daysetter=getIntent().getIntExtra("daydetails",0);
+//Log.i("test",String.valueOf(daysetter));
     }
 
     @Override
@@ -87,7 +93,7 @@ int daysetter ;
                     int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                     int minute = mcurrentTime.get(Calendar.MINUTE);
                     toofix = Calendar.getInstance();
-                   // final Date date = toofix.getTime();'if (cal.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
+                    // final Date date = toofix.getTime();'if (cal.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
 
 
 
@@ -97,7 +103,21 @@ int daysetter ;
                         @Override
                         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                             e2.setVisibility(View.VISIBLE);
-                            e2.setText( selectedHour + ":" + selectedMinute);
+                            e2.setText(selectedHour + ":" + selectedMinute);
+                            Log.i("check",String.valueOf(daysetter));
+                            // Log.i("check",date.toString());
+
+                            if (toofix.get(Calendar.DAY_OF_WEEK) != daysetter) {
+                                toofix.add(Calendar.DAY_OF_MONTH, (daysetter + 7 - toofix.get(Calendar.DAY_OF_WEEK)) % 7);
+                            } else {
+                                int minOfDay = toofix.get(Calendar.HOUR_OF_DAY) * 60 + toofix.get(Calendar.MINUTE);
+                                if (minOfDay >= selectedHour * 60 + selectedMinute)
+                                    toofix.add(Calendar.DAY_OF_MONTH, 7); // Bump to next week
+                            }
+                            toofix.set(Calendar.HOUR_OF_DAY, selectedHour);
+                            toofix.set(Calendar.MINUTE, selectedMinute);
+                            toofix.set(Calendar.SECOND, 0);
+                            toofix.set(Calendar.MILLISECOND, 0);
                         }
                     }, hour, minute, true);//Yes 24 hour time
                     mTimePicker.setTitle("Select Time");
@@ -116,8 +136,10 @@ int daysetter ;
                     mTimePicker = new TimePickerDialog(Timetableconfig.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            String concat = String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
                             e3.setVisibility(View.VISIBLE);
-                            e3.setText( selectedHour + ":" + selectedMinute);
+                            e3.setText(concat.trim());
+
                         }
                     }, hour, minute, true);//Yes 24 hour time
                     mTimePicker.setTitle("Select Time");
@@ -132,23 +154,21 @@ int daysetter ;
             b3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if((e1.getText().toString().trim().length()>0)||(e2.getText().toString().trim().length()>0)||(e3.getText().toString().trim().length()>0)){
-                        list.add(e1.getText().toString().trim() + " from " + e2.getText().toString().trim() + " to " + e3.getText().toString().trim());
+                    if(e1.getText().toString().length()!=0&&e2.getText().toString().length()!=0&&e3.getText().toString().length()!=0){
+                        list.add(e1.getText().toString().trim() + " From " +e2.getText().toString()+" to "+e3.getText().toString());
+                        sub = e1.getText().toString().trim();
+                        time = e2.getText().toString().trim()+" to " + e3.getText().toString();
+
                         saveInfo(list);
-                        l.setAdapter(arrayAdapter);
-                        dialog.dismiss();
-                    }
-                    else{
-                        Toast.makeText(Timetableconfig.this, "Fill all the forms", Toast.LENGTH_SHORT).show();
-                    }
+                        arrayAdapter.notifyDataSetChanged();
 
-                    }
-            });
+                        //int alertTime = ((Selectedhour*60*60)+(SelectedMin*60))*1000;
+                        setReminder();
 
-                    dialog.dismiss();}
+                        dialog.dismiss();}
                     else
                     {
-                        Toast.makeText(Timetableconfig.this,"Please select all the details",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Timetableconfig.this,"Please fill all the details",Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -180,20 +200,20 @@ int daysetter ;
 
     }
 
-   void setReminder()
-   {
-      // Toast.makeText(Timetableconfig.this,"Reminder Set at"+Selectedhour+" :"+SelectedMin,Toast.LENGTH_SHORT).show();
-       Intent alertIntent = new Intent(this, Notify.class);
-       alertIntent.putExtra("subjectname",sub);
-       alertIntent.putExtra("time",time);
+    void setReminder()
+    {
+        // Toast.makeText(Timetableconfig.this,"Reminder Set at"+Selectedhour+" :"+SelectedMin,Toast.LENGTH_SHORT).show();
+        Intent alertIntent = new Intent(this, Notify.class);
+        alertIntent.putExtra("subjectname",sub);
+        alertIntent.putExtra("time",time);
 //Log.i("time",String.valueOf(toofix.getTimeInMillis()));
-       AlarmManager alarmManager = (AlarmManager) getSystemService(Timetableconfig.ALARM_SERVICE);
-       PendingIntent pendingIntent = PendingIntent.getBroadcast(this, list.size(), alertIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Timetableconfig.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, list.size(), alertIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-      // alarmManager.setExact(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis(), pendingIntent);
-       alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis()-1000,(7*AlarmManager.INTERVAL_DAY), pendingIntent);
+        // alarmManager.setExact(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis(), pendingIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis()-1000,(7*AlarmManager.INTERVAL_DAY), pendingIntent);
 
-   }
+    }
 
 }
 
