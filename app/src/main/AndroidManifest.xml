@@ -44,6 +44,12 @@
             android:name=".Notify"
             android:enabled="true"
             android:exported="false" >
+            <intent-filter>
+                <action android:name="com.example.sreet.learning.START_SERVICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.example.sreet.learning.STOP_SERVICE" />
+            </intent-filter>
         </receiver>
         <provider
             android:name=".GenericFileProvider"
