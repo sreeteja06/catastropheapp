@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
+import java.util.Calendar;
+
 public class TimeTableSetter extends AppCompatActivity {
     CardView c1,c2,c3,c4,c5,c6;
 
@@ -24,6 +26,58 @@ public class TimeTableSetter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TimeTableSetter.this,Timetableconfig.class);
+                intent.putExtra("daydetails", 2);
+                intent.putExtra("dayofweek","TimeTableMonday");
+                startActivity(intent);
+            }
+        });
+        c2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimeTableSetter.this,Timetableconfig.class);
+                intent.putExtra("daydetails",3);
+                intent.putExtra("dayofweek","TimeTableTuesday");
+
+                startActivity(intent);
+            }
+        });
+        c3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimeTableSetter.this,Timetableconfig.class);
+                intent.putExtra("daydetails",4);
+                intent.putExtra("dayofweek","TimeTableWednesday");
+
+                startActivity(intent);
+            }
+        });
+        c4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimeTableSetter.this,Timetableconfig.class);
+                intent.putExtra("daydetails",5);
+                intent.putExtra("dayofweek","TimeTableThursday");
+
+                startActivity(intent);
+            }
+        });
+        c5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimeTableSetter.this,Timetableconfig.class);
+                intent.putExtra("daydetails",6);
+                intent.putExtra("dayofweek","TimeTableFriday");
+
+                startActivity(intent);
+            }
+        });
+        c6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimeTableSetter.this,Timetableconfig.class);
+                intent.putExtra("daydetails",7);
+                intent.putExtra("dayofweek","TimeTableSaturday");
+
                 startActivity(intent);
             }
         });

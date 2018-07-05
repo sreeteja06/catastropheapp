@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent i;
         switch (v.getId()){
-            case R.id.timetableid: i = new Intent(this,TimeTable.class);startActivity(i);break;
+            case R.id.timetableid: i = new Intent(this,TimeTableSetter.class);startActivity(i);break;
             case R.id.activitiesid: i = new Intent(this,Events.class);startActivity(i);break;
             case R.id.attendanceID: i = new Intent(this,attendance.class);startActivity(i);break;
             case R.id.linksid: i = new Intent(this,notes.class);startActivity(i);break;
