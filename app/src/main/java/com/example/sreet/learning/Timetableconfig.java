@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +36,6 @@ public class Timetableconfig extends AppCompatActivity {
         l = findViewById(R.id.listviewtable);
         list = new ArrayList<>();
         updateInfo();
-
     }
 
     @Override
@@ -78,9 +79,9 @@ public class Timetableconfig extends AppCompatActivity {
            final EditText e1 = dialog.findViewById(R.id.editText3);
             final TextView e2 = dialog.findViewById(R.id.editText4);
             final TextView e3 = dialog.findViewById(R.id.editText5);
-            Button b1 = dialog.findViewById(R.id.button2);
-            Button b2 = dialog.findViewById(R.id.button5);
-            Button b3 = dialog.findViewById(R.id.button6);
+            CardView b1 = dialog.findViewById(R.id.start);
+            CardView b2 = dialog.findViewById(R.id.end);
+            CardView b3 = dialog.findViewById(R.id.submit);
             dialog.show();
             dialog.setCanceledOnTouchOutside(true);
 
@@ -94,6 +95,7 @@ public class Timetableconfig extends AppCompatActivity {
                     mTimePicker = new TimePickerDialog(Timetableconfig.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            e2.setVisibility(View.VISIBLE);
                             e2.setText( selectedHour + ":" + selectedMinute);
                         }
                     }, hour, minute, true);//Yes 24 hour time
@@ -113,6 +115,7 @@ public class Timetableconfig extends AppCompatActivity {
                     mTimePicker = new TimePickerDialog(Timetableconfig.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            e3.setVisibility(View.VISIBLE);
                             e3.setText( selectedHour + ":" + selectedMinute);
                         }
                     }, hour, minute, true);//Yes 24 hour time
@@ -128,12 +131,17 @@ public class Timetableconfig extends AppCompatActivity {
             b3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    list.add(e1.getText().toString().trim()+" from "+e2.getText().toString().trim()+" to "+e3.getText().toString().trim());
-                    saveInfo(list);
-                   l.setAdapter(arrayAdapter);
-                    dialog.dismiss();
+                    if((e1.getText().toString().trim().length()>0)||(e2.getText().toString().trim().length()>0)||(e3.getText().toString().trim().length()>0)){
+                        list.add(e1.getText().toString().trim() + " from " + e2.getText().toString().trim() + " to " + e3.getText().toString().trim());
+                        saveInfo(list);
+                        l.setAdapter(arrayAdapter);
+                        dialog.dismiss();
+                    }
+                    else{
+                        Toast.makeText(Timetableconfig.this, "Fill all the forms", Toast.LENGTH_SHORT).show();
+                    }
 
-                                    }
+                    }
             });
 
 

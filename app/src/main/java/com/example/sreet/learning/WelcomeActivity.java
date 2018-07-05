@@ -142,7 +142,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         else{
-            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            startActivity(new Intent(WelcomeActivity.this, UserData.class));
             finish();
         }
 

@@ -52,9 +52,6 @@
 
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".TimeTable"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".YearNoticesDescript"
             android:parentActivityName=".Notices" />
         <activity
@@ -93,7 +90,8 @@
         <activity android:name=".Documentupdate" />
         <activity android:name=".WebView_SIS" />
         <activity android:name=".TimeTableSetter" />
-        <activity android:name=".Timetableconfig"></activity>
+        <activity android:name=".Timetableconfig" />
+        <activity android:name=".UserData"></activity>
     </application>
 
 </manifest>

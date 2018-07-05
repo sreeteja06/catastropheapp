@@ -35,7 +35,6 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private CardView Attendance,Links,Activities,TimeTable,Notices,SavedThings;
     private static MainActivity mInstance;
-    SharedPreferences sharedPreferences;
     private final int REQUEST_CODE = 1;
     GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -60,8 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Notices = (CardView) findViewById(R.id.noticesid);
         SavedThings = (CardView) findViewById(R.id.SavedThings);
         //to save the user name
-        sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
 
         if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -73,15 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personId = acct.getId();
-            editor.putString("userId",personId);
-            editor.putString("userName",personName);
-            editor.apply();
-        }
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -140,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.saveNOtice:
                 Intent intent2 = new Intent(this,WelcomeActivity.class);
+                SharedPreferences sharedPreferences;
+                sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
                 SharedPreferences ref = getApplicationContext().getSharedPreferences("IntroSliderApp", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = ref.edit();
                 editor.putBoolean("FirstTimeStartFlag", true);
@@ -173,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent i;
         switch (v.getId()){
-            case R.id.timetableid: i = new Intent(this,TimeTable.class);startActivity(i);break;
+            case R.id.timetableid: i = new Intent(this,TimeTableSetter.class);startActivity(i);break;
             case R.id.activitiesid: i = new Intent(this,Events.class);startActivity(i);break;
             case R.id.attendanceID: i = new Intent(this,attendance.class);startActivity(i);break;
             case R.id.linksid: i = new Intent(this,notes.class);startActivity(i);break;
