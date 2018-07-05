@@ -42,6 +42,7 @@ class Notify extends BroadcastReceiver {
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
+
                 //.setSound(defaultSoundUri);
                 .setContentIntent(pendingIntent);
 
