@@ -1,7 +1,6 @@
 package com.example.sreet.learning;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -68,16 +67,7 @@ public class FCMService extends FirebaseMessagingService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         //Uri defaultSoundUri= Uri.parse("android.resource://" + getPackageName() + "/raw/knock_brush");
-        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(getApplicationContext().NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("default",
-                    "TimeTable",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DISCRIPTION");
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(getApplicationContext(),"default")
+        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this,"M_CH_ID")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(notificationTitle)
                 .setContentText(notificationBody)
@@ -88,10 +78,11 @@ public class FCMService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 //.setSound(defaultSoundUri);
                 .setContentIntent(pendingIntent);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 
-
-        notificationManager.notify(0, notificationBuilder.build());
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
 
     }
 }
