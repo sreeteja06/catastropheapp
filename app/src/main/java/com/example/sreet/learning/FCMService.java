@@ -1,6 +1,7 @@
 package com.example.sreet.learning;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -65,9 +66,17 @@ public class FCMService extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("default1",
+                    "NoticesNotify",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DISCRIPTION");
+            notificationManager.createNotificationChannel(channel);
+        }
         //Uri defaultSoundUri= Uri.parse("android.resource://" + getPackageName() + "/raw/knock_brush");
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this,"M_CH_ID")
+        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this,"default1")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(notificationTitle)
                 .setContentText(notificationBody)
@@ -78,8 +87,6 @@ public class FCMService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 //.setSound(defaultSoundUri);
                 .setContentIntent(pendingIntent);
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
