@@ -34,6 +34,9 @@ public class Timetableconfig extends AppCompatActivity {
         l = findViewById(R.id.listviewtable);
         list = new ArrayList<>();
         updateInfo();
+        arrayAdapter = new ArrayAdapter<>(Timetableconfig.this,
+                android.R.layout.simple_list_item_1,list);
+l.setAdapter(arrayAdapter);
 
     }
 
@@ -41,8 +44,6 @@ public class Timetableconfig extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.timetableadder,menu);
-        arrayAdapter = new ArrayAdapter<>(Timetableconfig.this,
-                android.R.layout.simple_list_item_1,list);
 
 
         MenuItem item = menu.findItem(R.id.AddTableId);
@@ -64,7 +65,7 @@ public class Timetableconfig extends AppCompatActivity {
 
             }
         });*/
-       l.setAdapter(arrayAdapter);
+       arrayAdapter.notifyDataSetChanged();
         return true;
     }
 
@@ -130,8 +131,8 @@ public class Timetableconfig extends AppCompatActivity {
                 public void onClick(View v) {
                     list.add(e1.getText().toString().trim()+" from "+e2.getText().toString().trim()+" to "+e3.getText().toString().trim());
                     saveInfo(list);
-                   l.setAdapter(arrayAdapter);
-                    dialog.dismiss();
+arrayAdapter.notifyDataSetChanged();
+dialog.dismiss();
 
                                     }
             });
@@ -140,7 +141,7 @@ public class Timetableconfig extends AppCompatActivity {
 
 
         }
-        l.setAdapter(arrayAdapter);
+       // l.setAdapter(arrayAdapter);
         return super.onOptionsItemSelected(item);
     }
 void saveInfo(List<String> a)
@@ -158,7 +159,9 @@ Set<String> check = new HashSet<>();
 check.add("check");
     Set again = preferences.getStringSet("TimeData",check);
     if(again.contains("check"))
-    {}
+    {
+        list = new ArrayList();
+    }
     else
         list = new ArrayList(again);
 
