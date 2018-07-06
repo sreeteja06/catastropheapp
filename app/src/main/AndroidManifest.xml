@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -43,8 +43,8 @@
         <receiver
             android:name=".Notify"
             android:enabled="true"
-            android:exported="false" >
-        </receiver>
+            android:exported="false"></receiver>
+
         <provider
             android:name=".GenericFileProvider"
             android:authorities="${applicationId}.my.package.name.provider"
@@ -96,7 +96,7 @@
         <activity android:name=".WebView_SIS" />
         <activity android:name=".TimeTableSetter" />
         <activity android:name=".Timetableconfig" />
-        <activity android:name=".UserData"></activity>
+        <activity android:name=".UserData" />
     </application>
 
 </manifest>
