@@ -122,6 +122,7 @@
         android:layout_marginStart="47dp"
         android:layout_marginTop="115dp"
         android:text="B.Tech"
+        android:gravity="center"
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:textStyle="bold"

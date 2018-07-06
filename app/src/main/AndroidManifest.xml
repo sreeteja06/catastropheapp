@@ -70,7 +70,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Notices"
-            android:parentActivityName=".TimeTable" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".listViewClick"
             android:parentActivityName=".Notices" />

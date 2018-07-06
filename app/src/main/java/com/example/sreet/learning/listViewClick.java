@@ -220,6 +220,7 @@ public class listViewClick extends AppCompatActivity {
                     noticesValue++;
                     editor.putString("number of saved notices",String.valueOf(noticesValue));
                     editor.putString(String.valueOf(noticesValue)+"year",year);
+                    editor.putString(String.valueOf(noticesValue)+"preActivity",parentActivity);
                     editor.putString(String.valueOf(noticesValue)+"Descript",Descript);
                     editor.putString(String.valueOf(noticesValue)+"Date",Date);
                     editor.apply();

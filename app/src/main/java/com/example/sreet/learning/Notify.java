@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.sreet.learning.MainActivity;
 
 
-class Notify extends BroadcastReceiver {
+public class Notify extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {

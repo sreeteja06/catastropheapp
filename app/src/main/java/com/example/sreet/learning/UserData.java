@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,7 +17,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public class UserData extends AppCompatActivity {
     private Button button;
-    private EditText enroll_ed, block_ed, batch_ed, dob_ed;
+    private EditText enroll_ed, batch_ed, dob_ed;
+    private AutoCompleteTextView block_ed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,11 @@ public class UserData extends AppCompatActivity {
         }
         else{
             enroll_ed = (EditText)findViewById(R.id.enroll);
-            block_ed = (EditText)findViewById(R.id.Block);
+            block_ed = (AutoCompleteTextView) findViewById(R.id.Block);
+            String[] block_names = getResources().getStringArray(R.array.block_array);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice,block_names);
+            block_ed.setThreshold(-1);
+            block_ed.setAdapter(adapter);
             batch_ed = (EditText)findViewById(R.id.Batch);
             dob_ed = (EditText)findViewById(R.id.DOB);
             button = (Button) findViewById(R.id.submit);

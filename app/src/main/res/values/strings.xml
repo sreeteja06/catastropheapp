@@ -4,5 +4,9 @@
     <string name="login">LogIn</string>
     <string name="change">Change</string>
     <string name="todo">TODO</string>
-
+    <string-array name="block_array">
+        <item>B.Tech</item>
+        <item>BBA</item>
+        <item>LLB</item>
+    </string-array>
 </resources>

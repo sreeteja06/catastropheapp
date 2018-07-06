@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class SavedThings extends AppCompatActivity implements View.OnClickListener{
 
-    private CardView SavedNotices, SavedNotes, SavedTimeTable;
+    private CardView SavedNotices, SavedNotes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +29,10 @@ public class SavedThings extends AppCompatActivity implements View.OnClickListen
 
         SavedNotices = (CardView) findViewById(R.id.SavedNotice);
         SavedNotes = (CardView) findViewById(R.id.SavedNotes);
-        SavedTimeTable = (CardView) findViewById(R.id.SavedTimeTable);
+
 
         SavedNotices.setOnClickListener(this);
         SavedNotes.setOnClickListener(this);
-        SavedTimeTable.setOnClickListener(this);
     }
 
     @Override
@@ -42,7 +41,6 @@ public class SavedThings extends AppCompatActivity implements View.OnClickListen
         switch(v.getId()){
             case R.id.SavedNotice: i = new Intent(this,savedNotices.class); startActivity(i); break;
             case R.id.SavedNotes: i = new Intent(this,savedNotes.class); startActivity(i); break;
-            case R.id.SavedTimeTable: i = new Intent(this,savedTimeTable.class); startActivity(i); break;
         }
     }
 
