@@ -20,6 +20,7 @@ import java.util.List;
 public class savedNotices extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ListView listView;
     private SharedPreferences sharedPreferences;
+    List<String> parentActivity;
     List<String> year;
     List<String> Descript_array_list;
     List<String> Date;
@@ -34,6 +35,8 @@ public class savedNotices extends AppCompatActivity implements AdapterView.OnIte
         intent.putExtra("Description",positionDes);
         String postitionYear = year.get(position);
         intent.putExtra("Year",postitionYear);
+        String postitionParentActivity = parentActivity.get(position);
+        intent.putExtra("preActivity",postitionParentActivity);
         startActivity(intent);
     }
 
@@ -48,11 +51,13 @@ public class savedNotices extends AppCompatActivity implements AdapterView.OnIte
         listView = (ListView) findViewById(R.id.listview);
         year = new ArrayList<String>();
         Descript_array_list = new ArrayList<String>();
+        parentActivity = new ArrayList<String>();
         Date = new ArrayList<String >();
         for(int i=1;i<=noticesValue;i++){
             year.add(sharedPreferences.getString(String.valueOf(i)+"year","firstYear"));
             Descript_array_list.add(sharedPreferences.getString(String.valueOf(i)+"Descript","descript"));
             Date.add(sharedPreferences.getString(String.valueOf(i)+"Date","date"));
+            parentActivity.add(sharedPreferences.getString(String.valueOf(i)+"preActivity","Notices"));
         }
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,Descript_array_list);
 

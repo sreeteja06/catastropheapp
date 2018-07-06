@@ -50,6 +50,7 @@ public class listViewClick extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private Menu menu;
     String Descript,year,Date,userName;
+    String parentActivity;
     int imagesValue;
     Uri URI;
 
@@ -68,6 +69,7 @@ public class listViewClick extends AppCompatActivity {
         setTitle("Notice Details");
         Bundle bundle = getIntent().getExtras();
         Date = bundle.getString("Date","firstYear");
+        parentActivity = bundle.getString("preActivity","Notices");
         userName = bundle.getString("userName","sree");
         imagesValue = bundle.getInt("images",0);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -80,7 +82,7 @@ public class listViewClick extends AppCompatActivity {
         dateAndTime.setText(Date);
         TextView notice = (TextView) findViewById(R.id.notice);
         notice.setText(Descript);
-        storageReference = FirebaseStorage.getInstance().getReference().child("Notices/"+year+"/"+Descript+"/0");
+        storageReference = FirebaseStorage.getInstance().getReference().child(parentActivity+"/"+year+"/"+Descript+"/0");
         if(storageReference!=null) {
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -130,7 +132,7 @@ public class listViewClick extends AppCompatActivity {
                 }
             });
         }
-        storageReference = FirebaseStorage.getInstance().getReference().child("Notices/"+year+"/"+Descript+"/1");
+        storageReference = FirebaseStorage.getInstance().getReference().child(parentActivity+"/"+year+"/"+Descript+"/1");
         if(storageReference!=null) {
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -160,7 +162,7 @@ public class listViewClick extends AppCompatActivity {
                 }
             });
         }
-        storageReference = FirebaseStorage.getInstance().getReference().child("Notices/"+year+"/"+Descript+"/2");
+        storageReference = FirebaseStorage.getInstance().getReference().child(parentActivity+"/"+year+"/"+Descript+"/2");
         if(storageReference!=null) {
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -218,6 +220,7 @@ public class listViewClick extends AppCompatActivity {
                     noticesValue++;
                     editor.putString("number of saved notices",String.valueOf(noticesValue));
                     editor.putString(String.valueOf(noticesValue)+"year",year);
+                    editor.putString(String.valueOf(noticesValue)+"preActivity",parentActivity);
                     editor.putString(String.valueOf(noticesValue)+"Descript",Descript);
                     editor.putString(String.valueOf(noticesValue)+"Date",Date);
                     editor.apply();

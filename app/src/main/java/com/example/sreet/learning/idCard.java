@@ -20,6 +20,7 @@ public class idCard extends AppCompatActivity {
         setTitle("ID");
         getSupportActionBar().hide();
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+
         if (acct != null) {
             String personName = acct.getDisplayName();
             String personGivenName = acct.getGivenName();
@@ -36,5 +37,14 @@ public class idCard extends AppCompatActivity {
             TextView name = (TextView) findViewById(R.id.studentName);
             name.setText(personName);
         }
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
+        TextView enroll_tv = (TextView) findViewById(R.id.studentEnroll);
+        TextView block_tv = (TextView) findViewById(R.id.course);
+        TextView batch_tv = (TextView) findViewById(R.id.studentBatch);
+        TextView dob_tv = (TextView) findViewById(R.id.studentDOB);
+        enroll_tv.setText(sharedPreferences.getString("enroll", "16stuhh0211"));
+        block_tv.setText(sharedPreferences.getString("bolck", "bolck"));
+        batch_tv.setText(sharedPreferences.getString("batch", "batch"));
+        dob_tv.setText(sharedPreferences.getString("DOB", "DOB"));
     }
 }

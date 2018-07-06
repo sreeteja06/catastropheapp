@@ -69,7 +69,7 @@ public class Events extends AppCompatActivity {
                 for(int i=0;i<totalItemsSelected;i++){
                     Uri uri = data.getClipData().getItemAt(i).getUri();
                     String s = String.valueOf(i);
-                    StorageReference filetopath = multipleImageStorage.child("Event").child("").child(filePathValue).child(s);
+                    StorageReference filetopath = multipleImageStorage.child("Event").child("all").child(filePathValue).child(s);
                     filetopath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -93,7 +93,7 @@ public class Events extends AppCompatActivity {
                 uploadProgress.setMessage("Uploading ... ");
                 uploadProgress.show();
                 final String filePathValue = FilePathName.getText().toString();
-                StorageReference filepath = imageStorage.child("Event").child("").child(filePathValue).child("0");
+                StorageReference filepath = imageStorage.child("Event").child("all").child(filePathValue).child("0");
                 filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -156,7 +156,7 @@ public class Events extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Events/");
         list = (RecyclerView) findViewById(R.id.listview);
-        myarrayadapter = new customListAdapter(this, EventsData,"");
+        myarrayadapter = new customListAdapter(this, EventsData,"all","Event");
         list.setAdapter(myarrayadapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);

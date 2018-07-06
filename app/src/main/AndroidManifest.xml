@@ -43,6 +43,7 @@
         <receiver
             android:name=".Notify"
             android:enabled="true"
+<<<<<<< HEAD
             android:exported="false">
             <intent-filter>
                 <action android:name="com.example.sreet.learning.START_SERVICE" />
@@ -51,6 +52,9 @@
                 <action android:name="com.example.sreet.learning.STOP_SERVICE" />
             </intent-filter>
         </receiver>
+=======
+            android:exported="false"></receiver>
+>>>>>>> master
 
         <provider
             android:name=".GenericFileProvider"
@@ -63,9 +67,6 @@
         </provider>
 
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".TimeTable"
-            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".YearNoticesDescript"
             android:parentActivityName=".Notices" />
@@ -80,7 +81,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Notices"
-            android:parentActivityName=".TimeTable" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".listViewClick"
             android:parentActivityName=".Notices" />
@@ -106,7 +107,11 @@
         <activity android:name=".WebView_SIS" />
         <activity android:name=".TimeTableSetter" />
         <activity android:name=".Timetableconfig" />
+<<<<<<< HEAD
 
+=======
+        <activity android:name=".UserData" />
+>>>>>>> master
     </application>
 
 </manifest>

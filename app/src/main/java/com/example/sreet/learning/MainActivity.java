@@ -27,6 +27,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -35,13 +36,13 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private CardView Attendance,Links,Activities,TimeTable,Notices,SavedThings;
     private static MainActivity mInstance;
-    SharedPreferences sharedPreferences;
     private final int REQUEST_CODE = 1;
     GoogleApiClient mGoogleApiClient;
+    private FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         String extstoragedir = Environment.getExternalStorageDirectory().toString();
@@ -59,8 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Notices = (CardView) findViewById(R.id.noticesid);
         SavedThings = (CardView) findViewById(R.id.SavedThings);
         //to save the user name
-        sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
 
         if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -72,15 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personId = acct.getId();
-            editor.putString("userId",personId);
-            editor.putString("userName",personName);
-            editor.apply();
-        }
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -139,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.saveNOtice:
                 Intent intent2 = new Intent(this,WelcomeActivity.class);
+                SharedPreferences sharedPreferences;
+                sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
                 SharedPreferences ref = getApplicationContext().getSharedPreferences("IntroSliderApp", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = ref.edit();
                 editor.putBoolean("FirstTimeStartFlag", true);

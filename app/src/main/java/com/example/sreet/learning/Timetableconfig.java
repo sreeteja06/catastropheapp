@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -80,9 +81,9 @@ public class Timetableconfig extends AppCompatActivity {
             final EditText e1 = dialog.findViewById(R.id.Subnameid);
             final TextView e2 = dialog.findViewById(R.id.Starttimeid);
             final TextView e3 = dialog.findViewById(R.id.endtimeid);
-            Button b1 = dialog.findViewById(R.id.setstarttimeid);
-            Button b2 = dialog.findViewById(R.id.setendtimeid);
-            Button b3 = dialog.findViewById(R.id.submitid);
+            CardView b1 = dialog.findViewById(R.id.start);
+            CardView b2 = dialog.findViewById(R.id.end);
+            CardView b3 = dialog.findViewById(R.id.submit);
             dialog.show();
             dialog.setCanceledOnTouchOutside(true);
 
@@ -102,7 +103,7 @@ public class Timetableconfig extends AppCompatActivity {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                             e2.setText(selectedHour + ":" + selectedMinute);
-
+                            e2.setVisibility(View.VISIBLE);
                             Log.i("check", String.valueOf(daysetter));
                             // Log.i("check",date.toString());
 
@@ -122,6 +123,7 @@ public class Timetableconfig extends AppCompatActivity {
                             int hourpost = toofix2.get(Calendar.HOUR_OF_DAY);
                             int Minpost = toofix2.get(Calendar.MINUTE);
                             e3.setText(String.valueOf(hourpost) + ":" + String.valueOf(Minpost));
+                            e3.setVisibility(View.VISIBLE);
 
 
                         }
