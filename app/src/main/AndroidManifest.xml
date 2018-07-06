@@ -1,217 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="com.example.sreet.learning">
 
-
-
     <uses-sdk
-
         android:minSdkVersion="8"
-
         android:targetSdkVersion="21" />
 
-
-
     <supports-screens
-
         android:anyDensity="true"
-
         android:largeScreens="true"
-
         android:normalScreens="true"
-
         android:resizeable="true"
-
         android:smallScreens="true" />
 
-
-
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission android:name="android.permission.SET_ALARM" />
 
-
-
     <application
-
         android:allowBackup="true"
-
         android:icon="@mipmap/ic_launcher"
-
         android:label="@string/app_name"
-
         android:roundIcon="@mipmap/ic_launcher_round"
-
         android:supportsRtl="true"
-
         android:theme="@style/AppTheme">
-
         <service android:name=".FCMService">
-
             <intent-filter>
-
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
-
             </intent-filter>
-
         </service>
 
-
-
         <receiver
-
             android:name=".NotificationReceiver"
-
             android:exported="true"
-
             android:permission="com.google.android.c2dm.permission.SEND">
-
             <intent-filter>
-
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
             </intent-filter>
-
         </receiver>
-
         <receiver
-
             android:name=".Notify"
-
             android:enabled="true"
-
-            android:exported="false" >
-
+            android:exported="false">
             <intent-filter>
-
                 <action android:name="com.example.sreet.learning.START_SERVICE" />
-
             </intent-filter>
-
             <intent-filter>
-
                 <action android:name="com.example.sreet.learning.STOP_SERVICE" />
-
             </intent-filter>
-
         </receiver>
-
-
 
         <provider
-
             android:name=".GenericFileProvider"
-
             android:authorities="${applicationId}.my.package.name.provider"
-
             android:exported="false"
-
             android:grantUriPermissions="true">
-
             <meta-data
-
                 android:name="android.support.FILE_PROVIDER_PATHS"
-
                 android:resource="@xml/provider_paths" />
-
         </provider>
 
-
-
         <activity android:name=".MainActivity" />
-
         <activity
-
             android:name=".YearNoticesDescript"
-
             android:parentActivityName=".Notices" />
-
         <activity
-
             android:name=".Events"
-
             android:parentActivityName=".MainActivity" />
-
         <activity
-
             android:name=".notes"
-
             android:parentActivityName=".MainActivity" />
-
         <activity
-
             android:name=".suggestions"
-
             android:parentActivityName=".MainActivity" />
-
         <activity
-
             android:name=".Notices"
-
             android:parentActivityName=".MainActivity" />
-
         <activity
-
             android:name=".listViewClick"
-
             android:parentActivityName=".Notices" />
-
         <activity android:name=".about" />
-
         <activity android:name=".idCard" />
-
         <activity android:name=".savedNotices" />
-
-        <activity android:name=".WelcomeActivity">
-
+        <activity android:name=".WelcomeActivity"/>
+        <activity android:name=".notesList" />
+        <activity android:name=".SavedThings" />
+        <activity android:name=".savedNotes" />
+        <activity android:name=".savedTimeTable" />
+        <activity android:name=".SignIn" />
+        <activity android:name=".attendance" />
+        <activity android:name=".calculateAttendance" />
+        <activity android:name=".Notes1" />
+        <activity android:name=".Documentupdate" />
+        <activity android:name=".WebView_SIS" />
+        <activity android:name=".TimeTableSetter" />
+        <activity android:name=".Timetableconfig" />
+        <activity android:name=".UserData" />
+        <activity android:name=".splashScreen">
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
 
-
-
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".notesList" />
-
-        <activity android:name=".SavedThings" />
-
-        <activity android:name=".savedNotes" />
-
-        <activity android:name=".savedTimeTable" />
-
-        <activity android:name=".SignIn" />
-
-        <activity android:name=".attendance" />
-
-        <activity android:name=".calculateAttendance" />
-
-        <activity android:name=".Notes1" />
-
-        <activity android:name=".Documentupdate" />
-
-        <activity android:name=".WebView_SIS" />
-
-        <activity android:name=".TimeTableSetter" />
-
-        <activity android:name=".Timetableconfig" />
-
-        <activity android:name=".UserData" />
-
     </application>
-
-
 
 </manifest>
