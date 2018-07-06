@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -98,7 +99,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
 
     public class DocmentHolder extends RecyclerView.ViewHolder {
         TextView tv1, tv2, tv3;
-        ImageView b1;
+        CardView b1;
 
         DocmentHolder(View itemView) {
             super(itemView);
@@ -106,8 +107,6 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
             tv2 = itemView.findViewById(R.id.bydataid);
             tv3 = itemView.findViewById(R.id.datedataid);
             b1 = itemView.findViewById(R.id.downloadbuttonimageid);
-
-
         }
 
 

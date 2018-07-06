@@ -1,6 +1,7 @@
 package com.example.sreet.learning;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,27 +37,27 @@ import java.util.List;
 public class Notes1 extends AppCompatActivity {
     DatabaseReference dataref;
     List<NotesDataClass> Filedata;
- //   EditText search;
+    //   EditText search;
     DocumentAdapter dA;
 
     ImageView b1;
     RecyclerView recyclerView;
     String personEmail;
-   ProgressDialog progressDialog;
+    ProgressDialog progressDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(getIntent().getStringExtra("Year"));
-       progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setIndeterminate(false);
         // progressDialog.setMax(100);
         progressDialog.setMessage("Getting the data");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-      //  progressBar.setVisibility(View.VISIBLE);
+        //  progressBar.setVisibility(View.VISIBLE);
         //progressBar.setProgress(Window.FEATURE_INDETERMINATE_PROGRESS);
 
 
@@ -65,7 +67,7 @@ public class Notes1 extends AppCompatActivity {
         b1.setVisibility(View.INVISIBLE);
 
         dataref = FirebaseDatabase.getInstance().getReference("users/Notes/" + getIntent().getStringExtra("Year"));
-       // search = findViewById(R.id.Searchaction);
+        // search = findViewById(R.id.Searchaction);
 
         recyclerView = findViewById(R.id.Documentrecycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -73,12 +75,12 @@ public class Notes1 extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             personEmail = acct.getEmail();
-            if (personEmail.equalsIgnoreCase("itstechclub@gmail.com") || personEmail.equalsIgnoreCase("ppraneeth294@gmail.com") || personEmail.equalsIgnoreCase("samalakrishna7@gmail.com") || personEmail.equalsIgnoreCase("sripad2708@gmail.com")|| personEmail.equalsIgnoreCase("sreeteja.muthyala@gmail.com")) {
+            if (personEmail.equalsIgnoreCase("itstechclub@gmail.com") || personEmail.equalsIgnoreCase("ppraneeth294@gmail.com") || personEmail.equalsIgnoreCase("samalakrishna7@gmail.com") || personEmail.equalsIgnoreCase("sripad2708@gmail.com")) {
                 //LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
                 b1.setVisibility(View.VISIBLE);
 
-            }
 
+            }
         }
 
         b1.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +105,7 @@ public class Notes1 extends AppCompatActivity {
 
 
                 recyclerView.setAdapter(dA);
+                recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(Notes1.this, LinearLayoutManager.HORIZONTAL, false));
                 registerForContextMenu(recyclerView);
                 progressDialog.dismiss();
                 dA.notifyDataSetChanged();
@@ -134,16 +137,17 @@ public class Notes1 extends AppCompatActivity {
 */
 
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_menu,menu);
+        inflater.inflate(R.menu.search_menu, menu);
         // MenuItem item= menu.findItem(R.id.LogOut);
         //MenuItem item1 = menu.findItem(R.id.saveNOtice);
         //item1.setVisible(false);
         //item.setVisible(false);
         this.invalidateOptionsMenu();
         MenuItem item = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView)item.getActionView();
+        SearchView searchView = (SearchView) item.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -153,7 +157,7 @@ public class Notes1 extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-               filter(newText);
+                filter(newText);
                 return false;
             }
 
@@ -173,4 +177,21 @@ public class Notes1 extends AppCompatActivity {
         }
         dA.updateList(temp);
     }
+
+    public class WrapContentLinearLayoutManager extends LinearLayoutManager {
+        public WrapContentLinearLayoutManager(Context context, int horizontal, boolean b) {
+            super(context);
+        }
+
+        //... constructor
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try {
+                super.onLayoutChildren(recycler, state);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("probe", "meet a IOOBE in RecyclerView");
+            }
+        }
+    }
+
 }
