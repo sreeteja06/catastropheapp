@@ -9,15 +9,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,6 +30,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,7 +46,7 @@ public class Timetableconfig extends AppCompatActivity {
     String sub,time;
     // int Selectedhour;
     // int SelectedMin;
-    Calendar toofix;
+    Calendar toofix,toofix2;
     int daysetter ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,7 @@ public class Timetableconfig extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<>(Timetableconfig.this,
                 android.R.layout.simple_list_item_1, list);
         l.setAdapter(arrayAdapter);
+        registerForContextMenu(l);
         daysetter = getIntent().getIntExtra("daydetails", 0);
 //Log.i("test",String.valueOf(daysetter));
     }
@@ -77,9 +83,9 @@ public class Timetableconfig extends AppCompatActivity {
             final Dialog dialog = new Dialog(Timetableconfig.this);
             dialog.setContentView(R.layout.timetablepicker);
             dialog.setTitle("Set details");
-            final EditText e1 = dialog.findViewById(R.id.editText3);
-            final TextView e2 = dialog.findViewById(R.id.editText4);
-            final TextView e3 = dialog.findViewById(R.id.editText5);
+            final EditText e1 = dialog.findViewById(R.id.Subnameid);
+            final TextView e2 = dialog.findViewById(R.id.starttimeid);
+            final TextView e3 = dialog.findViewById(R.id.endtimeid);
             CardView b1 = dialog.findViewById(R.id.start);
             CardView b2 = dialog.findViewById(R.id.end);
             CardView b3 = dialog.findViewById(R.id.submit);
@@ -93,6 +99,7 @@ public class Timetableconfig extends AppCompatActivity {
                     final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                     int minute = mcurrentTime.get(Calendar.MINUTE);
                     toofix = Calendar.getInstance();
+                    toofix2 = Calendar.getInstance();
                     // final Date date = toofix.getTime();'if (cal.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
 
 
@@ -104,7 +111,7 @@ public class Timetableconfig extends AppCompatActivity {
                         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                             e2.setVisibility(View.VISIBLE);
                             e2.setText(selectedHour + ":" + selectedMinute);
-                            Log.i("check",String.valueOf(daysetter));
+                           // Log.i("check",String.valueOf(daysetter));
                             // Log.i("check",date.toString());
 
                             if (toofix.get(Calendar.DAY_OF_WEEK) != daysetter) {
@@ -122,7 +129,7 @@ public class Timetableconfig extends AppCompatActivity {
                             toofix2.setTimeInMillis(a);
                             int hourpost = toofix2.get(Calendar.HOUR_OF_DAY);
                             int Minpost = toofix2.get(Calendar.MINUTE);
-                            e3.setText(String.valueOf(hourpost) + ":" + String.valueOf(Minpost));
+                            e3.setText(" to "+String.valueOf(hourpost) + ":" + String.valueOf(Minpost));
 
 
                         }
@@ -164,7 +171,7 @@ public class Timetableconfig extends AppCompatActivity {
                     if(e1.getText().toString().length()!=0&&e2.getText().toString().length()!=0&&e3.getText().toString().length()!=0){
                         list.add(e1.getText().toString().trim() + " From " +e2.getText().toString()+" to "+e3.getText().toString());
                         sub = e1.getText().toString().trim();
-                        time = e2.getText().toString().trim()+" to " + e3.getText().toString();
+                        time = e2.getText().toString().trim() + e3.getText().toString();
 
                         saveInfo(list);
                         arrayAdapter.notifyDataSetChanged();
@@ -213,36 +220,56 @@ public class Timetableconfig extends AppCompatActivity {
         Intent alertIntent = new Intent(this, Notify.class);
         alertIntent.putExtra("subjectname",sub);
         alertIntent.putExtra("time",time);
-//Log.i("time",String.valueOf(toofix.getTimeInMillis()));
+        Log.i("time",String.valueOf(toofix.getTimeInMillis()));
         AlarmManager alarmManager = (AlarmManager) getSystemService(Timetableconfig.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, list.size(), alertIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // alarmManager.setExact(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis(), pendingIntent);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis()-1000,(7*AlarmManager.INTERVAL_DAY), pendingIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis()-300000,(7*AlarmManager.INTERVAL_DAY), pendingIntent);
 
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId())
+        {
+            case R.id.delete:{
+                String s = list.get(info.position);
+               list.remove(info.position);
+               arrayAdapter.notifyDataSetChanged();
+               SharedPreferences sharedPreferences = getSharedPreferences("Timetablepersonal",MODE_PRIVATE);
+               SharedPreferences.Editor editor = sharedPreferences.edit();
+                Set<String> check = new HashSet<>();
+                check.add("check");
+                Set again = sharedPreferences.getStringSet(getIntent().getStringExtra("dayofweek"),check );
+                if(again.contains(s))
+                {
+                    again.remove(s);
+                    editor.putStringSet(getIntent().getStringExtra("dayofweek"), again);
+                    editor.apply();
+                    Toast.makeText(Timetableconfig.this,"Succesfully deleted",Toast.LENGTH_SHORT).show();
+                }else
+                {
+                    Toast.makeText(Timetableconfig.this,"Unable to delete",Toast.LENGTH_SHORT).show();
+
+                }
+                }
+default:
+{
+
 }
 
+            }
 
-/*
-// Long finalarray[] = new Long[list.size()];
+        return super.onContextItemSelected(item);
+    }
+}
 
-      /* for( i=0;i<list.size(); i++) {
-//int h;
-           pendingIntent[i] = PendingIntent.getBroadcast(this, i, alertIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-           //   String s[] = list.get(i).split(" ");
-           //          h = s.length;
-       }
-         // long timeofalarm = Long.parseLong(s[h-1]);
-        */ // finalarray[i] = timeofalarm;
-// alarmManager.setExact(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis(), pendingIntent[i]);
-// Log.i("time1", String.valueOf(timeofalarm));
-//Log.i("tie2", String.valueOf(toofix.getTimeInMillis()));
-
-/*for(int j = 0;j<finalarray.length;j++)
-{
-    alarmManager.setExact(AlarmManager.RTC_WAKEUP, finalarray[j], pendingIntent[j]);
-
-}*/
-/* */

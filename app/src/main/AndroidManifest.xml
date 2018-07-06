@@ -43,18 +43,14 @@
         <receiver
             android:name=".Notify"
             android:enabled="true"
-<<<<<<< HEAD
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.example.sreet.learning.START_SERVICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.example.sreet.learning.STOP_SERVICE" />
-            </intent-filter>
+            android:exported="false" >
+        <intent-filter>
+            <action android:name="com.example.sreet.learning.START_SERVICE" />
+        </intent-filter>
+        <intent-filter>
+            <action android:name="com.example.sreet.learning.STOP_SERVICE" />
+        </intent-filter>
         </receiver>
-=======
-            android:exported="false"></receiver>
->>>>>>> master
 
         <provider
             android:name=".GenericFileProvider"
@@ -107,11 +103,7 @@
         <activity android:name=".WebView_SIS" />
         <activity android:name=".TimeTableSetter" />
         <activity android:name=".Timetableconfig" />
-<<<<<<< HEAD
-
-=======
         <activity android:name=".UserData" />
->>>>>>> master
     </application>
 
 </manifest>

@@ -16,17 +16,6 @@
         android:hint="Enter Subject name"
         android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/Starttimeid"
-        android:layout_width="250dp"
-        android:layout_height="38dp"
-        android:ems="10"
-        android:fontFamily="cursive"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:visibility="gone" />
-
     <LinearLayout
         android:clipToPadding="false"
         android:gravity="center"
@@ -51,6 +40,7 @@
                 <!-- android:src="@drawable/ic_attach_money_black_24dp" -->
 
                 <TextView
+                    android:id="@+id/starttimeid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="select start time"
@@ -58,17 +48,6 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/endtimeid"
-        android:layout_width="250dp"
-        android:layout_height="38dp"
-        android:ems="10"
-        android:fontFamily="cursive"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:visibility="gone" />
 
     <LinearLayout
         android:clipToPadding="false"
@@ -94,6 +73,7 @@
                 <!-- android:src="@drawable/ic_attach_money_black_24dp" -->
 
                 <TextView
+                    android:id="@+id/endtimeid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="select end time"
