@@ -1,137 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="350dp"
+
     android:layout_height="400dp"
+
     android:background="@drawable/border"
+
     android:orientation="vertical"
+
     android:padding="50dp">
 
+
+
     <EditText
+
         android:id="@+id/Subnameid"
+
         android:layout_width="250dp"
+
         android:layout_height="wrap_content"
+
         android:gravity="center"
+
         android:ems="10"
+
         android:hint="Enter Subject name"
+
         android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/Starttimeid"
-        android:layout_width="250dp"
-        android:layout_height="38dp"
-        android:ems="10"
-        android:fontFamily="cursive"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:visibility="gone" />
+
 
     <LinearLayout
+
         android:clipToPadding="false"
+
         android:gravity="center"
+
         android:orientation="horizontal"
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content">
 
+
+
         <android.support.v7.widget.CardView
+
             android:id="@+id/start"
+
             android:layout_width="250dp"
+
             android:layout_height="50dp"
+
             android:layout_margin="10dp"
+
             android:clickable="true"
+
             android:foreground="?android:attr/selectableItemBackground">
+
+
 
             <LinearLayout
 
+
+
                 android:layout_width="match_parent"
+
                 android:layout_height="match_parent"
+
                 android:gravity="center"
+
                 android:orientation="vertical">
+
                 <!-- android:src="@drawable/ic_attach_money_black_24dp" -->
 
+
+
                 <TextView
+
+                    android:id="@+id/starttimeid"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:text="select start time"
+
                     android:textStyle="bold" />
+
             </LinearLayout>
+
         </android.support.v7.widget.CardView>
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/endtimeid"
-        android:layout_width="250dp"
-        android:layout_height="38dp"
-        android:ems="10"
-        android:fontFamily="cursive"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:visibility="gone" />
+
 
     <LinearLayout
+
         android:clipToPadding="false"
+
         android:gravity="center"
+
         android:orientation="horizontal"
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content">
 
+
+
         <android.support.v7.widget.CardView
+
             android:id="@+id/end"
+
             android:layout_width="250dp"
+
             android:layout_height="50dp"
+
             android:layout_margin="10dp"
+
             android:clickable="true"
+
             android:foreground="?android:attr/selectableItemBackground">
+
+
 
             <LinearLayout
 
+
+
                 android:layout_width="match_parent"
+
                 android:layout_height="match_parent"
+
                 android:gravity="center"
+
                 android:orientation="vertical">
+
                 <!-- android:src="@drawable/ic_attach_money_black_24dp" -->
 
+
+
                 <TextView
+
+                    android:id="@+id/endtimeid"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:text="select end time"
+
                     android:textStyle="bold" />
+
             </LinearLayout>
+
         </android.support.v7.widget.CardView>
+
     </LinearLayout>
+
+
 
     <LinearLayout
+
         android:clipToPadding="false"
+
         android:gravity="center"
+
         android:orientation="horizontal"
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content">
 
+
+
         <android.support.v7.widget.CardView
+
             android:id="@+id/submit"
+
             android:layout_width="250dp"
+
             android:layout_height="50dp"
+
             android:layout_margin="10dp"
+
             android:clickable="true"
+
             android:foreground="?android:attr/selectableItemBackground">
+
+
 
             <LinearLayout
 
+
+
                 android:layout_width="match_parent"
+
                 android:layout_height="match_parent"
+
                 android:gravity="center"
+
                 android:orientation="vertical">
+
                 <!-- android:src="@drawable/ic_attach_money_black_24dp" -->
 
+
+
                 <TextView
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:text="Submit"
+
                     android:gravity="center"
+
                     android:textStyle="bold" />
+
             </LinearLayout>
+
         </android.support.v7.widget.CardView>
+
     </LinearLayout>
+
 </android.widget.LinearLayout>
