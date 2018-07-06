@@ -1,10 +1,12 @@
 package com.example.sreet.learning;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.squareup.picasso.Picasso;
 
 public class idCard extends AppCompatActivity {
+    ImageView editUserData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +45,21 @@ public class idCard extends AppCompatActivity {
         TextView block_tv = (TextView) findViewById(R.id.course);
         TextView batch_tv = (TextView) findViewById(R.id.studentBatch);
         TextView dob_tv = (TextView) findViewById(R.id.studentDOB);
+        editUserData = (ImageView) findViewById(R.id.editUserDataId);
         enroll_tv.setText(sharedPreferences.getString("enroll", "16stuhh0211"));
         block_tv.setText(sharedPreferences.getString("bolck", "bolck"));
         batch_tv.setText(sharedPreferences.getString("batch", "batch"));
         dob_tv.setText(sharedPreferences.getString("DOB", "DOB"));
+        editUserData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences ref = getApplicationContext().getSharedPreferences("UserData", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = ref.edit();
+                editor.putBoolean("UserDataEntered", true);
+                editor.commit();
+                startActivity(new Intent(idCard.this, UserData.class));
+                finish();
+            }
+        });
     }
 }
