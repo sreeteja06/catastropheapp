@@ -18,7 +18,7 @@ public class customListAdapter extends RecyclerView.Adapter<customListAdapter.Vi
     private Context context;
     private ArrayList<NoticesDataClass> OrginalData;
     private ArrayList<NoticesDataClass> NoticesData;
-    String Year;
+    String Year, preActivity;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView Descript;
@@ -39,10 +39,11 @@ public class customListAdapter extends RecyclerView.Adapter<customListAdapter.Vi
         notifyDataSetChanged();
     }
 
-    public customListAdapter(Context context, ArrayList<NoticesDataClass> NoticesData, String Year) {
+    public customListAdapter(Context context, ArrayList<NoticesDataClass> NoticesData, String Year, String preActivity) {
         this.context = context;
         this.NoticesData = NoticesData;
         this.OrginalData = NoticesData;
+        this.preActivity = preActivity;
         this.Year = Year;
     }
 
@@ -87,6 +88,7 @@ public class customListAdapter extends RecyclerView.Adapter<customListAdapter.Vi
                 String images = Notices.imagesValue;
                 intent.putExtra("images",images);
                 intent.putExtra("Year",Year);
+                intent.putExtra("preActivity",preActivity);
                 context.startActivity(intent);
             }
         });

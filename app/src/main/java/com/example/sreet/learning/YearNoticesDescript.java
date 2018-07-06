@@ -184,7 +184,7 @@ public class YearNoticesDescript extends AppCompatActivity {
 
 
         list = (RecyclerView) findViewById(R.id.listview);
-        myarrayadapter = new customListAdapter(this,NoticesData,Year);
+        myarrayadapter = new customListAdapter(this,NoticesData,Year,"Notices");
         list.setAdapter(myarrayadapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);

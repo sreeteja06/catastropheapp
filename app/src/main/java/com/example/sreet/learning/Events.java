@@ -156,7 +156,7 @@ public class Events extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Events/");
         list = (RecyclerView) findViewById(R.id.listview);
-        myarrayadapter = new customListAdapter(this, EventsData,"all");
+        myarrayadapter = new customListAdapter(this, EventsData,"all","Event");
         list.setAdapter(myarrayadapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
