@@ -32,7 +32,7 @@ public class customListAdapter extends RecyclerView.Adapter<customListAdapter.Vi
             Descript = (TextView) view.findViewById(R.id.Descript);
             Date = (TextView) view.findViewById(R.id.Date);
             userName = (TextView) view.findViewById(R.id.userName);
-        }
+    }
     }
     public void updateList(ArrayList<NoticesDataClass> listupdater){
         NoticesData = listupdater;

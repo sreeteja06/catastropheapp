@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -19,12 +20,15 @@ public class UserData extends AppCompatActivity {
     private Button button;
     private EditText enroll_ed, batch_ed, dob_ed;
     private AutoCompleteTextView block_ed;
+    Firebase myfire;
+    String personName, personEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data);
-
+        Firebase.setAndroidContext(this);
+        myfire = new Firebase("https://learning-2b334.firebaseio.com/users/userData");
         if(!isFirstTimeStartApp()) {
             startMainActivity();
             finish();
@@ -44,7 +48,8 @@ public class UserData extends AppCompatActivity {
             final SharedPreferences.Editor editor = shPfUser.edit();
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
             if (acct != null) {
-                String personName = acct.getDisplayName();
+                personName = acct.getDisplayName();
+                personEmail = acct.getEmail();
                 String personId = acct.getId();
                 editor.putString("userId",personId);
                 editor.putString("userName",personName);
@@ -60,6 +65,12 @@ public class UserData extends AppCompatActivity {
                         editor.putString("DOB",dob_ed.getText().toString().trim());
                         editor.apply();
                         setFirstTimeStartStatus(false);
+                        Firebase updateDataFire = myfire.child(personEmail.substring(0,(personEmail.length()-10)));
+                        updateDataFire.child("userName").setValue(personName);
+                        updateDataFire.child("enroll").setValue(enroll_ed.getText().toString().trim());
+                        updateDataFire.child("block").setValue(block_ed.getText().toString().trim());
+                        updateDataFire.child("batch").setValue(batch_ed.getText().toString().trim());
+                        updateDataFire.child("DOB").setValue(dob_ed.getText().toString().trim());
                         startActivity(new Intent(new Intent(UserData.this, MainActivity.class)));
                         finish();
                     }
