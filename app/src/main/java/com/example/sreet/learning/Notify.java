@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -38,16 +39,17 @@ public class Notify extends BroadcastReceiver {
                 .setContentTitle("Upcoming Class")
                 .setContentText(intent.getStringExtra("subjectname")+" from "+ intent.getStringExtra("time"))
                 .setContentInfo("Info")
-                .setPriority(Notification.PRIORITY_MAX)
+                .setPriority(Notification.PRIORITY_HIGH)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
 
+
                 //.setSound(defaultSoundUri);
                 .setContentIntent(pendingIntent);
 
-
+        if (Build.VERSION.SDK_INT >= 21) notificationBuilder.setVibrate(new long[0]);
 
         notificationManager.notify(0, notificationBuilder.build());
     }
