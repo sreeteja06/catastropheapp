@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -32,7 +33,7 @@ import java.util.Date;
 public class Documentupdate extends AppCompatActivity {
     ProgressDialog progressDialog;
     Intent intent;
-    ImageView b1, b2;
+    CardView selectButton, uploadButton;
     EditText ettx,ettx1;
     private static final int PICK = 111;
    Uri urii;
@@ -56,8 +57,8 @@ super.onBackPressed();
         progressDialog.setMessage("Uploading file...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documentupdate);
-        b1 = findViewById(R.id.selectimagebutton);
-        b2 = findViewById(R.id.uploadimageviewbuttonid);
+        selectButton = (CardView) findViewById(R.id.selectNotesId);
+        uploadButton = (CardView) findViewById(R.id.uploadNotesId);
         ettx = findViewById(R.id.Filenameid);
         ettx1 = findViewById(R.id.SubName);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
@@ -72,13 +73,13 @@ super.onBackPressed();
 
         storageReference = FirebaseStorage.getInstance().getReference("users/Notes/"+getIntent().getStringExtra("yeardetails"));
         databaseReference = FirebaseDatabase.getInstance().getReference("users/Notes/"+getIntent().getStringExtra("yeardetails"));
-        b1.setOnClickListener(new View.OnClickListener() {
+        selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatata();
             }
         });
-        b2.setOnClickListener(new View.OnClickListener() {
+        uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(ettx.getText().toString().length() !=0&&indicator==1 && ettx1.getText().toString().length() !=0){
@@ -93,7 +94,7 @@ super.onBackPressed();
                 }}
         });
 
-    }
+}
 
     public void showDatata() {
        intent = new Intent();

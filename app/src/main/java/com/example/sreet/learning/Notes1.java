@@ -73,12 +73,12 @@ public class Notes1 extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             personEmail = acct.getEmail();
-            if (personEmail.equalsIgnoreCase("itstechclub@gmail.com") || personEmail.equalsIgnoreCase("ppraneeth294@gmail.com") || personEmail.equalsIgnoreCase("samalakrishna7@gmail.com") || personEmail.equalsIgnoreCase("sripad2708@gmail.com")) {
+            if (personEmail.equalsIgnoreCase("itstechclub@gmail.com") || personEmail.equalsIgnoreCase("ppraneeth294@gmail.com") || personEmail.equalsIgnoreCase("samalakrishna7@gmail.com") || personEmail.equalsIgnoreCase("sripad2708@gmail.com")|| personEmail.equalsIgnoreCase("sreeteja.muthyala@gmail.com")) {
                 //LinearLayout sendNotice = (LinearLayout) findViewById(R.id.sendNoticeLayout);
                 b1.setVisibility(View.VISIBLE);
 
-
             }
+
         }
 
         b1.setOnClickListener(new View.OnClickListener() {
