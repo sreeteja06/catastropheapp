@@ -40,7 +40,7 @@ public class Timetableconfig extends AppCompatActivity {
     String sub, time;
     // int Selectedhour;
     // int SelectedMin;
-    Calendar toofix,toofix2;
+    Calendar toofix, toofix2;
     int daysetter;
 
     @Override
@@ -117,11 +117,11 @@ public class Timetableconfig extends AppCompatActivity {
                             toofix.set(Calendar.MINUTE, selectedMinute);
                             toofix.set(Calendar.SECOND, 0);
                             toofix.set(Calendar.MILLISECOND, 0);
-                            Long a = toofix.getTimeInMillis()+2700000;
+                            Long a = toofix.getTimeInMillis() + 3000000;
                             toofix2.setTimeInMillis(a);
                             int hourpost = toofix2.get(Calendar.HOUR_OF_DAY);
                             int Minpost = toofix2.get(Calendar.MINUTE);
-                            e3.setText(String.valueOf(hourpost)+":"+String.valueOf(Minpost));
+                            e3.setText(String.valueOf(hourpost) + ":" + String.valueOf(Minpost));
 
 
                         }
@@ -209,7 +209,7 @@ public class Timetableconfig extends AppCompatActivity {
         Intent alertIntent = new Intent(this, Notify.class);
         alertIntent.putExtra("subjectname", sub);
         alertIntent.putExtra("time", time);
-Log.i("time",String.valueOf(toofix.getTimeInMillis()));
+        Log.i("time", String.valueOf(toofix.getTimeInMillis()));
         AlarmManager alarmManager = (AlarmManager) getSystemService(Timetableconfig.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, list.size(), alertIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
