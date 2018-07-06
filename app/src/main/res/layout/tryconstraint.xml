@@ -15,7 +15,7 @@
 
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/Filenameid"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -33,7 +33,7 @@
                 app:layout_constraintVertical_bias="0.100000024" />
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/uploadedbyid"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -50,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/Uploaddateid"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -68,7 +68,7 @@
                 app:layout_constraintVertical_bias="0.3" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/filedataid"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

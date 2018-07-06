@@ -53,7 +53,7 @@ public class Timetableconfig extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<>(Timetableconfig.this,
                 android.R.layout.simple_list_item_1, list);
         l.setAdapter(arrayAdapter);
-        daysetter=getIntent().getIntExtra("daydetails",0);
+        daysetter = getIntent().getIntExtra("daydetails", 0);
 //Log.i("test",String.valueOf(daysetter));
     }
 
@@ -90,7 +90,7 @@ public class Timetableconfig extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Calendar mcurrentTime = Calendar.getInstance();
-                    int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                    final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                     int minute = mcurrentTime.get(Calendar.MINUTE);
                     toofix = Calendar.getInstance();
                     // final Date date = toofix.getTime();'if (cal.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
@@ -118,6 +118,13 @@ public class Timetableconfig extends AppCompatActivity {
                             toofix.set(Calendar.MINUTE, selectedMinute);
                             toofix.set(Calendar.SECOND, 0);
                             toofix.set(Calendar.MILLISECOND, 0);
+                            Long a = toofix.getTimeInMillis() + 3000000;
+                            toofix2.setTimeInMillis(a);
+                            int hourpost = toofix2.get(Calendar.HOUR_OF_DAY);
+                            int Minpost = toofix2.get(Calendar.MINUTE);
+                            e3.setText(String.valueOf(hourpost) + ":" + String.valueOf(Minpost));
+
+
                         }
                     }, hour, minute, true);//Yes 24 hour time
                     mTimePicker.setTitle("Select Time");

@@ -10,10 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -58,9 +56,9 @@ super.onBackPressed();
         progressDialog.setMessage("Uploading file...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documentupdate);
-        b1 = findViewById(R.id.selectbutton);
-        b2 = findViewById(R.id.bb);
-        ettx = findViewById(R.id.Txrwin);
+        b1 = findViewById(R.id.selectimagebutton);
+        b2 = findViewById(R.id.uploadimageviewbuttonid);
+        ettx = findViewById(R.id.Filenameid);
         ettx1 = findViewById(R.id.SubName);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {

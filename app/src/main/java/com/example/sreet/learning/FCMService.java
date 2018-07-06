@@ -72,7 +72,7 @@ public class FCMService extends FirebaseMessagingService {
             NotificationChannel channel = new NotificationChannel("default1",
                     "NoticesNotify",
                     NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DISCRIPTION");
+            channel.setDescription("Notify on notice updated");
             notificationManager.createNotificationChannel(channel);
         }
         //Uri defaultSoundUri= Uri.parse("android.resource://" + getPackageName() + "/raw/knock_brush");
