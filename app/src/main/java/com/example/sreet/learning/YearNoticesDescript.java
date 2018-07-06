@@ -50,11 +50,11 @@ public class YearNoticesDescript extends AppCompatActivity {
     ArrayList<NoticesDataClass> NoticesData = new ArrayList<>();
     String personEmail, Year;
     RecyclerView list;
-    int personScore;
+   // int personScore;
     EditText myedittext,keyvaluetext;
     ImageButton myApplyBt,imageButton;
     String myString,keyvaluedata;
-    Firebase myfire, updateScore;
+    Firebase myfire;
     StorageReference imageStorage;
     StorageReference multipleImageStorage;
     ProgressDialog uploadProgress;
@@ -72,8 +72,8 @@ public class YearNoticesDescript extends AppCompatActivity {
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
             if(data.getClipData()!=null){
-                personScore = personScore+20;
-                updateScore.setValue(personScore);
+              /*  personScore = personScore+20;
+                updateScore.setValue(personScore);*/
                 uploadProgress.setMessage("Uploading ... ");
                 uploadProgress.show();
                 int totalItemsSelected = data.getClipData().getItemCount();
@@ -102,8 +102,8 @@ public class YearNoticesDescript extends AppCompatActivity {
             }
             else if(data.getData()!=null){
                 Uri uri = data.getData();
-                personScore = personScore+20;
-                updateScore.setValue(personScore);
+               /* personScore = personScore+20;
+                updateScore.setValue(personScore);*/
                 final EditText FilePathName = (EditText) findViewById(R.id.editText);
                 uploadProgress.setMessage("Uploading ... ");
                 uploadProgress.show();
@@ -184,7 +184,7 @@ public class YearNoticesDescript extends AppCompatActivity {
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/"+Year);
-        updateScore = new Firebase("https://learning-2b334.firebaseio.com/users/score/"+personEmail.substring(0,(personEmail.length()-10)));
+     /*   updateScore = new Firebase("https://learning-2b334.firebaseio.com/users/score/"+personEmail.substring(0,(personEmail.length()-10)));
         updateScore.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -203,7 +203,7 @@ public class YearNoticesDescript extends AppCompatActivity {
             }
         });
 
-
+*/
         list = (RecyclerView) findViewById(R.id.listview);
         myarrayadapter = new customListAdapter(this,NoticesData,Year);
         list.setAdapter(myarrayadapter);
@@ -222,8 +222,8 @@ public class YearNoticesDescript extends AppCompatActivity {
                 if(myedittext.getText().toString().trim().length()>0) {
                     myString = myedittext.getText().toString();
                     //keyvaluedata = keyvaluetext.getText().toString();
-                    personScore = personScore+10;
-                    updateScore.setValue(personScore);
+                  /*  personScore = personScore+10;
+                    updateScore.setValue(personScore);*/
                     Date todaysDate = new Date();
                     DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = df2.format(todaysDate);

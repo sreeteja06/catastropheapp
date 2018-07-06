@@ -102,10 +102,10 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
 
         DocmentHolder(View itemView) {
             super(itemView);
-            tv1 = itemView.findViewById(R.id.textView11);
-            tv2 = itemView.findViewById(R.id.textView7);
-            tv3 = itemView.findViewById(R.id.textView18);
-            b1 = itemView.findViewById(R.id.button4);
+            tv1 = itemView.findViewById(R.id.filedataid);
+            tv2 = itemView.findViewById(R.id.bydataid);
+            tv3 = itemView.findViewById(R.id.datedataid);
+            b1 = itemView.findViewById(R.id.downloadbuttonimageid);
 
 
         }

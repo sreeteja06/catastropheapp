@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.100000024" />
 
     <EditText
-        android:id="@+id/Txrwin"
+        android:id="@+id/Filenameid"
         android:layout_width="180dp"
         android:layout_height="40dp"
 
@@ -44,11 +44,11 @@
         app:layout_constraintVertical_bias="0.100000024" />
 
     <ImageView
-        android:id="@+id/bb"
+        android:id="@+id/uploadimageviewbuttonid"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignTop="@+id/SubName"
-        android:layout_toEndOf="@+id/Txrwin"
+        android:layout_toEndOf="@+id/Filenameid"
         android:alpha="0.35"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,11 +60,11 @@
         app:srcCompat="@drawable/buttonbackground" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/uploadtextid"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignTop="@+id/SubName"
-        android:layout_toEndOf="@+id/Txrwin"
+        android:layout_toEndOf="@+id/Filenameid"
         android:fontFamily="sans-serif"
         android:gravity="top|bottom"
         android:lineSpacingExtra="10sp"
@@ -80,11 +80,11 @@
         app:layout_constraintVertical_bias="0.100000024" />
 
     <ImageView
-        android:id="@+id/selectbutton"
+        android:id="@+id/selectimagebutton"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignStart="@+id/SubName"
-        android:layout_alignTop="@+id/textView4"
+        android:layout_alignTop="@+id/SubName"
         android:layout_marginTop="8dp"
         android:alpha="0.35"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,7 +96,7 @@
         app:srcCompat="@drawable/buttonbackground" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/selecttextid"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
@@ -117,7 +117,7 @@
         app:layout_constraintVertical_bias="0.19999999" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/Titleid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -129,7 +129,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:typeface="monospace"
-        app:layout_constraintBottom_toTopOf="@+id/Txrwin"
+        app:layout_constraintBottom_toTopOf="@+id/Filenameid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
