@@ -38,11 +38,12 @@ public class Timetableconfig extends AppCompatActivity {
     ListView l;
     ArrayAdapter<String> arrayAdapter;
     List<String> list;
-    String sub,time;
+    String sub, time;
     // int Selectedhour;
     // int SelectedMin;
-    Calendar toofix;
-    int daysetter ;
+    Calendar toofix, toofix2;
+    int daysetter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +78,9 @@ public class Timetableconfig extends AppCompatActivity {
             final Dialog dialog = new Dialog(Timetableconfig.this);
             dialog.setContentView(R.layout.timetablepicker);
             dialog.setTitle("Set details");
-            final EditText e1 = dialog.findViewById(R.id.editText3);
-            final TextView e2 = dialog.findViewById(R.id.editText4);
-            final TextView e3 = dialog.findViewById(R.id.editText5);
+            final EditText e1 = dialog.findViewById(R.id.Subnameid);
+            final TextView e2 = dialog.findViewById(R.id.Starttimeid);
+            final TextView e3 = dialog.findViewById(R.id.endtimeid);
             CardView b1 = dialog.findViewById(R.id.start);
             CardView b2 = dialog.findViewById(R.id.end);
             CardView b3 = dialog.findViewById(R.id.submit);
@@ -93,18 +94,17 @@ public class Timetableconfig extends AppCompatActivity {
                     final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                     int minute = mcurrentTime.get(Calendar.MINUTE);
                     toofix = Calendar.getInstance();
+                    toofix2 = Calendar.getInstance();
                     // final Date date = toofix.getTime();'if (cal.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
-
-
 
 
                     TimePickerDialog mTimePicker;
                     mTimePicker = new TimePickerDialog(Timetableconfig.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                            e2.setVisibility(View.VISIBLE);
                             e2.setText(selectedHour + ":" + selectedMinute);
-                            Log.i("check",String.valueOf(daysetter));
+                            e2.setVisibility(View.VISIBLE);
+                            Log.i("check", String.valueOf(daysetter));
                             // Log.i("check",date.toString());
 
                             if (toofix.get(Calendar.DAY_OF_WEEK) != daysetter) {
@@ -123,6 +123,7 @@ public class Timetableconfig extends AppCompatActivity {
                             int hourpost = toofix2.get(Calendar.HOUR_OF_DAY);
                             int Minpost = toofix2.get(Calendar.MINUTE);
                             e3.setText(String.valueOf(hourpost) + ":" + String.valueOf(Minpost));
+                            e3.setVisibility(View.VISIBLE);
 
 
                         }
@@ -144,7 +145,6 @@ public class Timetableconfig extends AppCompatActivity {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                             String concat = String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
-                            e3.setVisibility(View.VISIBLE);
                             e3.setText(concat.trim());
 
                         }
@@ -161,10 +161,10 @@ public class Timetableconfig extends AppCompatActivity {
             b3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(e1.getText().toString().length()!=0&&e2.getText().toString().length()!=0&&e3.getText().toString().length()!=0){
-                        list.add(e1.getText().toString().trim() + " From " +e2.getText().toString()+" to "+e3.getText().toString());
+                    if (e1.getText().toString().length() != 0 && e2.getText().toString().length() != 0 && e3.getText().toString().length() != 0) {
+                        list.add(e1.getText().toString().trim() + " From " + e2.getText().toString() + " to " + e3.getText().toString());
                         sub = e1.getText().toString().trim();
-                        time = e2.getText().toString().trim()+" to " + e3.getText().toString();
+                        time = e2.getText().toString().trim() + " to " + e3.getText().toString();
 
                         saveInfo(list);
                         arrayAdapter.notifyDataSetChanged();
@@ -172,10 +172,9 @@ public class Timetableconfig extends AppCompatActivity {
                         //int alertTime = ((Selectedhour*60*60)+(SelectedMin*60))*1000;
                         setReminder();
 
-                        dialog.dismiss();}
-                    else
-                    {
-                        Toast.makeText(Timetableconfig.this,"Please fill all the details",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(Timetableconfig.this, "Please select all the details", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -207,18 +206,18 @@ public class Timetableconfig extends AppCompatActivity {
 
     }
 
-    void setReminder()
-    {
+    void setReminder() {
         // Toast.makeText(Timetableconfig.this,"Reminder Set at"+Selectedhour+" :"+SelectedMin,Toast.LENGTH_SHORT).show();
         Intent alertIntent = new Intent(this, Notify.class);
-        alertIntent.putExtra("subjectname",sub);
-        alertIntent.putExtra("time",time);
-//Log.i("time",String.valueOf(toofix.getTimeInMillis()));
+        alertIntent.putExtra("subjectname", sub);
+        alertIntent.putExtra("time", time);
+        Log.i("time", String.valueOf(toofix.getTimeInMillis()));
         AlarmManager alarmManager = (AlarmManager) getSystemService(Timetableconfig.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, list.size(), alertIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // alarmManager.setExact(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis(), pendingIntent);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis()-1000,(7*AlarmManager.INTERVAL_DAY), pendingIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis() - 300000, (7 * AlarmManager.INTERVAL_DAY), pendingIntent);
+
 
     }
 

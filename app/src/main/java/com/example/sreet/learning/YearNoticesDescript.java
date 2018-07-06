@@ -182,7 +182,6 @@ public class YearNoticesDescript extends AppCompatActivity {
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/"+Year);
 
 
-*/
         list = (RecyclerView) findViewById(R.id.listview);
         myarrayadapter = new customListAdapter(this,NoticesData,Year,"Notices");
         list.setAdapter(myarrayadapter);
