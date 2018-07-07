@@ -23,10 +23,11 @@ public class WebView_SIS extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view__sis);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       // WebSettings webSettings = webView.getSettings();
        //webSettings.setJavaScriptEnabled(true);
+        setTitle("SIS");
         webView = findViewById(R.id.sisWeb);
-
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);

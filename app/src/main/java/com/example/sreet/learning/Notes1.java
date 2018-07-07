@@ -50,6 +50,7 @@ public class Notes1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(getIntent().getStringExtra("Year"));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressDialog = new ProgressDialog(this);
         progressDialog.setIndeterminate(false);
         // progressDialog.setMax(100);
@@ -105,10 +106,14 @@ public class Notes1 extends AppCompatActivity {
 
 
                 recyclerView.setAdapter(dA);
-                recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(Notes1.this, LinearLayoutManager.HORIZONTAL, false));
+                WrapContentLinearLayoutManager wrapContentLinearLayoutManager = new WrapContentLinearLayoutManager(Notes1.this, LinearLayoutManager.HORIZONTAL, false);
+                wrapContentLinearLayoutManager.setReverseLayout(true);
+                wrapContentLinearLayoutManager.setStackFromEnd(true);
+                recyclerView.setLayoutManager(wrapContentLinearLayoutManager);
                 registerForContextMenu(recyclerView);
                 progressDialog.dismiss();
                 dA.notifyDataSetChanged();
+
 
             }
 

@@ -13,6 +13,8 @@ public class attendance extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
+        setTitle("Attendance");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         openSis = (CardView) findViewById(R.id.openSis);
         CalcAttendance = (CardView) findViewById(R.id.calculateAttendance);
         openSis.setOnClickListener(this);

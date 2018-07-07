@@ -48,16 +48,16 @@ public class FCMService extends FirebaseMessagingService {
      //     */
     private void sendNotification(String notificationTitle, String notificationBody) {
         Intent intent;
-        if(notificationTitle=="Notice from firstYear") {
+        if(notificationTitle=="Notice for firstYear") {
             intent = new Intent(this, YearNoticesDescript.class);
         }
-        else if(notificationTitle=="Notice from secondYear"){
+        else if(notificationTitle=="Notice for secondYear"){
             intent = new Intent(this, YearNoticesDescript.class);
         }
-        else if(notificationTitle=="Notice from thirdYear"){
+        else if(notificationTitle=="Notice for thirdYear"){
             intent = new Intent(this, YearNoticesDescript.class);
         }
-        else if(notificationTitle=="Notice from fourthYear"){
+        else if(notificationTitle=="Notice for fourthYear"){
             intent = new Intent(this, YearNoticesDescript.class);
         }
         else{

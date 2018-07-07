@@ -65,7 +65,9 @@ public class UserData extends AppCompatActivity {
                         editor.putString("DOB",dob_ed.getText().toString().trim());
                         editor.apply();
                         setFirstTimeStartStatus(false);
-                        Firebase updateDataFire = myfire.child(personEmail.substring(0,(personEmail.length()-10)));
+                        String encodeEmail;
+                        encodeEmail = personEmail.replace('.',',');
+                        Firebase updateDataFire = myfire.child(encodeEmail);
                         updateDataFire.child("userName").setValue(personName);
                         updateDataFire.child("enroll").setValue(enroll_ed.getText().toString().trim());
                         updateDataFire.child("block").setValue(block_ed.getText().toString().trim());

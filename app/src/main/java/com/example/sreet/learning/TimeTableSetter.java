@@ -15,6 +15,8 @@ public class TimeTableSetter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table_setter);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("TimeTable");
         c1 = findViewById(R.id.monday);
         c2 = findViewById(R.id.tuesday);
         c3 =findViewById(R.id.wednesday);

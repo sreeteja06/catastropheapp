@@ -1,7 +1,6 @@
 package com.example.sreet.learning;
 
 
-
 import android.app.AlarmManager;
 
 import android.app.Dialog;
@@ -61,7 +60,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 
-
 import java.io.File;
 
 import java.io.IOException;
@@ -79,7 +77,6 @@ import java.util.List;
 import java.util.Set;
 
 
-
 public class Timetableconfig extends AppCompatActivity {
 
     ListView l;
@@ -88,15 +85,15 @@ public class Timetableconfig extends AppCompatActivity {
 
     List<String> list;
 
-    String sub,time;
+    String sub, time;
 
     // int Selectedhour;
 
     // int SelectedMin;
 
-    Calendar toofix,toofix2;
+    Calendar toofix, toofix2;
 
-    int daysetter ;
+    int daysetter;
 
     @Override
 
@@ -105,6 +102,7 @@ public class Timetableconfig extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_timetableconfig);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         l = findViewById(R.id.listviewtable);
 
@@ -121,11 +119,11 @@ public class Timetableconfig extends AppCompatActivity {
         registerForContextMenu(l);
 
         daysetter = getIntent().getIntExtra("daydetails", 0);
-
+        String LayoutTitle = getIntent().getStringExtra("dayofweek");
+        setTitle((LayoutTitle.substring(9,LayoutTitle.length())));
 //Log.i("test",String.valueOf(daysetter));
 
     }
-
 
 
     @Override
@@ -137,9 +135,6 @@ public class Timetableconfig extends AppCompatActivity {
         inflater.inflate(R.menu.timetableadder, menu);
 
 
-
-
-
         MenuItem item = menu.findItem(R.id.AddTableId);
 
         item.setVisible(true);
@@ -147,13 +142,11 @@ public class Timetableconfig extends AppCompatActivity {
         this.invalidateOptionsMenu();
 
 
-
         arrayAdapter.notifyDataSetChanged();
 
         return true;
 
     }
-
 
 
     @Override
@@ -185,7 +178,6 @@ public class Timetableconfig extends AppCompatActivity {
             dialog.setCanceledOnTouchOutside(true);
 
 
-
             b1.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -205,13 +197,6 @@ public class Timetableconfig extends AppCompatActivity {
                     // final Date date = toofix.getTime();'if (cal.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
 
 
-
-
-
-
-
-
-
                     TimePickerDialog mTimePicker;
 
                     mTimePicker = new TimePickerDialog(Timetableconfig.this, new TimePickerDialog.OnTimeSetListener() {
@@ -227,7 +212,6 @@ public class Timetableconfig extends AppCompatActivity {
                             // Log.i("check",String.valueOf(daysetter));
 
                             // Log.i("check",date.toString());
-
 
 
                             if (toofix.get(Calendar.DAY_OF_WEEK) != daysetter) {
@@ -260,10 +244,7 @@ public class Timetableconfig extends AppCompatActivity {
 
                             int Minpost = toofix2.get(Calendar.MINUTE);
 
-                            e3.setText(" to "+String.valueOf(hourpost) + ":" + String.valueOf(Minpost));
-
-
-
+                            e3.setText(" to " + String.valueOf(hourpost) + ":" + String.valueOf(Minpost));
 
 
                         }
@@ -273,9 +254,6 @@ public class Timetableconfig extends AppCompatActivity {
                     mTimePicker.setTitle("Select Time");
 
                     mTimePicker.show();
-
-
-
 
 
                 }
@@ -309,7 +287,6 @@ public class Timetableconfig extends AppCompatActivity {
                             e3.setText(concat.trim());
 
 
-
                         }
 
                     }, hour, minute, true);//Yes 24 hour time
@@ -319,13 +296,9 @@ public class Timetableconfig extends AppCompatActivity {
                     mTimePicker.show();
 
 
-
-
-
                 }
 
             });
-
 
 
             // SharedPreferences preferences = getSharedPreferences("timetable",MODE_PRIVATE);
@@ -338,14 +311,13 @@ public class Timetableconfig extends AppCompatActivity {
 
                 public void onClick(View v) {
 
-                    if(e1.getText().toString().length()!=0&&e2.getText().toString().length()!=0&&e3.getText().toString().length()!=0){
+                    if (e1.getText().toString().length() != 0 && e2.getText().toString().length() != 0 && e3.getText().toString().length() != 0) {
 
-                        list.add(e1.getText().toString().trim() + " From " +e2.getText().toString()+e3.getText().toString());
+                        list.add(e1.getText().toString().trim() + " From " + e2.getText().toString() + e3.getText().toString());
 
                         sub = e1.getText().toString().trim();
 
                         time = e2.getText().toString().trim() + e3.getText().toString();
-
 
 
                         saveInfo(list);
@@ -353,31 +325,24 @@ public class Timetableconfig extends AppCompatActivity {
                         arrayAdapter.notifyDataSetChanged();
 
 
-
                         //int alertTime = ((Selectedhour*60*60)+(SelectedMin*60))*1000;
 
                         setReminder();
 
 
-
-                        dialog.dismiss();}
-
-                    else
+                        dialog.dismiss();
+                    } else
 
                     {
 
-                        Toast.makeText(Timetableconfig.this,"Please fill all the details",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Timetableconfig.this, "Please fill all the details", Toast.LENGTH_SHORT).show();
 
                     }
-
 
 
                 }
 
             });
-
-
-
 
 
         }
@@ -387,7 +352,6 @@ public class Timetableconfig extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
-
 
 
     void saveInfo(List<String> a) {
@@ -403,7 +367,6 @@ public class Timetableconfig extends AppCompatActivity {
         editor.apply();
 
     }
-
 
 
     void updateInfo() {
@@ -425,9 +388,7 @@ public class Timetableconfig extends AppCompatActivity {
             list = new ArrayList(again);
 
 
-
     }
-
 
 
     void setReminder()
@@ -438,26 +399,23 @@ public class Timetableconfig extends AppCompatActivity {
 
         Intent alertIntent = new Intent(this, Notify.class);
 
-        alertIntent.putExtra("subjectname",sub);
+        alertIntent.putExtra("subjectname", sub);
 
-        alertIntent.putExtra("time",time);
+        alertIntent.putExtra("time", time);
 
-        Log.i("time",String.valueOf(toofix.getTimeInMillis()));
+        Log.i("time", String.valueOf(toofix.getTimeInMillis()));
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Timetableconfig.ALARM_SERVICE);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, list.size(), alertIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-
         // alarmManager.setExact(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis(), pendingIntent);
 
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis()-300000,(7*AlarmManager.INTERVAL_DAY), pendingIntent);
-
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis() - 300000, (7 * AlarmManager.INTERVAL_DAY), pendingIntent);
 
 
     }
-
 
 
     @Override
@@ -468,10 +426,9 @@ public class Timetableconfig extends AppCompatActivity {
 
         MenuInflater inflater = getMenuInflater();
 
-        inflater.inflate(R.menu.menu,menu);
+        inflater.inflate(R.menu.menu, menu);
 
     }
-
 
 
     @Override
@@ -484,7 +441,7 @@ public class Timetableconfig extends AppCompatActivity {
 
         {
 
-            case R.id.delete:{
+            case R.id.delete: {
 
                 String s = list.get(info.position);
 
@@ -492,7 +449,7 @@ public class Timetableconfig extends AppCompatActivity {
 
                 arrayAdapter.notifyDataSetChanged();
 
-                SharedPreferences sharedPreferences = getSharedPreferences("Timetablepersonal",MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("Timetablepersonal", MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -500,9 +457,9 @@ public class Timetableconfig extends AppCompatActivity {
 
                 check.add("check");
 
-                Set again = sharedPreferences.getStringSet(getIntent().getStringExtra("dayofweek"),check );
+                Set again = sharedPreferences.getStringSet(getIntent().getStringExtra("dayofweek"), check);
 
-                if(again.contains(s))
+                if (again.contains(s))
 
                 {
 
@@ -512,14 +469,13 @@ public class Timetableconfig extends AppCompatActivity {
 
                     editor.apply();
 
-                    Toast.makeText(Timetableconfig.this,"Succesfully deleted",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Timetableconfig.this, "Succesfully deleted", Toast.LENGTH_SHORT).show();
 
-                }else
+                } else
 
                 {
 
-                    Toast.makeText(Timetableconfig.this,"Unable to delete",Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(Timetableconfig.this, "Unable to delete", Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -531,13 +487,10 @@ public class Timetableconfig extends AppCompatActivity {
             {
 
 
-
             }
 
 
-
         }
-
 
 
         return super.onContextItemSelected(item);

@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sreet.learning">
 
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="21" />
-
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -77,26 +73,41 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Notices"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity" >
+            <intent-filter>
+                <action android:name="Notices" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".listViewClick"
             android:parentActivityName=".Notices" />
-        <activity android:name=".about" />
-        <activity android:name=".idCard" />
-        <activity android:name=".savedNotices" />
+        <activity android:name=".about"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".idCard"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".savedNotices"
+            android:parentActivityName=".SavedThings"/>
         <activity android:name=".WelcomeActivity"/>
         <activity android:name=".notesList" />
-        <activity android:name=".SavedThings" />
-        <activity android:name=".savedNotes" />
-        <activity android:name=".savedTimeTable" />
+        <activity android:name=".SavedThings"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".savedNotes"
+            android:parentActivityName=".SavedThings"/>
         <activity android:name=".SignIn" />
-        <activity android:name=".attendance" />
-        <activity android:name=".calculateAttendance" />
-        <activity android:name=".Notes1" />
+        <activity android:name=".attendance"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".calculateAttendance"
+            android:parentActivityName=".attendance"/>
+        <activity android:name=".Notes1"
+            android:parentActivityName=".notes"/>
         <activity android:name=".Documentupdate" />
-        <activity android:name=".WebView_SIS" />
-        <activity android:name=".TimeTableSetter" />
-        <activity android:name=".Timetableconfig" />
+        <activity android:name=".WebView_SIS"
+            android:parentActivityName=".attendance"/>
+        <activity android:name=".TimeTableSetter"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".Timetableconfig"
+            android:parentActivityName=".TimeTableSetter"/>
         <activity android:name=".UserData" />
         <activity android:name=".splashScreen">
             <intent-filter>

@@ -25,7 +25,7 @@ public class SavedThings extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_things);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         SavedNotices = (CardView) findViewById(R.id.SavedNotice);
         SavedNotes = (CardView) findViewById(R.id.SavedNotes);

@@ -44,6 +44,7 @@ public class savedNotices extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_notices);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Saved Notices");
         sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
         String noticesValueString = sharedPreferences.getString("number of saved notices","1");

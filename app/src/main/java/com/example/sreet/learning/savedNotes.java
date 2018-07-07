@@ -37,6 +37,7 @@ public class savedNotes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_notes);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Saved Notes");
         File root = new File(Environment
                 .getExternalStorageDirectory()+"/Ifhe/Documents");

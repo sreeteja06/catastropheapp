@@ -19,7 +19,8 @@ public class calculateAttendance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculate_attendance);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Calculate attendance");
 
         classesTaken = (EditText) findViewById(R.id.classesTaken);
         classesAttended = (EditText) findViewById(R.id.classesAttended);
