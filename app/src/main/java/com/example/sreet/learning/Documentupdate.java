@@ -157,7 +157,7 @@ String Url;
                     /*.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Date currentTime = Calendar.getInstance().getTime();
+                    Date currentTime = CalendarActivity.getInstance().getTime();
                     NotesDataClass nc = new NotesDataClass(ettx.getText().toString().trim()+"."+getTypenotes(urii),currentTime.toString(), taskSnapshot.getDownloadUrl().toString());
                     Toast.makeText(Documentupdate.this, "Success", Toast.LENGTH_SHORT).show();
                     String key = databaseReference.push().getKey();

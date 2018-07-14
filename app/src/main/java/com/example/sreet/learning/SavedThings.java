@@ -64,6 +64,8 @@ public class SavedThings extends AppCompatActivity implements View.OnClickListen
                 Intent i = new Intent(this,about.class);
                 startActivity(i);
                 break;
+            case  R.id.sis:
+                Intent intent3 = new Intent(this,WebView_SIS.class);startActivity(intent3);break;
             case R.id.LogOut:
                 FirebaseAuth.getInstance().signOut();
                 Intent sign = new Intent(this,SignIn.class);

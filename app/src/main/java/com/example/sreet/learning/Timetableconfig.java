@@ -194,7 +194,7 @@ public class Timetableconfig extends AppCompatActivity {
 
                     toofix2 = Calendar.getInstance();
 
-                    // final Date date = toofix.getTime();'if (cal.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
+                    // final Date date = toofix.getTime();'if (cal.get(CalendarActivity.DAY_OF_WEEK) != dayOfWeek) {
 
 
                     TimePickerDialog mTimePicker;

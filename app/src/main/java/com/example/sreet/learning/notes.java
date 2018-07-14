@@ -21,7 +21,6 @@ public class notes extends AppCompatActivity implements View.OnClickListener{
         setTitle("Notes");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_notices);
-
         firstyear = (CardView) findViewById(R.id.firstyearid);
         secondyear = (CardView) findViewById(R.id.secondyearid);
         thirdyear = (CardView) findViewById(R.id.thirdyearid);
@@ -93,6 +92,8 @@ public class notes extends AppCompatActivity implements View.OnClickListener{
                 Intent i = new Intent(this,about.class);
                 startActivity(i);
                 break;
+            case  R.id.sis:
+                Intent intent3 = new Intent(this,WebView_SIS.class);startActivity(intent3);break;
             case R.id.LogOut:
                 FirebaseAuth.getInstance().signOut();
                 Intent sign = new Intent(this,SignIn.class);

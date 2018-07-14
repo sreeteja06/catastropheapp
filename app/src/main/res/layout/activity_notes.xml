@@ -20,14 +20,14 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <ImageView
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fileUploadButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/add"
+        android:src="@drawable/add"
         android:clickable="true"
         android:longClickable="true"
 

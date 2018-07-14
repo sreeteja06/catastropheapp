@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,8 +19,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -111,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         suggestonsItem.setVisible(true);
         item1.setVisible(true);
         item1.setTitle("Show guide");
-
         item1.setIcon(R.drawable.ic_sentiment_very_satisfied_black_24dp);
         this.invalidateOptionsMenu();
         return true;
@@ -138,8 +134,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 editor.commit();
                 startActivity(intent2);
                 break;
-            case R.id.LogOut:
 
+            case  R.id.sis:
+                Intent intent3 = new Intent(this,WebView_SIS.class);startActivity(intent3);break;
+
+            case R.id.LogOut:
                 FirebaseAuth mauth = FirebaseAuth.getInstance();
                 mauth.signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -152,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 FirebaseAuth.getInstance().signOut();
                 Intent sign = new Intent(this,SignIn.class);
                 startActivity(sign);
+                finish();
                 break;
             case R.id.suggestionsMenu:
                 Intent in = new Intent(this,suggestions.class);startActivity(in);break;
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.timetableid: i = new Intent(this,TimeTableSetter.class);startActivity(i);break;
             case R.id.activitiesid: i = new Intent(this,Events.class);startActivity(i);break;
-            case R.id.attendanceID: i = new Intent(this,attendance.class);startActivity(i);break;
+            case R.id.attendanceID: i = new Intent(this,CalendarActivity.class);startActivity(i);break;
             case R.id.linksid: i = new Intent(this,notes.class);startActivity(i);break;
             case R.id.noticesid: i = new Intent(this, com.example.sreet.learning.Notices.class);startActivity(i);break;
             case R.id.SavedThings: i = new Intent(this,SavedThings.class);startActivity(i);break;

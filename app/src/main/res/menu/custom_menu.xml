@@ -5,7 +5,7 @@
     <item
         android:id="@+id/favorite"
         android:icon="@drawable/profile"
-        android:title="favorite"
+        android:title="ID"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/saveNOtice"
@@ -15,6 +15,10 @@
     <item
         android:id="@+id/about"
         android:title="about"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/sis"
+        android:title="SIS"
         app:showAsAction="never" />
     <item
         android:id="@+id/suggestionsMenu"
