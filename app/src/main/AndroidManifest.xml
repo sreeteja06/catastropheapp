@@ -129,6 +129,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity"/>
     </application>
 
