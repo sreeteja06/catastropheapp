@@ -1,14 +1,20 @@
 package com.example.sreet.learning;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.firebase.client.ChildEventListener;
@@ -37,6 +43,7 @@ public class CalendarActivity extends AppCompatActivity {
     private Date dateClickedGlobal;
     private Firebase myfire;
     private ArrayList<Event> CalendarEvents = new ArrayList<>();
+    private ListView calendaraEventsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textView = (TextView) findViewById(R.id.dayDetailsid);
+        calendaraEventsList = (ListView)findViewById(R.id.calendarEventsList);
         compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.addCalenderEvent);
@@ -53,8 +61,26 @@ public class CalendarActivity extends AppCompatActivity {
         Date date = new Date();
         SelectedDate =  ss.format(date);
         setTitle(Monthformat.format(date));
-        textView.setText("No Event planned on "+SelectedDate);
-        textView.setVisibility(View.VISIBLE);
+        Long presentDateMill = date.getTime();
+        List<Event> events = compactCalendarView.getEvents(presentDateMill);
+        if(!events.isEmpty())
+        {
+            textView.setVisibility(View.GONE);
+            ArrayList<String> CalendarData = new ArrayList<>();
+            for(int i = 0;i<events.size();i++){
+                CalendarData.add(events.get(i).getData().toString());
+            }
+            ArrayAdapter<String> mArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,CalendarData);
+            calendaraEventsList.setItemsCanFocus(true);
+            calendaraEventsList.setAdapter(mArrayAdapter);
+            calendaraEventsList.setVisibility(View.VISIBLE);
+        }
+        else {
+            calendaraEventsList.setVisibility(View.INVISIBLE);
+            textView.setText("No Event planned on " + SelectedDate);
+            textView.setVisibility(View.VISIBLE);
+        }
+
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/calendar");
         Event ev1 = new Event(Color.RED,1531872000000L,"Testing date");
@@ -70,10 +96,18 @@ public class CalendarActivity extends AppCompatActivity {
                     List<Event> events = compactCalendarView.getEvents(dateClickedMill);
                     if(!events.isEmpty())
                     {
-                        textView.setText(events.get(0).getData().toString());
-                        textView.setVisibility(View.VISIBLE);
+                        textView.setVisibility(View.GONE);
+                        ArrayList<String> CalendarData = new ArrayList<>();
+                        for(int i = 0;i<events.size();i++){
+                            CalendarData.add(events.get(i).getData().toString());
+                        }
+                        ArrayAdapter<String> mArrayAdapter = new ArrayAdapter<String>(CalendarActivity.this,android.R.layout.simple_list_item_1,CalendarData);
+                        calendaraEventsList.setAdapter(mArrayAdapter);
+                        calendaraEventsList.setAdapter(mArrayAdapter);
+                        calendaraEventsList.setVisibility(View.VISIBLE);
                     }
                     else {
+                        calendaraEventsList.setVisibility(View.INVISIBLE);
                         textView.setText("No Event planned on " + SelectedDate);
                         textView.setVisibility(View.VISIBLE);
                     }
@@ -118,6 +152,7 @@ public class CalendarActivity extends AppCompatActivity {
                String data = dataSnapshot.child("data").getValue(String.class);
                Long timeInMillis = dataSnapshot.child("timeInMillis").getValue(Long.class);
                compactCalendarView.addEvent(new Event(color,timeInMillis,data));
+               setReminder(timeInMillis,data);
            }
 
            @Override
@@ -141,7 +176,15 @@ public class CalendarActivity extends AppCompatActivity {
            }
        });
 
-
-
+    }
+    void setReminder(Long timeinMills,String Data)
+    {
+        // Toast.makeText(Timetableconfig.this,"Reminder Set at"+Selectedhour+" :"+SelectedMin,Toast.LENGTH_SHORT).show();
+        Intent alertIntent = new Intent(this, Notify.class);
+        alertIntent.putExtra("type", "calendar");
+        alertIntent.putExtra("Body", Data);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Timetableconfig.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alertIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeinMills, pendingIntent);
     }
 }
