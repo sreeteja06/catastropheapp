@@ -36,6 +36,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -180,6 +181,8 @@ public class YearNoticesDescript extends AppCompatActivity {
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/"+Year);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        myfire.keepSynced(true);
 
 
         list = (RecyclerView) findViewById(R.id.listview);

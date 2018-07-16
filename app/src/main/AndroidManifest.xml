@@ -120,7 +120,8 @@
         <activity
             android:name=".Timetableconfig"
             android:parentActivityName=".TimeTableSetter" />
-        <activity android:name=".UserData" />
+        <activity android:name=".UserData"
+            android:screenOrientation="portrait"/>
         <activity android:name=".splashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -130,7 +131,13 @@
         </activity>
         <activity android:name=".CalendarActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="CalendarActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

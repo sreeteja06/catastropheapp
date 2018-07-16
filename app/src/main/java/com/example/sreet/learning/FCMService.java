@@ -13,6 +13,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Date;
+
 public class FCMService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
 
@@ -47,6 +49,8 @@ public class FCMService extends FirebaseMessagingService {
      //     * Create and show a simple notification containing the received FCM message.
      //     */
     private void sendNotification(String notificationTitle, String notificationBody) {
+
+
         Intent intent;
         if(notificationTitle=="Notice for firstYear") {
             intent = new Intent(this, YearNoticesDescript.class);
