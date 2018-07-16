@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +27,8 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
@@ -43,7 +47,7 @@ public class CalendarActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     private String SelectedDate;
     private Date dateClickedGlobal;
-    private Firebase myfire;
+    private DatabaseReference myfire;
     private ArrayList<Event> CalendarEvents = new ArrayList<>();
     private ListView calendaraEventsList;
 
@@ -51,7 +55,6 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textView = (TextView) findViewById(R.id.dayDetailsid);
         calendaraEventsList = (ListView)findViewById(R.id.calendarEventsList);
@@ -84,7 +87,8 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         Firebase.setAndroidContext(this);
-        myfire = new Firebase("https://learning-2b334.firebaseio.com/calendar");
+        //myfire = new Firebase("https://learning-2b334.firebaseio.com/calendar");
+        myfire = FirebaseDatabase.getInstance().getReference().child("calendar");
         myfire.keepSynced(true);
         Event ev1 = new Event(Color.RED,1531872000000L,"Testing date");
         compactCalendarView.addEvent(ev1);
@@ -174,9 +178,9 @@ public class CalendarActivity extends AppCompatActivity {
           }
        });
 
-       myfire.addChildEventListener(new ChildEventListener() {
+       myfire.addChildEventListener(new com.google.firebase.database.ChildEventListener() {
            @Override
-           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+           public void onChildAdded(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot, @Nullable String s) {
                int color = dataSnapshot.child("color").getValue(Integer.class);
                String data = dataSnapshot.child("data").getValue(String.class);
                Long timeInMillis = dataSnapshot.child("timeInMillis").getValue(Long.class);
@@ -185,25 +189,26 @@ public class CalendarActivity extends AppCompatActivity {
            }
 
            @Override
-           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+           public void onChildChanged(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot, @Nullable String s) {
 
            }
 
            @Override
-           public void onChildRemoved(DataSnapshot dataSnapshot) {
+           public void onChildRemoved(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
 
            }
 
            @Override
-           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+           public void onChildMoved(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot, @Nullable String s) {
 
            }
 
            @Override
-           public void onCancelled(FirebaseError firebaseError) {
+           public void onCancelled(@NonNull DatabaseError databaseError) {
 
            }
        });
+
 
     }
     void setReminder(Long timeinMills,String Data)

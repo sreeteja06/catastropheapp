@@ -69,6 +69,7 @@ public class Notes1 extends AppCompatActivity {
         b1.setVisibility(View.INVISIBLE);
 
         dataref = FirebaseDatabase.getInstance().getReference("users/Notes/" + getIntent().getStringExtra("Year"));
+        dataref.keepSynced(true);
         // search = findViewById(R.id.Searchaction);
 
         recyclerView = findViewById(R.id.Documentrecycle);
