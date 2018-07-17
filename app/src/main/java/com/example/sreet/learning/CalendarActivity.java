@@ -61,9 +61,10 @@ public class CalendarActivity extends AppCompatActivity {
         compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.addCalenderEvent);
+        floatingActionButton.setVisibility(View.INVISIBLE);
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat ss = new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
-        Date date = new Date();
+        final Date date = new Date();
         SelectedDate =  ss.format(date);
         setTitle(Monthformat.format(date));
         Long presentDateMill = date.getTime();
@@ -118,6 +119,62 @@ public class CalendarActivity extends AppCompatActivity {
                         textView.setText("No Event planned on " + SelectedDate);
                         textView.setVisibility(View.VISIBLE);
                     }
+
+
+                if(dateClickedGlobal!=null) {
+                    if (dateClickedGlobal.after(date)||dateClickedGlobal.equals(date) ) {
+                        floatingActionButton.setVisibility(View.VISIBLE);
+                        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                final Dialog dialog = new Dialog(CalendarActivity.this);
+                                dialog.setContentView(R.layout.calendar_event_adder);
+                                dialog.setTitle("Add Calendar Event");
+                                CardView submitCal = (CardView) dialog.findViewById(R.id.submitCalendarEvent);
+                                final EditText eventDescript = (EditText) dialog.findViewById(R.id.calendarEventDescription);
+                                final Spinner dropdown = (Spinner) dialog.findViewById(R.id.BatchSpinner);
+                                String items[] = new String[]{"Common", "BBA", "LLB", "B.Tech"};
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(CalendarActivity.this, android.R.layout.simple_spinner_dropdown_item, items);
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                if (dropdown != null) {
+                                    dropdown.setAdapter(adapter);
+                                }
+                                dialog.show();
+                                dialog.setCanceledOnTouchOutside(true);
+                                if (eventDescript != null) {
+                                    submitCal.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            int EventColor;
+                                            String dropdownSelected = dropdown.getSelectedItem().toString();
+
+                                            if (dropdownSelected.equals("B.Tech")) {
+                                                EventColor = Color.RED;
+                                            } else if (dropdownSelected.equals("BBA")) {
+                                                EventColor = Color.GREEN;
+                                            } else if (dropdownSelected.equals("LLB")) {
+                                                EventColor = Color.YELLOW;
+                                            } else if (dropdownSelected.equals("Common")) {
+                                                EventColor = Color.BLUE;
+                                            } else {
+                                                EventColor = Color.BLACK;
+                                            }
+
+                                            Long dateClickedMills = dateClickedGlobal.getTime();
+                                            Event extra = new Event(EventColor, dateClickedMills, eventDescript.getText().toString());
+                                            String id = myfire.push().getKey();
+                                            myfire.child(id).setValue(extra);
+                                            dialog.hide();
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                    else if(dateClickedGlobal.before(date)){
+                        floatingActionButton.setVisibility(View.INVISIBLE);
+                    }
+                }
             }
 
             @Override
@@ -127,56 +184,6 @@ public class CalendarActivity extends AppCompatActivity {
         });
 
 
-       floatingActionButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               final Dialog dialog = new Dialog(CalendarActivity.this);
-               dialog.setContentView(R.layout.calendar_event_adder);
-               dialog.setTitle("Add Calendar Event");
-               CardView submitCal = (CardView) dialog.findViewById(R.id.submitCalendarEvent);
-               final EditText eventDescript = (EditText) dialog.findViewById(R.id.calendarEventDescription);
-               final Spinner dropdown = (Spinner) dialog.findViewById(R.id.BatchSpinner);
-               String items[] = new String[]{"Common","BBA","LLB","B.Tech"};
-               ArrayAdapter<String> adapter = new ArrayAdapter<>(CalendarActivity.this, android.R.layout.simple_spinner_dropdown_item, items);
-               adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-               if(dropdown!=null) {
-                   dropdown.setAdapter(adapter);
-               }
-               dialog.show();
-               dialog.setCanceledOnTouchOutside(true);
-               if(eventDescript!=null) {
-                   submitCal.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-                           int EventColor;
-                           String dropdownSelected = dropdown.getSelectedItem().toString();
-
-                           if (dropdownSelected.equals("B.Tech")){
-                               EventColor=Color.RED;
-                           }
-                           else if(dropdownSelected.equals("BBA")){
-                               EventColor=Color.GREEN;
-                           }
-                           else if(dropdownSelected.equals("LLB")){
-                               EventColor=Color.YELLOW;
-                           }
-                           else if(dropdownSelected.equals("Common")){
-                               EventColor=Color.BLUE;
-                           }
-                           else{
-                               EventColor=Color.BLACK;
-                           }
-
-                           Long dateClickedMills = dateClickedGlobal.getTime();
-                           Event extra = new Event(EventColor,dateClickedMills,eventDescript.getText().toString());
-                           String id = myfire.push().getKey();
-                           myfire.child(id).setValue(extra);
-                           dialog.hide();
-                       }
-                   });
-               }
-          }
-       });
 
        myfire.addChildEventListener(new com.google.firebase.database.ChildEventListener() {
            @Override

@@ -32,7 +32,6 @@ import com.firebase.client.FirebaseError;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -41,7 +40,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class YearNoticesDescript extends AppCompatActivity {
     ArrayList<NoticesDataClass> NoticesData = new ArrayList<>();
@@ -177,7 +175,6 @@ public class YearNoticesDescript extends AppCompatActivity {
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/"+Year);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         myfire.keepSynced(true);
 
 

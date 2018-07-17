@@ -27,7 +27,6 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.File;
@@ -41,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -107,12 +104,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.custom_menu,menu);
-        MenuItem item1 = menu.findItem(R.id.saveNOtice);
+        MenuItem Fav = menu.findItem(R.id.saveNOtice);
+        Fav.setVisible(false);
         MenuItem suggestonsItem = menu.findItem(R.id.suggestionsMenu);
         suggestonsItem.setVisible(true);
-        item1.setVisible(true);
-        item1.setTitle("Show guide");
-        item1.setIcon(R.drawable.ic_sentiment_very_satisfied_black_24dp);
         this.invalidateOptionsMenu();
         return true;
     }
@@ -127,16 +122,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.about:
                 Intent i = new Intent(this,about.class);
                 startActivity(i);
-                break;
-            case R.id.saveNOtice:
-                Intent intent2 = new Intent(this,WelcomeActivity.class);
-                SharedPreferences sharedPreferences;
-                sharedPreferences = this.getSharedPreferences("com.example.sreet.learning", Context.MODE_PRIVATE);
-                SharedPreferences ref = getApplicationContext().getSharedPreferences("IntroSliderApp", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = ref.edit();
-                editor.putBoolean("FirstTimeStartFlag", true);
-                editor.commit();
-                startActivity(intent2);
                 break;
 
             case  R.id.sis:

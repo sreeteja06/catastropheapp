@@ -59,7 +59,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".YearNoticesDescript"
             android:parentActivityName=".Notices" />
