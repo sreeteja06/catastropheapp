@@ -50,7 +50,9 @@ public class Notify extends BroadcastReceiver {
             notificationManager.notify(0, notificationBuilder.build());
         }
         else if(intent.getStringExtra("type").equals("calendar")){
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, CalendarActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_UPDATE_CURRENT);
+            Log.i("CHe", "Recei");
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, new Intent(context, CalendarActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 NotificationChannel channel2 = new NotificationChannel("calendar",
@@ -75,7 +77,7 @@ public class Notify extends BroadcastReceiver {
                     //.setSound(defaultSoundUri);
                     .setContentIntent(pendingIntent);
 
-            notificationManager.notify(0, notificationBuilder.build());
+            notificationManager.notify(1, notificationBuilder.build());
         }
     }
 }

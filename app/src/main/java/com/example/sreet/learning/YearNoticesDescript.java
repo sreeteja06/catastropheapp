@@ -175,7 +175,6 @@ public class YearNoticesDescript extends AppCompatActivity {
         });
         Firebase.setAndroidContext(this);
         myfire = new Firebase("https://learning-2b334.firebaseio.com/users/Notices/"+Year);
-        myfire.keepSynced(true);
 
 
         list = (RecyclerView) findViewById(R.id.listview);

@@ -45,9 +45,6 @@ public class FCMService extends FirebaseMessagingService {
     }
 
 
-    /**
-     //     * Create and show a simple notification containing the received FCM message.
-     //     */
     private void sendNotification(String notificationTitle, String notificationBody) {
 
 

@@ -122,7 +122,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 
                 if(dateClickedGlobal!=null) {
-                    if (dateClickedGlobal.after(date)||dateClickedGlobal.equals(date) ) {
+                    if (dateClickedGlobal.after(date) ) {
                         floatingActionButton.setVisibility(View.VISIBLE);
                         floatingActionButton.setOnClickListener(new View.OnClickListener() {
                             @Override

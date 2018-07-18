@@ -390,19 +390,21 @@ public class Timetableconfig extends AppCompatActivity {
 
     }
 
-
+    List<PendingIntent> plist;
     void setReminder()
 
-    {
+    {plist = new ArrayList<>();
         // Toast.makeText(Timetableconfig.this,"Reminder Set at"+Selectedhour+" :"+SelectedMin,Toast.LENGTH_SHORT).show();
         Intent alertIntent = new Intent(this, Notify.class);
         alertIntent.putExtra("type","timeTable");
         alertIntent.putExtra("Body", sub+" from "+time);
         Log.i("time", String.valueOf(toofix.getTimeInMillis()));
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Timetableconfig.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, list.size(), alertIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         // alarmManager.setExact(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis(), pendingIntent);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis() - 300000, (7 * 24 * 60 * 60), pendingIntent);
+        plist.add(pendingIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, toofix.getTimeInMillis() - 300000, 7 * 24 * 60 * 60*1000, plist.get(plist.size()-1));
 
     }
 
@@ -487,3 +489,4 @@ public class Timetableconfig extends AppCompatActivity {
     }
 
 }
+

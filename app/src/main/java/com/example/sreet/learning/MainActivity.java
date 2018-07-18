@@ -1,11 +1,11 @@
 package com.example.sreet.learning;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -32,14 +31,14 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private CardView Attendance,Links,Activities,TimeTable,Notices,SavedThings;
     private static MainActivity mInstance;
     private final int REQUEST_CODE = 1;
     GoogleApiClient mGoogleApiClient;
-    private FirebaseAnalytics mFirebaseAnalytics;
+    FirebaseAnalytics mFirebaseAnalytics;
+    FloatingActionButton Globalchat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        CardView Attendance,Links,Activities,TimeTable,Notices,SavedThings;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TimeTable = (CardView) findViewById(R.id.timetableid);
         Notices = (CardView) findViewById(R.id.noticesid);
         SavedThings = (CardView) findViewById(R.id.SavedThings);
-        //to save the user name
+        Globalchat = (FloatingActionButton) findViewById(R.id.globalChatButton);
 
 
 
@@ -96,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TimeTable.setOnClickListener(this);
         Notices.setOnClickListener(this);
         SavedThings.setOnClickListener(this);
+        Globalchat.setOnClickListener(this);
 
         FirebaseMessaging.getInstance().subscribeToTopic("notifications");
     }
@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.linksid: i = new Intent(this,notes.class);startActivity(i);break;
             case R.id.noticesid: i = new Intent(this, com.example.sreet.learning.Notices.class);startActivity(i);break;
             case R.id.SavedThings: i = new Intent(this,SavedThings.class);startActivity(i);break;
+            case R.id.globalChatButton: i = new Intent(this,GlobalChat.class);startActivity(i);break;
             default: break;
         }
     }
