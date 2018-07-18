@@ -29,8 +29,7 @@ public class GlobalChat extends AppCompatActivity {
     EditText editTextGlobalChat;
     ImageButton sendGlobalChatButton;
     RecyclerView recyclerView;
-    ArrayList<String> Emails = new ArrayList<>();
-    ArrayList<String> Messages = new ArrayList<>();
+    ArrayList<GlobalChatDataClass> ChatData = new ArrayList<>();
     globalChatAdapter myAdapter;
 
     @Override
@@ -45,7 +44,7 @@ public class GlobalChat extends AppCompatActivity {
         myfire = FirebaseDatabase.getInstance().getReference().child("GlobalChat");
         myfire.keepSynced(true);
 
-        myAdapter = new globalChatAdapter(this,Emails,Messages);
+        myAdapter = new globalChatAdapter(this,ChatData);
         recyclerView.setAdapter(myAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -55,7 +54,6 @@ public class GlobalChat extends AppCompatActivity {
             public void onClick(View v) {
                 if(editTextGlobalChat.getText().toString().trim().length()>0){
                     String pushID = myfire.push().getKey();
-                    DatabaseReference pushGlobalMessage = myfire.child(pushID);
                     Date todaysDate = new Date();
                     DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = df2.format(todaysDate);
@@ -64,10 +62,9 @@ public class GlobalChat extends AppCompatActivity {
                     if(acct!=null){
                         SenderEmail = acct.getEmail();
                     }
-
-                    pushGlobalMessage.child("Date").setValue(date);
-                    pushGlobalMessage.child("EMAIL").setValue(SenderEmail);
-                    pushGlobalMessage.child("Message").setValue(editTextGlobalChat.getText().toString());
+                    GlobalChatDataClass tempData = new GlobalChatDataClass();
+                    tempData.add(SenderEmail,editTextGlobalChat.getText().toString(),date);
+                    myfire.child(pushID).setValue(tempData);
                     editTextGlobalChat.setText(null);
                     myAdapter.notifyDataSetChanged();
                 }
@@ -77,25 +74,29 @@ public class GlobalChat extends AppCompatActivity {
         myfire.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Emails.add(dataSnapshot.child("EMAIL").getValue(String.class));
-                Messages.add(dataSnapshot.child("Message").getValue(String.class));
+                ChatData.add(dataSnapshot.getValue(GlobalChatDataClass.class));
                 myAdapter.notifyDataSetChanged();
                 recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                myAdapter.notifyDataSetChanged();
+                GlobalChatDataClass temp = dataSnapshot.getValue(GlobalChatDataClass.class);
+                if(temp.Message!=null) {
+                    ChatData.add(dataSnapshot.getValue(GlobalChatDataClass.class));
+                    myAdapter.notifyDataSetChanged();
+                    recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+                }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                myAdapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                myAdapter.notifyDataSetChanged();
+
             }
 
             @Override

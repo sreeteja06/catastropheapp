@@ -12,8 +12,7 @@ import java.util.ArrayList;
 
 public class globalChatAdapter extends RecyclerView.Adapter<globalChatAdapter.ViewHolder> {
 
-    private ArrayList<String> Emails = new ArrayList<>();
-    private ArrayList<String> Messages = new ArrayList<>();
+    private ArrayList<GlobalChatDataClass> GCDC = new ArrayList<>();
     private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -29,10 +28,9 @@ public class globalChatAdapter extends RecyclerView.Adapter<globalChatAdapter.Vi
         }
     }
 
-    public globalChatAdapter(Context context, ArrayList<String> Emails,ArrayList<String> Messages){
+    public globalChatAdapter(Context context, ArrayList<GlobalChatDataClass> GCDC){
         this.context = context;
-        this.Emails = Emails;
-        this.Messages = Messages;
+        this.GCDC = GCDC;
     }
 
     @NonNull
@@ -46,14 +44,15 @@ public class globalChatAdapter extends RecyclerView.Adapter<globalChatAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.globalChatEmailView.setText(Emails.get(position));
-        holder.globalChatMessageView.setText(Messages.get(position));
+        GlobalChatDataClass currentData = GCDC.get(position);
+        holder.globalChatEmailView.setText(currentData.EMAIL);
+        holder.globalChatMessageView.setText(currentData.Message);
 
     }
 
     @Override
     public int getItemCount() {
-        return Emails.size();
+        return GCDC.size();
     }
 
 
