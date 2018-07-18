@@ -13,12 +13,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class customListAdapter extends RecyclerView.Adapter<customListAdapter.ViewHolder> {
+
     private Context context;
     private ArrayList<NoticesDataClass> OrginalData;
     private ArrayList<NoticesDataClass> NoticesData;
-    String Year, preActivity;
+    private String Year, preActivity;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView Descript;

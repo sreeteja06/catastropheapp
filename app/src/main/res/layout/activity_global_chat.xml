@@ -6,25 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".GlobalChat">
 
-    <TextView
-        android:id="@+id/textView8"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/globalChatRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="This activity contains global chat"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/sendGlobalChatLinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </android.support.v7.widget.RecyclerView>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/sendGlobalChatLinearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
         android:background="@android:color/white"
         android:orientation="horizontal"
         android:weightSum="10"
@@ -35,7 +40,7 @@
 
         <EditText
             android:id="@+id/editTextGlobalChat"
-            android:layout_width="358dp"
+            android:layout_width="348dp"
             android:layout_height="43dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
@@ -45,8 +50,9 @@
             android:background="@android:color/white"
             android:ems="10"
             android:hint="Send a message"
-            android:padding="5dp"
             android:inputType="textPersonName"
+            android:padding="5dp"
+            android:paddingStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sendGlobalChatButton"
             app:layout_constraintStart_toStartOf="parent"
