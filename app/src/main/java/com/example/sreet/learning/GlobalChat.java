@@ -80,6 +80,7 @@ public class GlobalChat extends AppCompatActivity {
                 Emails.add(dataSnapshot.child("EMAIL").getValue(String.class));
                 Messages.add(dataSnapshot.child("Message").getValue(String.class));
                 myAdapter.notifyDataSetChanged();
+                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
             }
 
             @Override

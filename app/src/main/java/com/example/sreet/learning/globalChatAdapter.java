@@ -56,4 +56,6 @@ public class globalChatAdapter extends RecyclerView.Adapter<globalChatAdapter.Vi
         return Emails.size();
     }
 
+
+
 }
