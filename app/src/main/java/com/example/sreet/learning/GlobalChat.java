@@ -74,9 +74,12 @@ public class GlobalChat extends AppCompatActivity {
         myfire.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                ChatData.add(dataSnapshot.getValue(GlobalChatDataClass.class));
-                myAdapter.notifyDataSetChanged();
-                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
+                GlobalChatDataClass temp = dataSnapshot.getValue(GlobalChatDataClass.class);
+                if(temp.Message!=null) {
+                    ChatData.add(dataSnapshot.getValue(GlobalChatDataClass.class));
+                    myAdapter.notifyDataSetChanged();
+                    recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+                }
             }
 
             @Override

@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GlobalChat">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/globalChatRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="530dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="600dp"
+        android:layout_weight="0.9"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll">
 
     </android.support.v7.widget.RecyclerView>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/sendGlobalChatLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+        android:layout_height="60dp"
         android:background="@android:color/white"
         android:orientation="horizontal"
+        android:layout_weight="0.1"
         android:weightSum="10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,10 +33,7 @@
         <EditText
             android:id="@+id/editTextGlobalChat"
             android:layout_width="345dp"
-            android:layout_height="49dp"
-            android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/sendGlobalChatButton"
-            android:layout_weight="9.3"
+            android:layout_height="match_parent"
             android:background="@android:color/white"
             android:ems="10"
             android:hint="Send a message"
@@ -51,17 +48,12 @@
             android:id="@+id/sendGlobalChatButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="12dp"
-            android:layout_weight="0.7"
             android:alpha="0.5"
             android:background="@android:color/white"
             android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_send_black_24dp" />
-    </RelativeLayout>
+    </LinearLayout>
 
-</RelativeLayout>
+
+
+</LinearLayout>

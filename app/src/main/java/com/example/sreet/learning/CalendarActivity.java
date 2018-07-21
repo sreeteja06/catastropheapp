@@ -191,6 +191,10 @@ public class CalendarActivity extends AppCompatActivity {
                int color = dataSnapshot.child("color").getValue(Integer.class);
                String data = dataSnapshot.child("data").getValue(String.class);
                Long timeInMillis = dataSnapshot.child("timeInMillis").getValue(Long.class);
+
+               Event event = new Event(color,timeInMillis,data);
+               CalendarEvents.add(event);
+
                compactCalendarView.addEvent(new Event(color,timeInMillis,data));
                setReminder(timeInMillis,data);
            }

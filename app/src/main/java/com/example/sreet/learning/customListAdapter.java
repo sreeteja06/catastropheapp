@@ -75,6 +75,7 @@ public class customListAdapter extends RecyclerView.Adapter<customListAdapter.Vi
         holder.Descript.setText(shrinkDescript);
         holder.Date.setText(Notices.Date.substring(0,10));
         holder.userName.setText(Notices.user);
+
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

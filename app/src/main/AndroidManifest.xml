@@ -144,7 +144,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".GlobalChat"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+        android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
