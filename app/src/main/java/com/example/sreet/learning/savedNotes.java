@@ -29,7 +29,7 @@ import java.util.List;
 public class savedNotes extends AppCompatActivity {
     private List<String> fileList = new ArrayList<>();
     //EditText searchFile;
-    ArrayAdapter<String> directoryList;
+   static ArrayAdapter<String> directoryList;
      ListView lv;
 
 

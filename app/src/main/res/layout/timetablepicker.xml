@@ -33,6 +33,24 @@
         android:inputType="textPersonName" />
 
 
+    <EditText
+
+        android:id="@+id/Roomnameid"
+
+        android:layout_width="250dp"
+
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:ems="10"
+
+        android:hint="Enter Room no."
+
+        android:inputType="textPersonName" />
+
+
+
 
     <LinearLayout
 
@@ -99,7 +117,21 @@
     </LinearLayout>
 
 
+    <TextView
 
+
+
+        android:layout_width="250dp"
+
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:ems="10"
+
+        android:text="to"
+
+         />
     <LinearLayout
 
         android:clipToPadding="false"

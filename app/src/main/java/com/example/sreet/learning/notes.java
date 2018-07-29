@@ -46,14 +46,14 @@ public class notes extends AppCompatActivity implements View.OnClickListener{
         Intent i;
         switch (v.getId()){
             case R.id.firstyearid:{
-                i = new Intent(this,Notes1.class);
+                i = new Intent(this,Main2Activity.class);
                 i.putExtra("Year","firstYearnotes");
               //  i.putExtra("Filename","FirstYearDocuments");
                 startActivity(i);
                 break;
             }
             case R.id.secondyearid:{
-                i = new Intent(this,Notes1.class);
+                i = new Intent(this,Main2Activity.class);
 
                 i.putExtra("Year","secondYearnotes");
              //   i.putExtra("Filename","FirstYearDocuments");
@@ -62,7 +62,7 @@ public class notes extends AppCompatActivity implements View.OnClickListener{
                 break;
             }
             case R.id.thirdyearid:{
-                i = new Intent(this,Notes1.class);
+                i = new Intent(this,Main2Activity.class);
                 i.putExtra("Year","thirdYearnotes");
               //  i.putExtra("Filename","FirstYearDocuments");
 
@@ -70,7 +70,7 @@ public class notes extends AppCompatActivity implements View.OnClickListener{
                 break;
             }
             case R.id.forthyearid:{
-                i = new Intent(this,Notes1.class);
+                i = new Intent(this,Main2Activity.class);
                 i.putExtra("Year","fourthYearnotes");
               //  i.putExtra("Filename","FirstYearDocuments");
 

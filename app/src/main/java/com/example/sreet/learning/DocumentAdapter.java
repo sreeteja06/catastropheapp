@@ -1,5 +1,6 @@
 package com.example.sreet.learning;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -149,10 +150,12 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docmen
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Toast.makeText(Cx, "Downloaded", Toast.LENGTH_SHORT).show();
+            ((Activity)Cx).finish();
 
             progressDialog.dismiss();
             progressDialog.setCancelable(true);
             progressDialog.setCanceledOnTouchOutside(true);
+
 
 
         }
