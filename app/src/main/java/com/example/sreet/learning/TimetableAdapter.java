@@ -47,7 +47,11 @@ public class TimetableAdapter extends RecyclerView.Adapter<TimetableAdapter.Docu
         View v = LayoutInflater.from(Cx).inflate(R.layout.custom_list_adapter, parent, false);
 
 
+<<<<<<< HEAD
         return new TimetableAdapter.DocumentHolder(v);
+=======
+        return new DocumentHolder(v);
+>>>>>>> master
 
     }
 

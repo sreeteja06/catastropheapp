@@ -46,5 +46,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation 'com.android.support:mediarouter-v7:27.1.1'
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
